@@ -1,0 +1,46 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "switch_case",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "11\n"
+  },
+  "family": "switch",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "case_two"
+    },
+    "14": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "default"
+    },
+    "17": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "18": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "8": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "case_one"
+    }
+  },
+  "oracle_rationale": "Selector one executes case one only; break prevents fall-through.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "switch_case.c",
+  "source_sha256": "ebb312174652f3874c824cbdb1a7296ccfae146ab6a03bb7a09eaf45b4845705"
+}

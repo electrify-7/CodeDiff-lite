@@ -1,0 +1,40 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "multiline_true",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "12\n"
+  },
+  "family": "multiline",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "then"
+    },
+    "13": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "else"
+    },
+    "15": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "16": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    }
+  },
+  "oracle_rationale": "Both positive operands select then; condition continuations are not scored.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "multiline_true.c",
+  "source_sha256": "d56ae213a7f47f86977cefd26a244070c98611dca8a519ae05ddafb4ea430177"
+}

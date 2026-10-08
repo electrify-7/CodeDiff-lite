@@ -1,0 +1,52 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "short_or_rhs",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "7 1\n"
+  },
+  "family": "short_circuit",
+  "lines": {
+    "14": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "then"
+    },
+    "16": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "else"
+    },
+    "18": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "19": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "6": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "rhs_calls"
+    },
+    "7": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "rhs_return"
+    }
+  },
+  "oracle_rationale": "False left operand evaluates rhs once; its true value selects then.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "short_or_rhs.c",
+  "source_sha256": "cf575c63064f4e6f365ee7dd9cdb24272df01eff2c57e4348a0893b5d875acf1"
+}

@@ -1,0 +1,34 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "loop_three",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "6\n"
+  },
+  "family": "loops",
+  "lines": {
+    "10": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "7": {
+      "allow_elided": false,
+      "count": 3,
+      "role": "statement",
+      "statement_id": "body"
+    },
+    "9": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    }
+  },
+  "oracle_rationale": "Three iterations each add two; output and return run once.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "loop_three.c",
+  "source_sha256": "f663290271c0fa15b887655ba7535348b4008f7a9a64c320468a282b3802d77f"
+}

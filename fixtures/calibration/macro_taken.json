@@ -1,0 +1,34 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "macro_taken",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "5\n"
+  },
+  "family": "macros",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "12": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "9": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "invocation"
+    }
+  },
+  "oracle_rationale": "Enabled invocation executes once; do-while-zero macro adds five once.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "macro_taken.c",
+  "source_sha256": "2bf11d40d2966583add4f4d396bd88876b7effeb4b60c87b1cf41102cc28cdfc"
+}

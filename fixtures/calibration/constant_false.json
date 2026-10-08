@@ -1,0 +1,40 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "constant_false",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "20\n"
+  },
+  "family": "constants",
+  "lines": {
+    "10": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "11": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "6": {
+      "allow_elided": true,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "then"
+    },
+    "8": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "else"
+    }
+  },
+  "oracle_rationale": "Literal false selects else; unreachable then may be absent from the report.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "constant_false.c",
+  "source_sha256": "c6f8ad89a27b6e9ff178f440385f40fce6f525c13f14cc915a850a950163dbd2"
+}

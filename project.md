@@ -1,6 +1,6 @@
 # Final Course Project Proposal
 
-**Project status:** Proposal and planning only. Required written project approval has not yet been recorded. Begin implementation only after receiving that approval.
+**Project status:** The user authorized implementation of the testing environment and handwritten coverage pipeline on 2026-10-09. See [docs/approval.md](docs/approval.md) for the written instruction and scope. The proposal below preserves the original course approval requirement; separate instructor approval has not been supplied here.
 
 ## Title
 

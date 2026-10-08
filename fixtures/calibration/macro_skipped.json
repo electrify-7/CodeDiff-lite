@@ -1,0 +1,34 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "macro_skipped",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "0\n"
+  },
+  "family": "macros",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "12": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "9": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "invocation"
+    }
+  },
+  "oracle_rationale": "Disabled invocation executes zero times; accumulator remains zero.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "macro_skipped.c",
+  "source_sha256": "41c996b64e1a1a83d49f521a6a2a94fb65fab83398adfad806c8983c95648ddf"
+}

@@ -1,0 +1,46 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "switch_default",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "33\n"
+  },
+  "family": "switch",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "case_two"
+    },
+    "14": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "default"
+    },
+    "17": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "18": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "8": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "case_one"
+    }
+  },
+  "oracle_rationale": "Selector nine executes only the explicit default body.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "switch_default.c",
+  "source_sha256": "81d52020b17a5430f3ba5b137c0d5cf767ebbebc47329844a90d696dc059f96c"
+}
