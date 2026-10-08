@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "covdiff-lite"
+version = "0.1.0"
+description = "Oracle-guided calibration of GCC and LLVM C coverage pipelines"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+covdiff-lite = "covdiff_lite.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

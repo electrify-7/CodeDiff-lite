@@ -2,7 +2,7 @@
 
 ## 1. Approval gate and priorities
 
-This plan develops the proposal in [project.md](project.md). **Written project approval is pending.** Before approval, work is limited to documentation, read-only environment inspection, and research. Do not install dependencies, create the implementation or C fixtures, build containers, or run coverage experiments yet.
+This plan develops the proposal in [project.md](project.md). **The user authorized steps 1 and 2 on 2026-10-09:** the testing environment and handwritten coverage pipeline. That scoped instruction is recorded in [docs/approval.md](docs/approval.md); it does not assert separate instructor approval. Implementation status and validated results are recorded in [docs/step12-results.md](docs/step12-results.md). The remaining sections describe the full planned project.
 
 After approval, record the approving person, approval date, approved scope, and a reference to the written approval. The three-week schedule starts at that point; the days below are project workdays rather than fixed calendar dates.
 
@@ -152,7 +152,7 @@ Use a case roll-up order of pipeline failure, unstable, probable incorrect repor
 
 ## 7. Experiments to run on this machine
 
-No experiment in this section has been run. Carry out these experiments in the pinned container after approval and environment validation.
+E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E2–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
 
 | ID | Experiment | Size / conditions | Evidence and purpose |
 | --- | --- | --- | --- |
@@ -305,4 +305,4 @@ After the pilot, freeze schema, template versions, source dataset and convention
 
 If branch mapping remains ambiguous by Day 10, report branch results as unavailable and finish the line study. If reduction is attempted, remove template blocks or simplify parameters, regenerate and revalidate the oracle, and require the same trusted mismatch to persist across fresh runs; line-number changes alone must not satisfy the reduction predicate. Prefer a reviewed manual reproducer when automatic reduction cannot preserve program validity or oracle confidence.
 
-The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. No implementation or experiment results are claimed by this planning document.
+The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. Only the completed environment and handwritten calibration stages currently have implementation and results; the full project is not complete.

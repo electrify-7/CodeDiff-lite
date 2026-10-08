@@ -1,0 +1,34 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "ternary_false",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "22\n"
+  },
+  "family": "ternary",
+  "lines": {
+    "5": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "selection"
+    },
+    "6": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "7": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    }
+  },
+  "oracle_rationale": "Whole assignment executes once; selector chooses second arm. Arm mapping is deferred.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "ternary_false.c",
+  "source_sha256": "24c6a285e8a7d0d4fa0990d2dfb5a0acd5edf5a09260814a5d4ad9200f08d4dd"
+}

@@ -1,0 +1,28 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "smoke",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "smoke\n"
+  },
+  "family": "smoke",
+  "lines": {
+    "4": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "5": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    }
+  },
+  "oracle_rationale": "Straight-line output and normal exit.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "smoke.c",
+  "source_sha256": "d880acad5a1716fd9d196d96a858f9c761410b336c724dfc038c1a8bb3be247e"
+}

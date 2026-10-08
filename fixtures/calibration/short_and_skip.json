@@ -1,0 +1,52 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "short_and_skip",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "9 0\n"
+  },
+  "family": "short_circuit",
+  "lines": {
+    "14": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "then"
+    },
+    "16": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "else"
+    },
+    "18": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "19": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "6": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "rhs_calls"
+    },
+    "7": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "rhs_return"
+    }
+  },
+  "oracle_rationale": "False left operand skips rhs and selects else; call witness stays zero.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "short_and_skip.c",
+  "source_sha256": "b6b4f4288f6c0ffc7676786673ee364cb2fc6de3f37ab2fac0947d294ea7c650"
+}

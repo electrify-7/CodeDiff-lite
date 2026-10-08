@@ -1,0 +1,40 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "loop_zero",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "0\n"
+  },
+  "family": "loops",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "12": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "8": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "body"
+    },
+    "9": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "increment"
+    }
+  },
+  "oracle_rationale": "Initial zero limit skips the loop body and increment.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "loop_zero.c",
+  "source_sha256": "8d50e7ab7d5b70097b71c1dffe6cc621eeb2f5b2bd6f94cebe62e808241a443f"
+}

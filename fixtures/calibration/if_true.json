@@ -1,0 +1,40 @@
+{
+  "branch_mapping": "not_implemented",
+  "case_id": "if_true",
+  "expected_output": {
+    "exit_code": 0,
+    "stdout": "10\n"
+  },
+  "family": "if_else",
+  "lines": {
+    "11": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "output"
+    },
+    "12": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "return"
+    },
+    "7": {
+      "allow_elided": false,
+      "count": 1,
+      "role": "statement",
+      "statement_id": "then"
+    },
+    "9": {
+      "allow_elided": false,
+      "count": 0,
+      "role": "statement",
+      "statement_id": "else"
+    }
+  },
+  "oracle_rationale": "Positive x selects then; else is never reached.",
+  "origin": "handwritten_calibration",
+  "schema_version": 1,
+  "source": "if_true.c",
+  "source_sha256": "de9bf5870ee2f1c3e897a7a6f98b5a5b7914d2578f972786cd5f1069529b69e7"
+}
