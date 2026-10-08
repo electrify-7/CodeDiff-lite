@@ -1,0 +1,7 @@
+.git
+.agents
+.codex
+.aws
+runs
+__pycache__
+*.pyc
