@@ -10,6 +10,7 @@ from .generator import generate_dataset
 from .validation import validate_oracles
 from .analysis import run_analysis
 from .issues import reproduce_issues
+from .experiment import run_experiment
 
 
 def main(argv=None) -> int:
@@ -36,6 +37,9 @@ def main(argv=None) -> int:
     issues = commands.add_parser('reproduce-issues', help='Confirm documented symptoms and negative controls')
     issues.add_argument('--fixtures', type=Path, default=Path('fixtures/issues'))
     issues.add_argument('--output', type=Path, required=True)
+    experiment = commands.add_parser('experiment', help='Generate and analyze a frozen experiment configuration')
+    experiment.add_argument('--config', type=Path, required=True)
+    experiment.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -54,6 +58,12 @@ def main(argv=None) -> int:
             summary = validate_oracles(args.fixtures, args.output)
             print(f"{summary['passed']}/{summary['cases']} oracles matched both C execution traces")
             return 0 if summary['passed'] == summary['cases'] else 1
+        if args.command == 'experiment':
+            summary = run_experiment(args.config, args.output)
+            print(json.dumps(summary, indent=2))
+            failed = any(summary['classification_counts'].get(label, 0)
+                         for label in ('pipeline_failure', 'unstable_or_non_reproducible'))
+            return 1 if failed else 0
         if args.command == 'reproduce-issues':
             summary = reproduce_issues(args.fixtures, args.output)
             print(json.dumps(summary, indent=2))

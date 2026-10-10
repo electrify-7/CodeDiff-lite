@@ -89,3 +89,13 @@ bash scripts/env.sh reproduce-issues --output runs/documented-issues-new
 ```
 
 Two documented patterns reproduce in the pinned image, with a never-executed variant and a corrective control. See [step 3 findings and provenance](docs/documented-issues.md).
+
+## Run a configured experiment
+
+```bash
+bash scripts/env.sh experiment --config configs/pilot.json --output runs/pilot-new
+```
+
+The 40-program pilot passed all execution and oracle checks: 263 comparable statements, no oracle contradictions, 34 cases with explained mappings and six with unresolved header mappings. All 40 were stable across three runs. See [pilot results and measurements](docs/pilot-results.md).
+
+The 320-program main configuration is ready in `configs/main.json`; its coverage experiment is deferred until tomorrow. Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting remains to be implemented. All 55 tests pass in the pinned image.

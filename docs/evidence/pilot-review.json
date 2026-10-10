@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "reviews": [
+    {
+      "case_id": "constants_v1_17ce2e5dd1f3c083",
+      "review_status": "reviewed_mapping_unresolved",
+      "stable": true,
+      "scored_oracle_contradictions": {
+        "gcov": 0,
+        "llvm-cov": 0
+      },
+      "locations": [
+        {
+          "line": 5,
+          "source": "    if ((!0)) {",
+          "role": "condition",
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          }
+        }
+      ],
+      "decision": "Retain unresolved: this header has no scored statement oracle; one tool omits its line mapping. No reported count contradicts a scored statement. No probable bug claim or convention-rule expansion."
+    },
+    {
+      "case_id": "constants_v1_2188040d89bfad5f",
+      "review_status": "reviewed_mapping_unresolved",
+      "stable": true,
+      "scored_oracle_contradictions": {
+        "gcov": 0,
+        "llvm-cov": 0
+      },
+      "locations": [
+        {
+          "line": 5,
+          "source": "    if (0) {",
+          "role": "condition",
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          }
+        }
+      ],
+      "decision": "Retain unresolved: this header has no scored statement oracle; one tool omits its line mapping. No reported count contradicts a scored statement. No probable bug claim or convention-rule expansion."
+    },
+    {
+      "case_id": "constants_v1_870e765f5bebb4cd",
+      "review_status": "reviewed_mapping_unresolved",
+      "stable": true,
+      "scored_oracle_contradictions": {
+        "gcov": 0,
+        "llvm-cov": 0
+      },
+      "locations": [
+        {
+          "line": 5,
+          "source": "    if ((!1)) {",
+          "role": "condition",
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          }
+        }
+      ],
+      "decision": "Retain unresolved: this header has no scored statement oracle; one tool omits its line mapping. No reported count contradicts a scored statement. No probable bug claim or convention-rule expansion."
+    },
+    {
+      "case_id": "constants_v1_b505b66650e64289",
+      "review_status": "reviewed_mapping_unresolved",
+      "stable": true,
+      "scored_oracle_contradictions": {
+        "gcov": 0,
+        "llvm-cov": 0
+      },
+      "locations": [
+        {
+          "line": 5,
+          "source": "    if (0) {",
+          "role": "condition",
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          }
+        }
+      ],
+      "decision": "Retain unresolved: this header has no scored statement oracle; one tool omits its line mapping. No reported count contradicts a scored statement. No probable bug claim or convention-rule expansion."
+    },
+    {
+      "case_id": "constants_v1_f58dabef2b198d11",
+      "review_status": "reviewed_mapping_unresolved",
+      "stable": true,
+      "scored_oracle_contradictions": {
+        "gcov": 0,
+        "llvm-cov": 0
+      },
+      "locations": [
+        {
+          "line": 5,
+          "source": "    if ((!1)) {",
+          "role": "condition",
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          }
+        }
+      ],
+      "decision": "Retain unresolved: this header has no scored statement oracle; one tool omits its line mapping. No reported count contradicts a scored statement. No probable bug claim or convention-rule expansion."
+    },
+    {
+      "case_id": "loops_v1_b1f76db7011210fb",
+      "review_status": "reviewed_mapping_unresolved",
+      "stable": true,
+      "scored_oracle_contradictions": {
+        "gcov": 0,
+        "llvm-cov": 0
+      },
+      "locations": [
+        {
+          "line": 7,
+          "source": "    do {",
+          "role": "condition",
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "llvm-cov": {
+            "count": 5,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          }
+        }
+      ],
+      "decision": "Retain unresolved: this header has no scored statement oracle; one tool omits its line mapping. No reported count contradicts a scored statement. No probable bug claim or convention-rule expansion."
+    }
+  ]
+}
