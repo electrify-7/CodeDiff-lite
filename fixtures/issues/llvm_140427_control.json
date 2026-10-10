@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "case_id": "llvm_140427_control",
+  "family": "macros",
+  "source": "llvm_140427_control.c",
+  "source_sha256": "8bca67d5bce104622fd89ca28d99152754ad53ec097471aae4f0f6acf28e044f",
+  "origin": "documented_issue",
+  "expected_output": {
+    "stdout": "1\n",
+    "exit_code": 0
+  },
+  "lines": {
+    "16": {
+      "statement_id": "following_statement",
+      "count": 1,
+      "oracle_trust": "reviewed_documented_issue",
+      "rationale": "A separate statement before the macro is the layout/control-flow intervention described upstream. Only one call increments count."
+    }
+  },
+  "branches": [],
+  "oracle_rationale": "A separate statement before the macro is the layout/control-flow intervention described upstream. Only one call increments count.",
+  "documented_issue": {
+    "id": "llvm_140427",
+    "url": "https://github.com/llvm/llvm-project/issues/140427",
+    "retrieved": "2026-10-10",
+    "reported_version": "Not specified in the cited issue body or discussion excerpt",
+    "tool": "llvm-cov",
+    "statement_id": "following_statement",
+    "symptom": "reported_count_exceeds_expected",
+    "adaptation": "Small deterministic C11 driver, bounded call schedule, stdout witness; original control-flow shape retained.",
+    "role": "negative_control"
+  }
+}

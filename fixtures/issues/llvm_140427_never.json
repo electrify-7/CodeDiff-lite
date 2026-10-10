@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "case_id": "llvm_140427_never",
+  "family": "macros",
+  "source": "llvm_140427_never.c",
+  "source_sha256": "edb3898b7160ece23b4909832f5322f493ee066e36edbc491d0eff9837b21f6f",
+  "origin": "documented_issue",
+  "expected_output": {
+    "stdout": "0\n",
+    "exit_code": 0
+  },
+  "lines": {
+    "14": {
+      "statement_id": "following_statement",
+      "count": 0,
+      "oracle_trust": "reviewed_documented_issue",
+      "rationale": "All five calls return before count++; its final value is zero."
+    }
+  },
+  "branches": [],
+  "oracle_rationale": "All five calls return before count++; its final value is zero.",
+  "documented_issue": {
+    "id": "llvm_140427",
+    "url": "https://github.com/llvm/llvm-project/issues/140427",
+    "retrieved": "2026-10-10",
+    "reported_version": "Not specified in the cited issue body or discussion excerpt",
+    "tool": "llvm-cov",
+    "statement_id": "following_statement",
+    "symptom": "reported_count_exceeds_expected",
+    "adaptation": "Small deterministic C11 driver, bounded call schedule, stdout witness; original control-flow shape retained.",
+    "role": "positive"
+  }
+}

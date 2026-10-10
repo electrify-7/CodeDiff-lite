@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "case_id": "llvm_140427",
+  "family": "macros",
+  "source": "llvm_140427.c",
+  "source_sha256": "b1f44a71d207287892cb817317e250ec368f5a99f2dfeb5fddcc498898644e63",
+  "origin": "documented_issue",
+  "expected_output": {
+    "stdout": "1\n",
+    "exit_code": 0
+  },
+  "lines": {
+    "14": {
+      "statement_id": "following_statement",
+      "count": 1,
+      "oracle_trust": "reviewed_documented_issue",
+      "rationale": "Of six calls, three return before the macro, two return inside it, and one reaches count++. The only modification of the zero-initialized counter is this statement; its printed final value independently witnesses the count."
+    }
+  },
+  "branches": [],
+  "oracle_rationale": "Of six calls, three return before the macro, two return inside it, and one reaches count++. The only modification of the zero-initialized counter is this statement; its printed final value independently witnesses the count.",
+  "documented_issue": {
+    "id": "llvm_140427",
+    "url": "https://github.com/llvm/llvm-project/issues/140427",
+    "retrieved": "2026-10-10",
+    "reported_version": "Not specified in the cited issue body or discussion excerpt",
+    "tool": "llvm-cov",
+    "statement_id": "following_statement",
+    "symptom": "reported_count_exceeds_expected",
+    "adaptation": "Small deterministic C11 driver, bounded call schedule, stdout witness; original control-flow shape retained."
+  }
+}

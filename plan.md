@@ -8,7 +8,7 @@ On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, do
 
 After approval, record the approving person, approval date, approved scope, and a reference to the written approval. The three-week schedule starts at that point; the days below are project workdays rather than fixed calendar dates.
 
-The required implementation is deterministic C generation, a trustworthy line-coverage oracle, both coverage pipelines, normalization, classification, repeatability checks, and an offline HTML report. Two documented discrepancy reproductions remain an evaluation requirement. Branch comparison and automatic reduction are optional if they threaten the core schedule.
+The required implementation is deterministic C generation, a trustworthy line-coverage oracle, both coverage pipelines, normalization, classification, repeatability checks, and an offline HTML report. Two documented discrepancy patterns have been reproduced on the pinned baseline; see [docs/documented-issues.md](docs/documented-issues.md). Branch comparison and automatic reduction are optional if they threaten the core schedule.
 
 ## 2. Machine inventory and environment setup
 
@@ -154,7 +154,7 @@ Use a case roll-up order of unstable, pipeline failure, probable incorrect repor
 
 ## 7. Experiments to run on this machine
 
-E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E2–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
+E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E5 now reproduces two documented patterns with a corrective control; E2–E4 and E6–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
 
 | ID | Experiment | Size / conditions | Evidence and purpose |
 | --- | --- | --- | --- |

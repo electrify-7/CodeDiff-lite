@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "artifact_directory": "runs/documented-issues-verified",
+  "environment": {
+    "image_id": "sha256:9b1f71840f4946181ccb96fab2d12c933fcf1a0b05b2bc5210dc4a2622d6a641",
+    "image_reference": "covdiff-lite:testing",
+    "implementation_sha256": "ed27bbff07a410ab8bcdfeea53ec4ed5cbb217628d3b90e13b35e716493e21eb",
+    "execution": "container"
+  },
+  "tools": {
+    "clang": "14.0.0",
+    "gcc": "11.4.0",
+    "gcov": "11.4.0",
+    "llvm_cov": "14.0.0",
+    "llvm_profdata": "14.0.0"
+  },
+  "distinct_patterns_reproduced": 2,
+  "results": [
+    {
+      "case_id": "gcc_pr93680",
+      "issue_id": "gcc_pr93680",
+      "line": 6,
+      "matching_findings": [
+        {
+          "actual": 3,
+          "assessment": "candidate_incorrect_report",
+          "expected": 1,
+          "kind": "oracle_count",
+          "line": 6,
+          "tool": "gcov"
+        }
+      ],
+      "passed": true,
+      "role": "positive",
+      "status": "reproduced",
+      "tool": "gcov",
+      "url": "https://gcc.gnu.org/pipermail/gcc-patches/2023-March/613496.html",
+      "source_sha256": "5842f62949eb2a5fad1035cffbcfc8772951afa3d328d76bc79cd07dd1a0f93b",
+      "expected": 1,
+      "runs": 3,
+      "stable": true,
+      "signatures": [
+        "2f7ac97c9790d48f4fdf66859133573cf2fc9487d9d10f8cd066285b18ac7979",
+        "2f7ac97c9790d48f4fdf66859133573cf2fc9487d9d10f8cd066285b18ac7979",
+        "2f7ac97c9790d48f4fdf66859133573cf2fc9487d9d10f8cd066285b18ac7979"
+      ],
+      "classification": "probable_incorrect_coverage_report",
+      "errors": [
+        [],
+        [],
+        []
+      ],
+      "observations": [
+        {
+          "gcov": {
+            "branches": [],
+            "count": 3,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "3\n",
+            "llvm-cov": "3\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 3,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "3\n",
+            "llvm-cov": "3\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 3,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "3\n",
+            "llvm-cov": "3\n"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "llvm_140427",
+      "issue_id": "llvm_140427",
+      "line": 14,
+      "matching_findings": [
+        {
+          "actual": 4,
+          "assessment": "candidate_incorrect_report",
+          "expected": 1,
+          "kind": "oracle_count",
+          "line": 14,
+          "tool": "llvm-cov"
+        }
+      ],
+      "passed": true,
+      "role": "positive",
+      "status": "reproduced",
+      "tool": "llvm-cov",
+      "url": "https://github.com/llvm/llvm-project/issues/140427",
+      "source_sha256": "b1f44a71d207287892cb817317e250ec368f5a99f2dfeb5fddcc498898644e63",
+      "expected": 1,
+      "runs": 3,
+      "stable": true,
+      "signatures": [
+        "9f45cf7d376658a48627cf2a3aacc208c1003aca3c8dcf9263933b1d941c92e6",
+        "9f45cf7d376658a48627cf2a3aacc208c1003aca3c8dcf9263933b1d941c92e6",
+        "9f45cf7d376658a48627cf2a3aacc208c1003aca3c8dcf9263933b1d941c92e6"
+      ],
+      "classification": "probable_incorrect_coverage_report",
+      "errors": [
+        [],
+        [],
+        []
+      ],
+      "observations": [
+        {
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 4,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "1\n",
+            "llvm-cov": "1\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 4,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "1\n",
+            "llvm-cov": "1\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 4,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "1\n",
+            "llvm-cov": "1\n"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "llvm_140427_control",
+      "issue_id": "llvm_140427",
+      "line": 16,
+      "matching_findings": [],
+      "passed": true,
+      "role": "negative_control",
+      "status": "control_passed",
+      "tool": "llvm-cov",
+      "url": "https://github.com/llvm/llvm-project/issues/140427",
+      "source_sha256": "8bca67d5bce104622fd89ca28d99152754ad53ec097471aae4f0f6acf28e044f",
+      "expected": 1,
+      "runs": 3,
+      "stable": true,
+      "signatures": [
+        "6dfc598c5c26c7c4204619efe2b99b6fcd01a2b611074a1ce10dc27975709fb2",
+        "6dfc598c5c26c7c4204619efe2b99b6fcd01a2b611074a1ce10dc27975709fb2",
+        "6dfc598c5c26c7c4204619efe2b99b6fcd01a2b611074a1ce10dc27975709fb2"
+      ],
+      "classification": "unresolved_disagreement",
+      "errors": [
+        [],
+        [],
+        []
+      ],
+      "observations": [
+        {
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "1\n",
+            "llvm-cov": "1\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "1\n",
+            "llvm-cov": "1\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "1\n",
+            "llvm-cov": "1\n"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "llvm_140427_never",
+      "issue_id": "llvm_140427",
+      "line": 14,
+      "matching_findings": [
+        {
+          "actual": 2,
+          "assessment": "candidate_incorrect_report",
+          "expected": 0,
+          "kind": "oracle_binary",
+          "line": 14,
+          "tool": "llvm-cov"
+        }
+      ],
+      "passed": true,
+      "role": "positive",
+      "status": "reproduced",
+      "tool": "llvm-cov",
+      "url": "https://github.com/llvm/llvm-project/issues/140427",
+      "source_sha256": "edb3898b7160ece23b4909832f5322f493ee066e36edbc491d0eff9837b21f6f",
+      "expected": 0,
+      "runs": 3,
+      "stable": true,
+      "signatures": [
+        "8289ecc57b2e1aad9f5d3aeb0f65c389bea8b30fd16e7614b6fdda6474edd12b",
+        "8289ecc57b2e1aad9f5d3aeb0f65c389bea8b30fd16e7614b6fdda6474edd12b",
+        "8289ecc57b2e1aad9f5d3aeb0f65c389bea8b30fd16e7614b6fdda6474edd12b"
+      ],
+      "classification": "probable_incorrect_coverage_report",
+      "errors": [
+        [],
+        [],
+        []
+      ],
+      "observations": [
+        {
+          "gcov": {
+            "branches": [],
+            "count": 0,
+            "covered": false,
+            "state": "reported",
+            "unexecuted_block": true
+          },
+          "llvm-cov": {
+            "count": 2,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "0\n",
+            "llvm-cov": "0\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 0,
+            "covered": false,
+            "state": "reported",
+            "unexecuted_block": true
+          },
+          "llvm-cov": {
+            "count": 2,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "0\n",
+            "llvm-cov": "0\n"
+          }
+        },
+        {
+          "gcov": {
+            "branches": [],
+            "count": 0,
+            "covered": false,
+            "state": "reported",
+            "unexecuted_block": true
+          },
+          "llvm-cov": {
+            "count": 2,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "stdout": {
+            "gcov": "0\n",
+            "llvm-cov": "0\n"
+          }
+        }
+      ]
+    }
+  ]
+}

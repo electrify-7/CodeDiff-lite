@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "case_id": "gcc_pr93680",
+  "family": "switch",
+  "source": "gcc_pr93680.c",
+  "source_sha256": "5842f62949eb2a5fad1035cffbcfc8772951afa3d328d76bc79cd07dd1a0f93b",
+  "origin": "documented_issue",
+  "expected_output": {
+    "stdout": "3\n",
+    "exit_code": 0
+  },
+  "lines": {
+    "6": {
+      "statement_id": "selected_case",
+      "count": 1,
+      "oracle_trust": "reviewed_documented_issue",
+      "rationale": "Case 0 is selected once; its do-while body executes three times. There is no fall-through or goto. The return value witnesses the three body iterations."
+    },
+    "8": {
+      "statement_id": "selected_return",
+      "count": 1,
+      "oracle_trust": "reviewed_documented_issue",
+      "rationale": "Case 0 is selected once; its do-while body executes three times. There is no fall-through or goto. The return value witnesses the three body iterations."
+    }
+  },
+  "branches": [],
+  "oracle_rationale": "Case 0 is selected once; its do-while body executes three times. There is no fall-through or goto. The return value witnesses the three body iterations.",
+  "documented_issue": {
+    "id": "gcc_pr93680",
+    "url": "https://gcc.gnu.org/pipermail/gcc-patches/2023-March/613496.html",
+    "retrieved": "2026-10-10",
+    "reported_version": "Not specified in the cited issue body or discussion excerpt",
+    "tool": "gcov",
+    "statement_id": "selected_case",
+    "symptom": "reported_count_exceeds_expected",
+    "adaptation": "Small deterministic C11 driver, bounded call schedule, stdout witness; original control-flow shape retained."
+  }
+}
