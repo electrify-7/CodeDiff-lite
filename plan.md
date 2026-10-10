@@ -2,9 +2,9 @@
 
 ## 1. Approval gate and priorities
 
-This plan develops the proposal in [project.md](project.md). **The user authorized steps 1 and 2 on 2026-10-09:** the testing environment and handwritten coverage pipeline. That scoped instruction is recorded in [docs/approval.md](docs/approval.md); it does not assert separate instructor approval. Implementation status and validated results are recorded in [docs/step12-results.md](docs/step12-results.md). The remaining sections describe the full planned project.
+This plan develops the proposal in [project.md](project.md). **The user authorized steps 1 and 2 on 2026-10-09:** the testing environment and handwritten coverage pipeline. That scoped instruction is recorded in [docs/approval.md](docs/approval.md); it does not assert separate instructor approval. Implementation status and validated results are recorded in [docs/step12-results.md](docs/step12-results.md). The remaining sections describe the full project, including pending work.
 
-On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md); the analyzer and its validation are recorded in [docs/discrepancy-analysis.md](docs/discrepancy-analysis.md). The main coverage experiment is explicitly deferred until tomorrow.
+On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md); the analyzer and its validation are recorded in [docs/discrepancy-analysis.md](docs/discrepancy-analysis.md). The pilot is complete; see [docs/pilot-results.md](docs/pilot-results.md). The main coverage experiment is explicitly deferred until tomorrow.
 
 After approval, record the approving person, approval date, approved scope, and a reference to the written approval. The three-week schedule starts at that point; the days below are project workdays rather than fixed calendar dates.
 
@@ -56,7 +56,7 @@ C source + oracle manifest + expected output
                           JSON + CSV + offline HTML
 ```
 
-The following layout is a design proposal; these files have not been implemented.
+The following is the target layout. Runners, parsers, generator/oracle, comparison, conventions, repeats, configurations, and experiment execution are implemented; HTML reporting and reduction remain pending.
 
 ```text
 Dockerfile
@@ -154,7 +154,7 @@ Use a case roll-up order of unstable, pipeline failure, probable incorrect repor
 
 ## 7. Experiments to run on this machine
 
-E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E5 now reproduces two documented patterns with a corrective control; E2–E4 and E6–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
+E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E2 is complete with 40 valid pilot programs and three stable runs per case; E5 reproduces two documented patterns with a corrective control. E3–E4 and E6–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
 
 | ID | Experiment | Size / conditions | Evidence and purpose |
 | --- | --- | --- | --- |
@@ -203,7 +203,7 @@ Synthetic report mutations can test the classifier, but those cases must be labe
 
 ### Resource and timing procedure
 
-Run E0–E2 sequentially. Measure elapsed stage times with a monotonic clock. Use pilot medians and slowest cases to estimate the full experiment, including clean repeats. Start E3 with four workers at most; each owns separate directories and processes. The generated programs themselves remain single-threaded. Record worker count, container limits, peak resident memory, artifact size, host load context, and elapsed wall time. If parallelism causes failures, confirm sequentially before describing a coverage problem.
+Run E0–E2 sequentially. Measure elapsed stage times with a monotonic clock. Use pilot medians and slowest cases to estimate the full experiment, including clean repeats. Run E3 sequentially, as frozen after the pilot; its measured cost does not justify parallel execution. Any later parallel implementation must use four workers at most, each owning separate directories and processes. The generated programs themselves remain single-threaded. Record worker count, container limits, peak resident memory, artifact size, host load context, and elapsed wall time. If parallelism causes failures, confirm sequentially before describing a coverage problem.
 
 ## 8. Results and artifacts to collect
 
@@ -271,15 +271,15 @@ The offline report should provide summary metrics and filters by family, classif
 
 Link local raw reports and manifests, escape generated source and output for HTML, use no required external assets, and ensure the report can be opened offline. The report must show **no discrepancies found** accurately if that is the result, rather than manufacturing a showcase case.
 
-The planned interface, to be implemented after approval, is:
+The implemented JSON/CSV experiment interface is:
 
 ```bash
-# Proposed commands, not currently implemented.
-python -m covdiff_lite pipeline --config configs/main.json --output runs/main
-python -m covdiff_lite reproduce --case runs/main/cases/<case-id>
+# Main coverage experiment: deferred until tomorrow.
+bash scripts/env.sh experiment --config configs/main.json --output runs/main
+bash scripts/env.sh analyze --case runs/main/analysis/cases/<case-id>/manifest.json --output runs/replay
 ```
 
-Provide a Docker wrapper for the first command once the image is built. The single pipeline command must generate, execute, normalize, classify, repeat suspects, and write the report. It should finish collecting the batch despite individual failed cases, record those failures, and provide a meaningful exit status.
+The Docker wrapper is implemented. The experiment command generates, validates, executes, normalizes, classifies, and repeats cases. HTML generation must still be added to meet the final one-command report requirement. It should finish collecting the batch despite individual failed cases, record those failures, and provide a meaningful exit status.
 
 The final demonstration runs one known agreeing generated case and one verified discrepancy case from source/manifest through the highlighted report, then reproduces the saved suspicious case in a clean directory. Use a documented fixture if the main generated corpus has no probable errors; identify its separate origin clearly.
 
@@ -307,4 +307,4 @@ After the pilot, freeze schema, template versions, source dataset and convention
 
 If branch mapping remains ambiguous by Day 10, report branch results as unavailable and finish the line study. If reduction is attempted, remove template blocks or simplify parameters, regenerate and revalidate the oracle, and require the same trusted mismatch to persist across fresh runs; line-number changes alone must not satisfy the reduction predicate. Prefer a reviewed manual reproducer when automatic reduction cannot preserve program validity or oracle confidence.
 
-The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. Only the completed environment and handwritten calibration stages currently have implementation and results; the full project is not complete.
+The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. The environment, handwritten calibration, generator/oracle, discrepancy analysis, two documented patterns, and 40-case pilot have implementation and results. The main experiment, HTML report, empirical analysis/figures, paired layout controls, and final demonstration remain; the full project is not complete.

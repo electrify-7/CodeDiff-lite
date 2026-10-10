@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-10",
+  "experiment": {
+    "analysis_seconds": 15.787958622910082,
+    "artifact_allocated_bytes_before_summary": 30076928,
+    "artifact_files_before_summary": 4850,
+    "artifact_logical_bytes_before_summary": 20872271,
+    "branches": {
+      "comparable_outcomes": 0,
+      "mapping_status": "not_implemented"
+    },
+    "cgroup_cpu_quota": "400000 100000",
+    "cgroup_memory_limit_bytes": "4294967296",
+    "cgroup_memory_peak_bytes": "85991424",
+    "classification_counts": {
+      "known_convention_difference": 34,
+      "unresolved_disagreement": 6
+    },
+    "comparable_lines": 263,
+    "config": {
+      "control_fraction": 0.1,
+      "experiment_kind": "pilot",
+      "per_family": 5,
+      "schema_version": 1,
+      "seed": 20261009,
+      "workers": 1
+    },
+    "config_sha256": "b096654e9c4bf08bbf8b3640831f4fc29ba166edb64eb7900183edce94616cc2",
+    "coverage_collections": 120,
+    "dataset_sha256": "008320ade7de1af0d2b635137d15628bba155faff67f345d481bf65fcdf54e03",
+    "elapsed_seconds": 15.848873008973897,
+    "generation_seconds": 0.012295753695070744,
+    "host_load_average_end": [
+      1.3779296875,
+      1.0419921875,
+      0.69677734375
+    ],
+    "host_load_average_start": [
+      1.486328125,
+      1.044921875,
+      0.69091796875
+    ],
+    "maximum_individual_child_rss_kib": 88480,
+    "oracle_mismatches": {
+      "gcov": 0,
+      "llvm-cov": 0
+    },
+    "programs": 40,
+    "schema_version": 1,
+    "valid_first_pass_cases": 40
+  },
+  "analysis": {
+    "branches": {
+      "comparable_outcomes": 0,
+      "mapping_status": "not_implemented"
+    },
+    "cases": 40,
+    "classification_counts": {
+      "known_convention_difference": 34,
+      "unresolved_disagreement": 6
+    },
+    "comparable_lines": 263,
+    "control_cases": 0,
+    "convention_rule_version": 1,
+    "coverage_collections": 120,
+    "elapsed_seconds": 15.787958622910082,
+    "families": {
+      "constants": {
+        "unresolved_disagreement": 5
+      },
+      "if_else": {
+        "known_convention_difference": 5
+      },
+      "loops": {
+        "known_convention_difference": 4,
+        "unresolved_disagreement": 1
+      },
+      "macros": {
+        "known_convention_difference": 5
+      },
+      "multiline": {
+        "known_convention_difference": 5
+      },
+      "short_circuit": {
+        "known_convention_difference": 5
+      },
+      "switch": {
+        "known_convention_difference": 5
+      },
+      "ternary": {
+        "known_convention_difference": 5
+      }
+    },
+    "known_convention_observations": 134,
+    "mapping_differences": 136,
+    "mean_first_pass_seconds": 0.10769014029065146,
+    "median_first_pass_seconds": 0.10417350847274065,
+    "oracle_mismatches": {
+      "gcov": 0,
+      "llvm-cov": 0
+    },
+    "p95_first_pass_seconds": 0.13871986512094736,
+    "raw_binary_disagreements": 4,
+    "raw_count_disagreements": 4,
+    "repeat_seconds": 8.522931683342904,
+    "schema_version": 1,
+    "valid_first_pass_cases": 40
+  },
+  "environment": {
+    "execution": "container",
+    "image_id": "sha256:9b1f71840f4946181ccb96fab2d12c933fcf1a0b05b2bc5210dc4a2622d6a641",
+    "image_reference": "covdiff-lite:testing",
+    "implementation_sha256": "b5c8196795625fa81bf16d3f7da966ef0a4afc8b8b8634d383f7c599b9c7387a"
+  },
+  "tools": {
+    "clang": "14.0.0",
+    "gcc": "11.4.0",
+    "gcov": "11.4.0",
+    "llvm_cov": "14.0.0",
+    "llvm_profdata": "14.0.0"
+  }
+}

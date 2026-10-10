@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "experiment_kind": "main",
+  "per_family": 40,
+  "seed": 20261010,
+  "control_fraction": 0.1,
+  "workers": 1
+}

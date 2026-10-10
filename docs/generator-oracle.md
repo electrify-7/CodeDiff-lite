@@ -37,4 +37,4 @@ Measured on 2026-10-10 in the existing pinned testing image:
 
 Pilot artifacts are in `runs/generator-pilot/`, `runs/generator-pilot-oracle/` and `runs/generator-pilot-coverage/`. Candidate corpus artifacts are in `runs/generator-main/`. These local run artifacts are ignored by Git; the model, templates, interpreter, renderer, CLI and tests are committed.
 
-The generator/oracle does not provide semantic alignment of GCC control-flow arcs with LLVM branch regions. Discrepancy classification, clean confirmation runs and convention rules are the next implementation stage. The final main experiment remains deferred as instructed by the user.
+The generator/oracle does not provide semantic alignment of GCC control-flow arcs with LLVM branch regions. Discrepancy classification, clean confirmation runs and convention rules were subsequently implemented; see [discrepancy analysis](discrepancy-analysis.md) and [the completed pilot](pilot-results.md). The final main experiment remains deferred as instructed by the user.
