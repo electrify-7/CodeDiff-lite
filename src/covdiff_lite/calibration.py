@@ -105,6 +105,43 @@ def validate_llvm_display(report: dict, display: str) -> dict:
             "summary_scope": summary_scope, "summary_counts": summary}
 
 
+def execute_case(manifest: dict, original: Path, directory: Path, tools: dict) -> dict:
+    """One independent build/profile collection; caller owns the new directory."""
+    directory.mkdir(parents=True, exist_ok=False)
+    source = directory / 'case.c'
+    shutil.copyfile(original, source)
+    write_json(directory / 'manifest.json', {**manifest, 'source': 'case.c'})
+    reports = {}
+    errors = []
+    for name, runner in (('gcov', run_gcc), ('llvm-cov', run_llvm)):
+        try:
+            reports[name] = runner(source, directory / name, tools, manifest['expected_output'])
+        except (StageError, ValueError, OSError, KeyError, TypeError) as exc:
+            errors.append({'tool': name, 'stage': getattr(exc, 'stage', 'parse'), 'message': str(exc)})
+    display_check = None
+    if 'llvm-cov' in reports:
+        try:
+            display_check = validate_llvm_display(reports['llvm-cov'], (directory / 'llvm-cov/show.stdout').read_text())
+            if not display_check['matched']:
+                errors.append({'tool': 'llvm-cov', 'stage': 'normalization_validation', 'message': '; '.join(display_check['errors'])})
+        except ValueError as exc:
+            errors.append({'tool': 'llvm-cov', 'stage': 'normalization_validation', 'message': str(exc)})
+    comparison = compare_lines(manifest, reports)
+    normalized = {'schema_version': 1, 'tools': reports, 'oracle_comparison': comparison}
+    write_json(directory / 'normalized.json', normalized)
+    outputs = {}
+    for name in ('gcov', 'llvm-cov'):
+        log = directory / name / 'commands.json'
+        if log.exists():
+            commands = json.loads(log.read_text())
+            executions = [command for command in commands if command['stage'] == 'execute']
+            if executions:
+                outputs[name] = {'stdout': (directory / name / 'execute.stdout').read_text(),
+                                 'exit_code': executions[-1]['exit_code']}
+    return {'reports': reports, 'errors': errors, 'display_check': display_check,
+            'comparison': comparison, 'functional_outputs': outputs}
+
+
 def run_calibration(fixtures: Path, output: Path) -> dict:
     environment = inspect_environment()
     if not environment["ready"]:
@@ -130,27 +167,8 @@ def run_calibration(fixtures: Path, output: Path) -> dict:
     for manifest, original in loaded:
         case_started = time.monotonic()
         directory = output / "cases" / manifest["case_id"]
-        directory.mkdir(parents=True)
-        source = directory / "case.c"
-        shutil.copyfile(original, source)
-        write_json(directory / "manifest.json", {**manifest, 'source': 'case.c'})
-        reports = {}
-        errors = []
-        for name, runner in (("gcov", run_gcc), ("llvm-cov", run_llvm)):
-            try:
-                reports[name] = runner(source, directory / name, environment["tools"], manifest["expected_output"])
-            except (StageError, ValueError, OSError, KeyError, TypeError) as exc:
-                errors.append({"tool": name, "stage": getattr(exc, "stage", "parse"), "message": str(exc)})
-        display_check = None
-        if "llvm-cov" in reports:
-            try:
-                display_check = validate_llvm_display(reports["llvm-cov"], (directory / "llvm-cov/show.stdout").read_text())
-                if not display_check["matched"]:
-                    errors.append({"tool": "llvm-cov", "stage": "normalization_validation", "message": "; ".join(display_check["errors"])})
-            except ValueError as exc:
-                errors.append({"tool": "llvm-cov", "stage": "normalization_validation", "message": str(exc)})
-        comparison = compare_lines(manifest, reports)
-        write_json(directory / "normalized.json", {"schema_version": 1, "tools": reports, "oracle_comparison": comparison})
+        execution = execute_case(manifest, original, directory, environment['tools'])
+        errors, comparison, display_check = execution['errors'], execution['comparison'], execution['display_check']
         result = {
             "case_id": manifest["case_id"], "family": manifest["family"],
             "status": "pipeline_failure" if errors else "oracle_mismatch" if comparison["mismatches"] else "calibration_pass",

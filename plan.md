@@ -4,7 +4,7 @@
 
 This plan develops the proposal in [project.md](project.md). **The user authorized steps 1 and 2 on 2026-10-09:** the testing environment and handwritten coverage pipeline. That scoped instruction is recorded in [docs/approval.md](docs/approval.md); it does not assert separate instructor approval. Implementation status and validated results are recorded in [docs/step12-results.md](docs/step12-results.md). The remaining sections describe the full planned project.
 
-On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md). The main coverage experiment is explicitly deferred until tomorrow.
+On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md); the analyzer and its validation are recorded in [docs/discrepancy-analysis.md](docs/discrepancy-analysis.md). The main coverage experiment is explicitly deferred until tomorrow.
 
 After approval, record the approving person, approval date, approved scope, and a reference to the written approval. The three-week schedule starts at that point; the days below are project workdays rather than fixed calendar dates.
 
@@ -150,7 +150,7 @@ Apply classification at the observation level and roll it up to the case level w
 6. Classify changing semantic observations as **unstable or non-reproducible**. Ignore incidental differences in timestamps, paths, and runtime when computing stability signatures.
 7. Classify a stable contradiction on a trusted comparable location as **probable incorrect coverage report**; retain manual review status. Use **unresolved disagreement** for uncertain oracle or mapping semantics. Known conventions require an actual matching rule. **Complete agreement** requires agreement with the oracle on all comparable observations and no unexplained mapping differences; disclose excluded locations.
 
-Use a case roll-up order of pipeline failure, unstable, probable incorrect report, unresolved, known convention, and complete agreement, with secondary labels preserved. Stability alone is insufficient to establish a tool bug. Review potential oracle and parser faults before attributing responsibility to GCC or LLVM, and describe the compiler/instrumentation/reporter pipeline involved.
+Use a case roll-up order of unstable, pipeline failure, probable incorrect report, unresolved, known convention, and complete agreement, with secondary labels preserved. Stability alone is insufficient to establish a tool bug. Review potential oracle and parser faults before attributing responsibility to GCC or LLVM, and describe the compiler/instrumentation/reporter pipeline involved.
 
 ## 7. Experiments to run on this machine
 

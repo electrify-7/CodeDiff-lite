@@ -1,6 +1,7 @@
 """Resolve tools and record the environment before collecting coverage."""
 
 import os
+import hashlib
 import platform
 import re
 import shutil
@@ -46,11 +47,16 @@ def inspect_environment() -> dict:
         if all(versions) and len(set(versions)) != 1:
             errors.append("Unmatched tool versions: " + ", ".join(f"{n}={tools[n]['version']}" for n in group))
     package_file = Path("/opt/covdiff/packages.tsv")
+    implementation = hashlib.sha256()
+    package_root = Path(__file__).parent
+    for path in sorted(package_root.rglob('*.py')):
+        implementation.update(str(path.relative_to(package_root)).encode() + b'\0' + path.read_bytes())
     return {
         "schema_version": 1,
         "execution": os.environ.get("COVDIFF_EXECUTION", "native"),
         "image_id": os.environ.get("COVDIFF_IMAGE_ID"),
         "image_reference": os.environ.get("COVDIFF_IMAGE_REFERENCE"),
+        "implementation_sha256": implementation.hexdigest(),
         "system": platform.platform(),
         "machine": platform.machine(),
         "python": sys.version,

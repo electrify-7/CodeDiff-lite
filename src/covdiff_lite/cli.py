@@ -8,6 +8,7 @@ from .environment import inspect_environment
 from .io import write_json
 from .generator import generate_dataset
 from .validation import validate_oracles
+from .analysis import run_analysis
 
 
 def main(argv=None) -> int:
@@ -25,6 +26,12 @@ def main(argv=None) -> int:
     validation = commands.add_parser('validate-oracle', help='Check generated oracles against GCC and Clang execution traces')
     validation.add_argument('--fixtures', type=Path, required=True)
     validation.add_argument('--output', type=Path, required=True)
+    analysis = commands.add_parser('analyze', help='Compare coverage with the oracle and confirm discrepancies in clean runs')
+    inputs = analysis.add_mutually_exclusive_group(required=True)
+    inputs.add_argument('--fixtures', type=Path)
+    inputs.add_argument('--case', type=Path, help='One saved manifest to reproduce')
+    analysis.add_argument('--output', type=Path, required=True)
+    analysis.add_argument('--control-fraction', type=float, default=0.1)
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -43,6 +50,11 @@ def main(argv=None) -> int:
             summary = validate_oracles(args.fixtures, args.output)
             print(f"{summary['passed']}/{summary['cases']} oracles matched both C execution traces")
             return 0 if summary['passed'] == summary['cases'] else 1
+        if args.command == 'analyze':
+            summary = run_analysis(args.fixtures, args.output, args.case, args.control_fraction)
+            print(json.dumps({k: v for k, v in summary.items() if k not in ('results', 'families')}, indent=2))
+            failed = any(r['classification'] in ('pipeline_failure', 'unstable_or_non_reproducible') for r in summary['results'])
+            return 1 if failed else 0
         summary = run_calibration(args.fixtures, args.output)
         print(f"{summary['passed']}/{summary['cases']} passed; {summary['comparable_lines']} comparable lines")
         print(f"Artifacts: {args.output}")

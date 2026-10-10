@@ -2,7 +2,7 @@
 
 Oracle-guided comparison of GCC/gcov and Clang/llvm-cov coverage for deterministic C programs. The proposal is in [project.md](project.md), and the full development plan is in [plan.md](plan.md).
 
-The environment, handwritten coverage pipeline, and deterministic generator/oracle are implemented. The image provides GCC/gcov 11.4.0, Clang/LLVM 14.0.0, and Python 3.10.12. No Python runtime dependencies or downloads are required to run the suite.
+The environment, handwritten coverage pipeline, deterministic generator/oracle, and discrepancy analyzer are implemented. The image provides GCC/gcov 11.4.0, Clang/LLVM 14.0.0, and Python 3.10.12. No Python runtime dependencies or downloads are required to run the suite.
 
 ## Run the current pipeline
 
@@ -72,3 +72,12 @@ bash scripts/env.sh calibrate --fixtures runs/generated-pilot/cases --output run
 Generation itself requires only Python; `PYTHONPATH=src python3 -m covdiff_lite generate ...` works without Docker. The default is 40 cases per family (320 total), but generating a corpus does not execute a coverage experiment. Every output directory must be new. See [docs/generator-oracle.md](docs/generator-oracle.md) for the reviewed subset, semantic oracle and validation boundaries.
 
 Automatic discrepancy classification and clean repeats, documented issue reproduction, the main experiment, the visual report, and reduction are later stages. Original measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
+
+## Analyze discrepancies
+
+```bash
+bash scripts/env.sh analyze --fixtures fixtures/calibration --output runs/analysis-calibration-new
+bash scripts/env.sh analyze --case runs/analysis-calibration-new/cases/if_true/manifest.json --output runs/replay
+```
+
+Use the actual saved case ID for single-case replay. Every finding receives three clean runs. Results distinguish known mappings, unresolved differences, stable oracle contradictions, instability, and pipeline failure. See [the analysis contract and validation](docs/discrepancy-analysis.md). JSON and CSV evidence are available now; the offline HTML report is a later step.
