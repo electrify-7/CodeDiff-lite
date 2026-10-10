@@ -31,6 +31,9 @@ def load_fixture(path: Path) -> tuple[dict, Path]:
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     if digest != manifest["source_sha256"]:
         raise ValueError(f"Stale oracle/source hash: {case_id}")
+    if manifest.get('origin') == 'generated':
+        from .generator import validate_generated_manifest
+        validate_generated_manifest(manifest, source.read_text())
     expected = manifest["expected_output"]
     if not isinstance(expected["stdout"], str) or type(expected["exit_code"]) is not int:
         raise ValueError("Invalid functional oracle")
@@ -120,7 +123,7 @@ def run_calibration(fixtures: Path, output: Path) -> dict:
     write_json(output / "config.json", {
         "schema_version": 1, "suite": str(fixtures.resolve()), "case_ids": identifiers,
         "started_utc": datetime.now(timezone.utc).isoformat(), "optimization": "-O0",
-        "workers": 1, "purpose": "handwritten_calibration",
+        "workers": 1, "purpose": "coverage_calibration",
     })
     results = []
     started = time.monotonic()
@@ -130,7 +133,7 @@ def run_calibration(fixtures: Path, output: Path) -> dict:
         directory.mkdir(parents=True)
         source = directory / "case.c"
         shutil.copyfile(original, source)
-        write_json(directory / "manifest.json", manifest)
+        write_json(directory / "manifest.json", {**manifest, 'source': 'case.c'})
         reports = {}
         errors = []
         for name, runner in (("gcov", run_gcc), ("llvm-cov", run_llvm)):
@@ -165,7 +168,7 @@ def run_calibration(fixtures: Path, output: Path) -> dict:
             print(f"  {mismatch}", flush=True)
     (output / "results.jsonl").write_text("".join(json.dumps(item, sort_keys=True) + "\n" for item in results))
     summary = {
-        "schema_version": 1, "purpose": "handwritten_calibration", "cases": len(results),
+        "schema_version": 1, "purpose": "coverage_calibration", "cases": len(results),
         "passed": sum(item["status"] == "calibration_pass" for item in results),
         "pipeline_failures": sum(item["status"] == "pipeline_failure" for item in results),
         "oracle_mismatch_cases": sum(item["status"] == "oracle_mismatch" for item in results),

@@ -4,6 +4,8 @@
 
 This plan develops the proposal in [project.md](project.md). **The user authorized steps 1 and 2 on 2026-10-09:** the testing environment and handwritten coverage pipeline. That scoped instruction is recorded in [docs/approval.md](docs/approval.md); it does not assert separate instructor approval. Implementation status and validated results are recorded in [docs/step12-results.md](docs/step12-results.md). The remaining sections describe the full planned project.
 
+On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md). The main coverage experiment is explicitly deferred until tomorrow.
+
 After approval, record the approving person, approval date, approved scope, and a reference to the written approval. The three-week schedule starts at that point; the days below are project workdays rather than fixed calendar dates.
 
 The required implementation is deterministic C generation, a trustworthy line-coverage oracle, both coverage pipelines, normalization, classification, repeatability checks, and an offline HTML report. Two documented discrepancy reproductions remain an evaluation requirement. Branch comparison and automatic reduction are optional if they threaten the core schedule.

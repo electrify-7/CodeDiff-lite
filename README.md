@@ -2,7 +2,7 @@
 
 Oracle-guided comparison of GCC/gcov and Clang/llvm-cov coverage for deterministic C programs. The proposal is in [project.md](project.md), and the full development plan is in [plan.md](plan.md).
 
-The first two stages are implemented: a pinned Ubuntu testing image and a handwritten coverage calibration pipeline. The image provides GCC/gcov 11.4.0, Clang/LLVM 14.0.0, and Python 3.10.12. No Python runtime dependencies or downloads are required to run the suite.
+The environment, handwritten coverage pipeline, and deterministic generator/oracle are implemented. The image provides GCC/gcov 11.4.0, Clang/LLVM 14.0.0, and Python 3.10.12. No Python runtime dependencies or downloads are required to run the suite.
 
 ## Run the current pipeline
 
@@ -61,4 +61,14 @@ Native runs are labelled separately. Tool paths can be set through `COVDIFF_GCC`
 
 ## Current boundary
 
-Generator templates, automatic discrepancy classification and clean repeats, the 200–500-program experiment, documented issue reproduction, the visual report, and reduction are later stages. They have not been implemented or claimed as completed. Current measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
+Generate and validate a 40-case pilot corpus:
+
+```bash
+bash scripts/env.sh generate --per-family 5 --seed 20261009 --output runs/generated-pilot
+bash scripts/env.sh validate-oracle --fixtures runs/generated-pilot/cases --output runs/pilot-traces
+bash scripts/env.sh calibrate --fixtures runs/generated-pilot/cases --output runs/pilot-coverage
+```
+
+Generation itself requires only Python; `PYTHONPATH=src python3 -m covdiff_lite generate ...` works without Docker. The default is 40 cases per family (320 total), but generating a corpus does not execute a coverage experiment. Every output directory must be new. See [docs/generator-oracle.md](docs/generator-oracle.md) for the reviewed subset, semantic oracle and validation boundaries.
+
+Automatic discrepancy classification and clean repeats, documented issue reproduction, the main experiment, the visual report, and reduction are later stages. Original measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
