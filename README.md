@@ -81,3 +81,11 @@ bash scripts/env.sh analyze --case runs/analysis-calibration-new/cases/if_true/m
 ```
 
 Use the actual saved case ID for single-case replay. Every finding receives three clean runs. Results distinguish known mappings, unresolved differences, stable oracle contradictions, instability, and pipeline failure. See [the analysis contract and validation](docs/discrepancy-analysis.md). JSON and CSV evidence are available now; the offline HTML report is a later step.
+
+## Reproduce documented problems
+
+```bash
+bash scripts/env.sh reproduce-issues --output runs/documented-issues-new
+```
+
+Two documented patterns reproduce in the pinned image, with a never-executed variant and a corrective control. See [step 3 findings and provenance](docs/documented-issues.md).

@@ -9,6 +9,7 @@ from .io import write_json
 from .generator import generate_dataset
 from .validation import validate_oracles
 from .analysis import run_analysis
+from .issues import reproduce_issues
 
 
 def main(argv=None) -> int:
@@ -32,6 +33,9 @@ def main(argv=None) -> int:
     inputs.add_argument('--case', type=Path, help='One saved manifest to reproduce')
     analysis.add_argument('--output', type=Path, required=True)
     analysis.add_argument('--control-fraction', type=float, default=0.1)
+    issues = commands.add_parser('reproduce-issues', help='Confirm documented symptoms and negative controls')
+    issues.add_argument('--fixtures', type=Path, default=Path('fixtures/issues'))
+    issues.add_argument('--output', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -50,6 +54,10 @@ def main(argv=None) -> int:
             summary = validate_oracles(args.fixtures, args.output)
             print(f"{summary['passed']}/{summary['cases']} oracles matched both C execution traces")
             return 0 if summary['passed'] == summary['cases'] else 1
+        if args.command == 'reproduce-issues':
+            summary = reproduce_issues(args.fixtures, args.output)
+            print(json.dumps(summary, indent=2))
+            return 0 if summary['all_checks_passed'] else 1
         if args.command == 'analyze':
             summary = run_analysis(args.fixtures, args.output, args.case, args.control_fraction)
             print(json.dumps({k: v for k, v in summary.items() if k not in ('results', 'families')}, indent=2))
