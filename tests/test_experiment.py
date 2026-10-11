@@ -50,5 +50,11 @@ class ExperimentIntegrationTests(unittest.TestCase):
             self.assertGreater(result['artifact_logical_bytes_before_summary'], 0)
             self.assertTrue((root / 'result/analysis/observations.csv').exists())
             self.assertTrue((root / 'result/dataset/dataset.json').exists())
+            self.assertTrue((root / 'result/report/index.html').exists())
+            self.assertGreater(result['report_seconds'], 0)
+            self.assertEqual(result['html_report'], 'report/index.html')
+            report = json.loads((root / 'result/report/report.json').read_text())
+            self.assertEqual(report['suites'][0]['cases'], 8)
+            self.assertFalse(report['measurement_data_changed'])
             with self.assertRaises(FileExistsError):
                 run_experiment(path, root / 'result')

@@ -14,3 +14,6 @@ covdiff-lite = "covdiff_lite.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+covdiff_lite = ["report_assets/*.html", "report_assets/*.css", "report_assets/*.js"]

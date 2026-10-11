@@ -71,7 +71,7 @@ bash scripts/env.sh calibrate --fixtures runs/generated-pilot/cases --output run
 
 Generation itself requires only Python; `PYTHONPATH=src python3 -m covdiff_lite generate ...` works without Docker. The default is 40 cases per family (320 total), but generating a corpus does not execute a coverage experiment. Every output directory must be new. See [docs/generator-oracle.md](docs/generator-oracle.md) for the reviewed subset, semantic oracle and validation boundaries.
 
-Discrepancy classification, clean repeats, documented issue reproduction, the main experiment, and paired layout controls are complete. The visual report and final empirical analysis remain; reduction is optional. Original measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
+Discrepancy classification, clean repeats, documented issue reproduction, the main experiment, and paired layout controls are complete. The offline HTML dashboard is implemented; final empirical analysis/figures and the demonstration remain. Reduction is optional. Original measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
 
 ## Analyze discrepancies
 
@@ -80,7 +80,7 @@ bash scripts/env.sh analyze --fixtures fixtures/calibration --output runs/analys
 bash scripts/env.sh analyze --case runs/analysis-calibration-new/cases/if_true/manifest.json --output runs/replay
 ```
 
-Use the actual saved case ID for single-case replay. Every finding receives three clean runs. Results distinguish known mappings, unresolved differences, stable oracle contradictions, instability, and pipeline failure. See [the analysis contract and validation](docs/discrepancy-analysis.md). JSON and CSV evidence are available now; the offline HTML report is a later step.
+Use the actual saved case ID for single-case replay. Every finding receives three clean runs. Results distinguish known mappings, unresolved differences, stable oracle contradictions, instability, and pipeline failure. See [the analysis contract and validation](docs/discrepancy-analysis.md). JSON/CSV evidence and the offline HTML dashboard are available.
 
 ## Reproduce documented problems
 
@@ -98,7 +98,7 @@ bash scripts/env.sh experiment --config configs/pilot.json --output runs/pilot-n
 
 The 40-program pilot passed all execution and oracle checks: 263 comparable statements, no oracle contradictions, 34 cases with explained mappings and six with unresolved header mappings. All 40 were stable across three runs. See [pilot results and measurements](docs/pilot-results.md).
 
-The 320-program main coverage experiment is complete: all programs passed, 2,101 comparable statements matched their oracles, and all repeated results were stable. See [main results](docs/main-results.md). All main findings have been reviewed, and 16 paired layout controls preserve statement counts while exposing layout-dependent mappings. See [findings review](docs/findings-review.md) and [layout controls](docs/layout-controls.md). Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting remains to be implemented. All 64 tests pass in the pinned image.
+The 320-program main coverage experiment is complete: all programs passed, 2,101 comparable statements matched their oracles, and all repeated results were stable. See [main results](docs/main-results.md). All main findings have been reviewed, and 16 paired layout controls preserve statement counts while exposing layout-dependent mappings. See [findings review](docs/findings-review.md) and [layout controls](docs/layout-controls.md). Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting is implemented, including automatic reports for future experiments. All 70 tests pass in the pinned image.
 
 ## Audit findings and run layout controls
 
@@ -107,4 +107,17 @@ bash scripts/env.sh review --analysis runs/main/analysis --output runs/main-revi
 bash scripts/env.sh layout-controls --dataset runs/main/dataset --output runs/layout-controls-new
 ```
 
-The audit checks saved raw evidence and preserves original classifications. Layout controls compare 16 semantic pairs (32 programs) with identical C tokens and behavior but different brace placement. All 16 pairs pass statement-count checks; all change mapping totals. Output paths must be new. The remaining core work is offline HTML reporting, final empirical figures/analysis, and the demonstration.
+The audit checks saved raw evidence and preserves original classifications. Layout controls compare 16 semantic pairs (32 programs) with identical C tokens and behavior but different brace placement. All 16 pairs pass statement-count checks; all change mapping totals. Output paths must be new. The remaining core work is final empirical figures/analysis and the demonstration.
+
+## Open the offline dashboard
+
+Open [`runs/offline-dashboard/index.html`](runs/offline-dashboard/index.html) in a browser. No server or internet connection is required. It contains separate views for the 320-program main experiment, four documented-issue fixtures, and 16 layout pairs, with source/count comparisons, filters, review status, repeat history, raw evidence, and reproduction commands. Keep the entire report folder together when sharing it.
+
+Future `experiment` runs automatically create `report/index.html`. To build a report from any saved analysis without rerunning coverage:
+
+```bash
+PYTHONPATH=src python3 -m covdiff_lite report --analysis runs/main/analysis \
+  --review docs/evidence/main-review.json --output runs/main-report-new
+```
+
+See [offline report instructions and validation](docs/offline-dashboard.md) for the combined three-dataset command and interpretation of missing, unscored, and contradictory observations.

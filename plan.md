@@ -56,7 +56,7 @@ C source + oracle manifest + expected output
                           JSON + CSV + offline HTML
 ```
 
-The following is the target layout. Runners, parsers, generator/oracle, comparison, conventions, repeats, configurations, and experiment execution are implemented; HTML reporting and reduction remain pending.
+The following is the target layout. Runners, parsers, generator/oracle, comparison, conventions, repeats, configurations, experiment execution, and offline HTML reporting are implemented; reduction remains optional.
 
 ```text
 Dockerfile
@@ -279,7 +279,7 @@ bash scripts/env.sh experiment --config configs/main.json --output runs/main
 bash scripts/env.sh analyze --case runs/main/analysis/cases/<case-id>/manifest.json --output runs/replay
 ```
 
-The Docker wrapper is implemented. The experiment command generates, validates, executes, normalizes, classifies, and repeats cases. HTML generation must still be added to meet the final one-command report requirement. It should finish collecting the batch despite individual failed cases, record those failures, and provide a meaningful exit status.
+The Docker wrapper is implemented. The experiment command generates, validates, executes, normalizes, classifies, and repeats cases. HTML generation is implemented: the experiment command now creates `report/index.html` after measurement. Saved runs can also be bundled with `report`; see [docs/offline-dashboard.md](docs/offline-dashboard.md). It should finish collecting the batch despite individual failed cases, record those failures, and provide a meaningful exit status.
 
 The final demonstration runs one known agreeing generated case and one verified discrepancy case from source/manifest through the highlighted report, then reproduces the saved suspicious case in a clean directory. Use a documented fixture if the main generated corpus has no probable errors; identify its separate origin clearly.
 
@@ -307,4 +307,4 @@ After the pilot, freeze schema, template versions, source dataset and convention
 
 If branch mapping remains ambiguous by Day 10, report branch results as unavailable and finish the line study. If reduction is attempted, remove template blocks or simplify parameters, regenerate and revalidate the oracle, and require the same trusted mismatch to persist across fresh runs; line-number changes alone must not satisfy the reduction predicate. Prefer a reviewed manual reproducer when automatic reduction cannot preserve program validity or oracle confidence.
 
-The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. The environment, handwritten calibration, generator/oracle, discrepancy analysis, two documented patterns, and 40-case pilot have implementation and results. The main experiment and repeatability checks are also complete. Findings review and all 16 paired layout controls are complete; see [docs/findings-review.md](docs/findings-review.md) and [docs/layout-controls.md](docs/layout-controls.md). HTML reporting, final empirical analysis/figures, and the demonstration remain; the full project is not complete.
+The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. The environment, handwritten calibration, generator/oracle, discrepancy analysis, two documented patterns, and 40-case pilot have implementation and results. The main experiment and repeatability checks are also complete. Findings review and all 16 paired layout controls are complete; see [docs/findings-review.md](docs/findings-review.md) and [docs/layout-controls.md](docs/layout-controls.md). Offline HTML reporting is complete, including separate main/issue/layout views, reviewed findings, portable evidence, and automatic reporting for future experiments. Final empirical analysis/figures and the demonstration remain; the full project is not complete.
