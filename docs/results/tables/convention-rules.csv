@@ -1,0 +1,5 @@
+rule_id,observations
+brace_line_attribution_v1,866
+constant_dead_body_elision_v1,40
+macro_definition_file_view_v1,40
+multiline_condition_attribution_v1,105

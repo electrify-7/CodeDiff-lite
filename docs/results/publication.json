@@ -1,0 +1,30 @@
+{
+  "artifact_sha256": {
+    "analysis.md": "4cdf520086fcd37a75d51e2c0f37eeddef78f11c422a41ea4cb8f6e46ec3167f",
+    "figures/classifications.png": "bb3a1d8b9d98ffd56b52ba54d6b65f1c6aea3fa4e451b9bc93bfa84377c023bb",
+    "figures/classifications.svg": "c3eac3fa4692dd595562810d638c9b32b5b18dd4c8b6320e65b9a5b4b4033896",
+    "figures/denominators.png": "7a7559c9369820413d62f33d74445ffd50d71d665596141dac6dee0a714f1973",
+    "figures/denominators.svg": "2822a622981cad8f726f262e4bbe5b28d5ebb42b2b91f8ecd6da988a90b35cf8",
+    "figures/families.png": "c0ab590d1fef4170d66afe8dfd01bb46360b49355405ef69807fdede9351e3c0",
+    "figures/families.svg": "55c64f7e066d6bc8211a7828f1bf22d0231bb0784aedefb6329cc592caf9384f",
+    "figures/runtime.png": "4346211ab6d10f1645e3541bc8033be0698bd8c49f291b554dafa9238a00611a",
+    "figures/runtime.svg": "26139018647908758d5a4aa472dc06d3276a7e3c2954f7afed4381e4d92bf196",
+    "index.html": "428de87c138aff983d9322273a6c465647de9b15b06d24e5e72bfce3625f389a",
+    "metrics.json": "0747e103bca24bfde48980fa86394eff244ef63e70ad40a5d05a9054e42f046c",
+    "tables/classifications.csv": "c7d913763752dba47a79fce9b509ef0dbe57fe20f1024edb691caf9e22d2ef51",
+    "tables/convention-rules.csv": "c13fc62c6a01aa989218efa1fb118570f24eb90fa7e58b6c88d977767ec7b3d9",
+    "tables/documented-issues.csv": "8893a64a41f6967a281e0e33d26c19fc4ebc0d5932c4f96bbc81296960812102",
+    "tables/families.csv": "bb21d30704e81690c5ac54a537d227572d3527b559784078bdd9bfa601f1f7d4",
+    "tables/issues-cases.csv": "ad7044b8f2b4b30c61129fd0cb410cb95fd4d057dd0c03ed7c83097024c4d61b",
+    "tables/issues-observations.csv": "a7dabec2c09d7b3def0105669b89174f494ae04b5bcdf8ebfd8ac41b9afd3fa5",
+    "tables/layout-cases.csv": "f0309d554305c79e585fc6b38bd1baa4070d58ec715b9f2eb09652af6ae538e9",
+    "tables/layout-observations.csv": "3c29235353e2b0f1baa46bd2fc2842261f8ac327317029aa725cb96363cfb8c4",
+    "tables/layout-pairs.csv": "9752c79dc924bfadcca15edb95417a69a01d3502ea0cff31ea03ecd45034d767",
+    "tables/main-cases.csv": "e11e261fc0511ecc3a279b8384c95a7b310fb4db148bc185ab2c2a70885efe4f",
+    "tables/main-observations.csv": "1392a786081794a44f6f560762bcc25da09406d7723a527448f03ef8dce69467",
+    "tables/pipeline-stages.csv": "4d2bbcea46995a5a37b128aa994152ea7179a91464b01db4aa4907a09ae13a71",
+    "tables/review-patterns.csv": "85b72d5ccac43f4c3da3d20c8bd4cd31b6838532244e2ed95d2bc469f28c4868",
+    "tables/timing.csv": "bac1ee88090f0be6a4ad30753273728be3be595f51a2615302a6ac67b9950dda"
+  },
+  "schema_version": 1
+}
