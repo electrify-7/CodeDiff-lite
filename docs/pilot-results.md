@@ -1,6 +1,6 @@
 # Step 4: 40-program pilot
 
-Completed on 2026-10-10 in the pinned Docker image. The main coverage experiment has **not** been run. The pilot used five unique deterministic programs in each of eight families, seed `20261009`, generator/template version 1, convention rules version 1, and sequential execution.
+Completed on 2026-10-10 in the pinned Docker image. At pilot completion the main coverage experiment had not been run. It was subsequently completed on 2026-10-11; see [main results](main-results.md). The pilot used five unique deterministic programs in each of eight families, seed `20261009`, generator/template version 1, convention rules version 1, and sequential execution.
 
 ```bash
 bash scripts/env.sh experiment --config configs/pilot.json --output runs/pilot-new

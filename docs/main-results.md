@@ -45,7 +45,7 @@ Every case had at least one source-mapping or convention finding, so every case 
 
 The 25 raw binary differences are on unscored multiline continuation lines. Known-rule observations comprise 866 brace attributions, 40 unreachable-body elisions, 40 statement-macro definition mappings, and 105 multiline continuation attributions. These are observation counts, not independent bugs or case counts.
 
-The 56 unresolved cases contain 69 unresolved observations: 40 constant-condition headers, 13 `FLAG` macro-definition lines, and 16 `do` headers. Gcov omits these locations while LLVM reports a count. They remain unresolved under the frozen rules; their stability alone does not establish an incorrect report. Detailed review and separately run paired layout controls follow this frozen result snapshot.
+The 56 unresolved cases contain 69 unresolved observations: 40 constant-condition headers, 13 `FLAG` macro-definition lines, and 16 `do` headers. Gcov omits these locations while LLVM reports a count. They remain unresolved under the frozen rules; their stability alone does not establish an incorrect report. Detailed review and separately run paired layout controls were subsequently completed; see [findings review](findings-review.md) and [layout controls](layout-controls.md). This frozen result snapshot is unchanged.
 
 ## Time and resources
 

@@ -1,0 +1,1188 @@
+{
+  "cases_audited": 32,
+  "cases_requiring_further_inspection": 0,
+  "convention_rules_rechecked": {
+    "brace_line_attribution_v1": 131,
+    "constant_dead_body_elision_v1": 4,
+    "macro_definition_file_view_v1": 4,
+    "multiline_condition_attribution_v1": 12
+  },
+  "original_classifications_unchanged": true,
+  "paired_collections_audited": 96,
+  "purpose": "saved_evidence_audit_and_mapping_review",
+  "raw_count_disagreements": [
+    {
+      "case_id": "multiline_v1_cbeb4655b5792a8a",
+      "expected": null,
+      "findings": [
+        {
+          "assessment": "known_convention_difference",
+          "kind": "tool_binary",
+          "line": 9,
+          "reason": "This condition continuation has no universal statement count; retain each tool attribution.",
+          "rule_id": "multiline_condition_attribution_v1",
+          "tool": "both"
+        }
+      ],
+      "gcov": 0,
+      "line": 9,
+      "llvm-cov": 1,
+      "role": "condition_continuation",
+      "source": "        || (y > 0))"
+    },
+    {
+      "case_id": "multiline_v1_cbeb4655b5792a8a_layout_braces_v1",
+      "expected": null,
+      "findings": [
+        {
+          "assessment": "known_convention_difference",
+          "kind": "tool_binary",
+          "line": 10,
+          "reason": "This condition continuation has no universal statement count; retain each tool attribution.",
+          "rule_id": "multiline_condition_attribution_v1",
+          "tool": "both"
+        }
+      ],
+      "gcov": 0,
+      "line": 10,
+      "llvm-cov": 1,
+      "role": "condition_continuation",
+      "source": "        || (y > 0))"
+    },
+    {
+      "case_id": "multiline_v1_eebcf30a3c17f082",
+      "expected": null,
+      "findings": [
+        {
+          "assessment": "known_convention_difference",
+          "kind": "tool_binary",
+          "line": 9,
+          "reason": "This condition continuation has no universal statement count; retain each tool attribution.",
+          "rule_id": "multiline_condition_attribution_v1",
+          "tool": "both"
+        }
+      ],
+      "gcov": 0,
+      "line": 9,
+      "llvm-cov": 1,
+      "role": "condition_continuation",
+      "source": "        && (y > 0))"
+    },
+    {
+      "case_id": "multiline_v1_eebcf30a3c17f082_layout_braces_v1",
+      "expected": null,
+      "findings": [
+        {
+          "assessment": "known_convention_difference",
+          "kind": "tool_binary",
+          "line": 10,
+          "reason": "This condition continuation has no universal statement count; retain each tool attribution.",
+          "rule_id": "multiline_condition_attribution_v1",
+          "tool": "both"
+        }
+      ],
+      "gcov": 0,
+      "line": 10,
+      "llvm-cov": 1,
+      "role": "condition_continuation",
+      "source": "        && (y > 0))"
+    }
+  ],
+  "raw_evidence_checks_passed": true,
+  "reviewed_cases": 19,
+  "reviews": [
+    {
+      "case_id": "constants_v1_072509df31923bd0",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "constants",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 2,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 2,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "constant_macro_definition",
+          "role": "macro_definition",
+          "source": "#define FLAG 1"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 6,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 6,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          },
+          "pattern": "constant_condition_header",
+          "role": "condition",
+          "source": "    if (FLAG) {"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "bdc4a488bb4373b6d28914feffead78ffb4f886736455702085e5ec292f149ea",
+      "stable": true
+    },
+    {
+      "case_id": "constants_v1_072509df31923bd0_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "constants",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 2,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 2,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "constant_macro_definition",
+          "role": "macro_definition",
+          "source": "#define FLAG 1"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 4,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 4,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 7,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 7,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "constant_condition_header",
+          "role": "condition",
+          "source": "    if (FLAG)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 11,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 11,
+          "llvm-cov": {
+            "count": 0,
+            "covered": false,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "9156b4e6cf673958f90f1a8d1aaef725aacb123c55bd078314598c466bca4ffd",
+      "stable": true
+    },
+    {
+      "case_id": "constants_v1_b505b66650e64289",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "constants",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 5,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 5,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": true,
+            "state": "reported"
+          },
+          "pattern": "constant_condition_header",
+          "role": "condition",
+          "source": "    if (0) {"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "5e43545e7d2d88830eac059290bc061d373291924d008c8048dbcc2b0739c6fc",
+      "stable": true
+    },
+    {
+      "case_id": "constants_v1_b505b66650e64289_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "constants",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 6,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 6,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "constant_condition_header",
+          "role": "condition",
+          "source": "    if (0)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 10,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 10,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "fb067ed4fc25351e63f18ff41a43538bb5115a2c97dae1aded0760443cb8b7c4",
+      "stable": true
+    },
+    {
+      "case_id": "if_else_v1_2e5ae00ba7a0a231_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "if_else",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 11,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 11,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "bbfd6171e016560f2f7d228dd9c3f52ecced22c235fea893417dbbc2b4b94dfe",
+      "stable": true
+    },
+    {
+      "case_id": "if_else_v1_ba7a20d1e0cad599_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "if_else",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 13,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 13,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "        else"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 18,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 18,
+          "llvm-cov": {
+            "count": 0,
+            "covered": false,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "0cbe4eb1a99f694f019915c330e285843049ca79150ca2d3da560a511a6f51eb",
+      "stable": true
+    },
+    {
+      "case_id": "loops_v1_0e334028641bf1b7_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "loops",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "77d24e9bfa6c5779fe6e2077c51fb0af0d397873d181aab77207d0a215d47051",
+      "stable": true
+    },
+    {
+      "case_id": "loops_v1_b1f76db7011210fb",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "loops",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 7,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 7,
+          "llvm-cov": {
+            "count": 5,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "do_loop_header",
+          "role": "condition",
+          "source": "    do {"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "9717a9ee1be95bf9e9f4ce6cd40371d2267e06b9adec654d5953ea6b1bbeaeeb",
+      "stable": true
+    },
+    {
+      "case_id": "loops_v1_b1f76db7011210fb_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "loops",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 8,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 8,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "do_loop_header",
+          "role": "condition",
+          "source": "    do"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "58ed81f54473a9d6571285132d0651f5bfdf25857c28fa14b8d382b6e1ee0728",
+      "stable": true
+    },
+    {
+      "case_id": "macros_v1_49b326e80f2c5beb_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "macros",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 4,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 4,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 16,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 16,
+          "llvm-cov": {
+            "count": 0,
+            "covered": false,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "        else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "7d0065d3008d9c938171d9da1754b72a326d5017a6587dde4a2a852859459f83",
+      "stable": true
+    },
+    {
+      "case_id": "macros_v1_8ed31d8f74c15077_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "macros",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 4,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 4,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 16,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 16,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "        else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "9ccc9e490668cbbaf73ea7daa32a41da279233e06f62b05a56dd5fae458755d8",
+      "stable": true
+    },
+    {
+      "case_id": "multiline_v1_cbeb4655b5792a8a_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "multiline",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 15,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 15,
+          "llvm-cov": {
+            "count": 0,
+            "covered": false,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "99e73acfe662f5de8b33b3064b60bbfa9171e93a767e0ca5d4e43971b2b74024",
+      "stable": true
+    },
+    {
+      "case_id": "multiline_v1_eebcf30a3c17f082_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "multiline",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 15,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 15,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "68386379a5de3453b3306f128b63bcfeed1e2d6663f3891a56e9ece301c58a45",
+      "stable": true
+    },
+    {
+      "case_id": "short_circuit_v1_be7097443d04671c_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "short_circuit",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 12,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 12,
+          "llvm-cov": {
+            "count": 1,
+            "covered": true,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "18f2382bd439a06b741ccaeaa101f6decf195ede73748365aaaec707f668343d",
+      "stable": true
+    },
+    {
+      "case_id": "short_circuit_v1_dbe8c9babd8d5a1e_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "short_circuit",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        },
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 12,
+            "tool": "both"
+          },
+          "gcov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "line": 12,
+          "llvm-cov": {
+            "count": 0,
+            "covered": false,
+            "multiple_regions": false,
+            "state": "reported"
+          },
+          "pattern": "separate_else_keyword",
+          "role": "structure",
+          "source": "    else"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "b9b5f4db0c52b8a579281ac3beb4cdeeac3e60b63390cdc19a9c084a0b3e7116",
+      "stable": true
+    },
+    {
+      "case_id": "switch_v1_54cbcc0c416f02b6_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "switch",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "4e58ba52c47c979730ea03e1574701e4681874d1d3a7587f1888c4c97bba8cd2",
+      "stable": true
+    },
+    {
+      "case_id": "switch_v1_dbfc8e07dba84775_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "switch",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "b063338d619ec3a74f67922b524778482dbf8371a2b41962dea6a5065a06d300",
+      "stable": true
+    },
+    {
+      "case_id": "ternary_v1_aa7843f48abb79bc_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "ternary",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "440847c2e609aba535ec0b921a5694f8b9dd2b4feaffa941bcacbda739cb2d0f",
+      "stable": true
+    },
+    {
+      "case_id": "ternary_v1_fe000f0ddcff2016_layout_braces_v1",
+      "classification_retained": "unresolved_disagreement",
+      "decision": "Retain original classification; no universal count assigned to unscored mappings.",
+      "family": "ternary",
+      "observations": [
+        {
+          "expected": null,
+          "finding": {
+            "assessment": "unresolved_disagreement",
+            "kind": "mapping",
+            "line": 3,
+            "tool": "both"
+          },
+          "gcov": {
+            "branches": [],
+            "count": 1,
+            "covered": true,
+            "state": "reported",
+            "unexecuted_block": false
+          },
+          "line": 3,
+          "llvm-cov": {
+            "count": null,
+            "covered": null,
+            "state": "not_reported"
+          },
+          "pattern": "separate_function_header",
+          "role": "structure",
+          "source": "int main(void)"
+        }
+      ],
+      "review_status": "reviewed_mapping_unresolved",
+      "runs": 3,
+      "source_sha256": "b9bc91b5428041b05f639a11cb51bc64330b82e72075f8460f3b003a6c115e7a",
+      "stable": true
+    }
+  ],
+  "schema_version": 1,
+  "source_line_tool_observations_audited": 3168,
+  "unresolved_observation_patterns": {
+    "constant_condition_header": 4,
+    "constant_macro_definition": 2,
+    "do_loop_header": 2,
+    "separate_else_keyword": 11,
+    "separate_function_header": 16
+  }
+}

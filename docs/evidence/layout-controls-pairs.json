@@ -1,0 +1,4933 @@
+{
+  "classification_counts": {
+    "known_convention_difference": 13,
+    "unresolved_disagreement": 19
+  },
+  "compared_statement_pairs": 107,
+  "coverage_collections": 96,
+  "dataset_sha256": "f17e511612666b47a5c4f0c7cdd2a37c888db181e981e66dae53320018cba1bf",
+  "oracle_mismatches": {
+    "gcov": 0,
+    "llvm-cov": 0
+  },
+  "pairs": 16,
+  "pairs_passed": 16,
+  "pairs_with_classification_change": 13,
+  "pairs_with_mapping_total_change": 16,
+  "parent_dataset_sha256": "7527bb52203bbf2309d75cf57b4375e303542b226fb5621ee7a39d7bfce74144",
+  "programs": 32,
+  "purpose": "paired_layout_controls",
+  "results": [
+    {
+      "base_case_id": "if_else_v1_2e5ae00ba7a0a231",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "if_else",
+      "mapping_differences": {
+        "base": 3,
+        "variant": 8
+      },
+      "pair_id": "if_else_v1_2e5ae00ba7a0a231_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "nested": false,
+        "threshold": -1,
+        "x": -2
+      },
+      "parent_main_baseline_signature": "27342984807ea1d777ae2b825ecc82e6ea34aed26c0ecb8e6576f2f9ba02edea",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "if_else_v1_2e5ae00ba7a0a231_layout_braces_v1"
+    },
+    {
+      "base_case_id": "if_else_v1_ba7a20d1e0cad599",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "if_else",
+      "mapping_differences": {
+        "base": 5,
+        "variant": 13
+      },
+      "pair_id": "if_else_v1_ba7a20d1e0cad599_brace_pair",
+      "parameters": {
+        "amount": 4,
+        "nested": true,
+        "threshold": 1,
+        "x": 2
+      },
+      "parent_main_baseline_signature": "c3dc88a663aa3ceb90ebeae39de287284e24205da516a768356c297b82baddd3",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "inner_else",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 20,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 22,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 23,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "inner_then",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "if_else_v1_ba7a20d1e0cad599_layout_braces_v1"
+    },
+    {
+      "base_case_id": "loops_v1_0e334028641bf1b7",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "loops",
+      "mapping_differences": {
+        "base": 2,
+        "variant": 5
+      },
+      "pair_id": "loops_v1_0e334028641bf1b7_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "limit": 0,
+        "style": "while"
+      },
+      "parent_main_baseline_signature": "6cd3b3291c46b50ad54a36e1b1d3984b2b356fb56be8b505e194ac6266925b93",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_limit",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_i",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "loop_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "increment",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "loops_v1_0e334028641bf1b7_layout_braces_v1"
+    },
+    {
+      "base_case_id": "loops_v1_b1f76db7011210fb",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "unresolved_disagreement",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "loops",
+      "mapping_differences": {
+        "base": 2,
+        "variant": 6
+      },
+      "pair_id": "loops_v1_b1f76db7011210fb_brace_pair",
+      "parameters": {
+        "amount": 6,
+        "limit": 5,
+        "style": "do"
+      },
+      "parent_main_baseline_signature": "4e340890069c55f14bea9ec9a305490080194053c48c1aa875eb5c7182806e26",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_limit",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_i",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 5,
+            "gcov": {
+              "branches": [],
+              "count": 5,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 5,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "loop_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 5,
+            "gcov": {
+              "branches": [],
+              "count": 5,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 5,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 5,
+            "gcov": {
+              "branches": [],
+              "count": 5,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 5,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "increment",
+          "variant": {
+            "allow_elided": false,
+            "expected": 5,
+            "gcov": {
+              "branches": [],
+              "count": 5,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 5,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "loops_v1_b1f76db7011210fb_layout_braces_v1"
+    },
+    {
+      "base_case_id": "switch_v1_dbfc8e07dba84775",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "switch",
+      "mapping_differences": {
+        "base": 2,
+        "variant": 5
+      },
+      "pair_id": "switch_v1_dbfc8e07dba84775_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "fallthrough": false,
+        "selector": 0
+      },
+      "parent_main_baseline_signature": "6e39a48369c0e8c323a6159eafdd4d7688601f45190b4eaf38cd0e6e308d39c9",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "case_one",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "default_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 19,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 18,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 20,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_selector",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "case_zero",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "switch_v1_dbfc8e07dba84775_layout_braces_v1"
+    },
+    {
+      "base_case_id": "switch_v1_54cbcc0c416f02b6",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "switch",
+      "mapping_differences": {
+        "base": 2,
+        "variant": 5
+      },
+      "pair_id": "switch_v1_54cbcc0c416f02b6_brace_pair",
+      "parameters": {
+        "amount": 12,
+        "fallthrough": true,
+        "selector": 2
+      },
+      "parent_main_baseline_signature": "5fc559cf5bdbc0f9ba185cf830c2b071c37613d80b07ed99fb72bc1eb4706f61",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "case_one",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "default_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 18,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 19,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_selector",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "case_zero",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "switch_v1_54cbcc0c416f02b6_layout_braces_v1"
+    },
+    {
+      "base_case_id": "short_circuit_v1_be7097443d04671c",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "short_circuit",
+      "mapping_differences": {
+        "base": 3,
+        "variant": 8
+      },
+      "pair_id": "short_circuit_v1_be7097443d04671c_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "op": "&&",
+        "x": -1,
+        "y": -1
+      },
+      "parent_main_baseline_signature": "1a05739c2c25235e2a59197a4beacceb35ab352555d8bbb2412619b4188c1aa9",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_y",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "short_circuit_v1_be7097443d04671c_layout_braces_v1"
+    },
+    {
+      "base_case_id": "short_circuit_v1_dbe8c9babd8d5a1e",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "short_circuit",
+      "mapping_differences": {
+        "base": 3,
+        "variant": 8
+      },
+      "pair_id": "short_circuit_v1_dbe8c9babd8d5a1e_brace_pair",
+      "parameters": {
+        "amount": 4,
+        "op": "||",
+        "x": 1,
+        "y": 1
+      },
+      "parent_main_baseline_signature": "0462cc366fd02460cb67259bdbdebbc2a067ffdfa6d28a29d97ca9e20c6101c9",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_y",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "short_circuit_v1_dbe8c9babd8d5a1e_layout_braces_v1"
+    },
+    {
+      "base_case_id": "multiline_v1_eebcf30a3c17f082",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "multiline",
+      "mapping_differences": {
+        "base": 5,
+        "variant": 10
+      },
+      "pair_id": "multiline_v1_eebcf30a3c17f082_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "op": "&&",
+        "x": -1,
+        "y": -1
+      },
+      "parent_main_baseline_signature": "36f4325ce71c8f32b5824f1e7ddbeed82379ed7754be30114fa29990f10ff489",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 1,
+        "variant": 1
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 19,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 20,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_y",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "multiline_v1_eebcf30a3c17f082_layout_braces_v1"
+    },
+    {
+      "base_case_id": "multiline_v1_cbeb4655b5792a8a",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "multiline",
+      "mapping_differences": {
+        "base": 5,
+        "variant": 10
+      },
+      "pair_id": "multiline_v1_cbeb4655b5792a8a_brace_pair",
+      "parameters": {
+        "amount": 4,
+        "op": "||",
+        "x": 1,
+        "y": 1
+      },
+      "parent_main_baseline_signature": "dfb1d59857630818f873899e674bc4d3488e8ea95d0782cdcdb7b6943af938fd",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 1,
+        "variant": 1
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 19,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 20,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_y",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "multiline_v1_cbeb4655b5792a8a_layout_braces_v1"
+    },
+    {
+      "base_case_id": "ternary_v1_aa7843f48abb79bc",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "ternary",
+      "mapping_differences": {
+        "base": 1,
+        "variant": 3
+      },
+      "pair_id": "ternary_v1_aa7843f48abb79bc_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "threshold": -1,
+        "x": -2
+      },
+      "parent_main_baseline_signature": "2616bf7a00e502ca33a5252bd78085e59e9e2c846ff13fc9f8fe136566f4053d",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [
+                {
+                  "count": 0,
+                  "fallthrough": true,
+                  "throw": false
+                },
+                {
+                  "count": 1,
+                  "fallthrough": false,
+                  "throw": false
+                }
+              ],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": true,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "ternary_assignment",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [
+                {
+                  "count": 0,
+                  "fallthrough": true,
+                  "throw": false
+                },
+                {
+                  "count": 1,
+                  "fallthrough": false,
+                  "throw": false
+                }
+              ],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": true,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "ternary_v1_aa7843f48abb79bc_layout_braces_v1"
+    },
+    {
+      "base_case_id": "ternary_v1_fe000f0ddcff2016",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "ternary",
+      "mapping_differences": {
+        "base": 1,
+        "variant": 3
+      },
+      "pair_id": "ternary_v1_fe000f0ddcff2016_brace_pair",
+      "parameters": {
+        "amount": 8,
+        "threshold": 1,
+        "x": 2
+      },
+      "parent_main_baseline_signature": "cb923b0d9189fb40abdec0ed704a6932f1b0df059e415bffc5ee62b97e5188cb",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_x",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [
+                {
+                  "count": 1,
+                  "fallthrough": true,
+                  "throw": false
+                },
+                {
+                  "count": 0,
+                  "fallthrough": false,
+                  "throw": false
+                }
+              ],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": true,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "ternary_assignment",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [
+                {
+                  "count": 1,
+                  "fallthrough": true,
+                  "throw": false
+                },
+                {
+                  "count": 0,
+                  "fallthrough": false,
+                  "throw": false
+                }
+              ],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": true,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "ternary_v1_fe000f0ddcff2016_layout_braces_v1"
+    },
+    {
+      "base_case_id": "macros_v1_8ed31d8f74c15077",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "macros",
+      "mapping_differences": {
+        "base": 5,
+        "variant": 11
+      },
+      "pair_id": "macros_v1_8ed31d8f74c15077_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "enabled": 0,
+        "repetitions": 1
+      },
+      "parent_main_baseline_signature": "c48606a411539885290ffe5546319ce31ac4b44262a2c986a9d6db9eeeafee87",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "macro_invocation",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "disabled_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 18,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "increment",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 20,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 22,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 18,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 23,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_enabled",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_limit",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_i",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "macros_v1_8ed31d8f74c15077_layout_braces_v1"
+    },
+    {
+      "base_case_id": "macros_v1_49b326e80f2c5beb",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "known_convention_difference",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "macros",
+      "mapping_differences": {
+        "base": 5,
+        "variant": 11
+      },
+      "pair_id": "macros_v1_49b326e80f2c5beb_brace_pair",
+      "parameters": {
+        "amount": 8,
+        "enabled": 1,
+        "repetitions": 4
+      },
+      "parent_main_baseline_signature": "2e11bf7630ebb12e22b883e58d981a34f707c6a95cc52b278f595dac8873b1af",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 4,
+            "gcov": {
+              "branches": [],
+              "count": 4,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 4,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "macro_invocation",
+          "variant": {
+            "allow_elided": false,
+            "expected": 4,
+            "gcov": {
+              "branches": [],
+              "count": 4,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 4,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "disabled_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 0,
+            "gcov": {
+              "branches": [],
+              "count": 0,
+              "covered": false,
+              "state": "reported",
+              "unexecuted_block": true
+            },
+            "line": 18,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 4,
+            "gcov": {
+              "branches": [],
+              "count": 4,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 4,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "increment",
+          "variant": {
+            "allow_elided": false,
+            "expected": 4,
+            "gcov": {
+              "branches": [],
+              "count": 4,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 20,
+            "llvm-cov": {
+              "count": 4,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 17,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 22,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 18,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 23,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_enabled",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_limit",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_i",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "macros_v1_49b326e80f2c5beb_layout_braces_v1"
+    },
+    {
+      "base_case_id": "constants_v1_b505b66650e64289",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "unresolved_disagreement",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "constants",
+      "mapping_differences": {
+        "base": 5,
+        "variant": 10
+      },
+      "pair_id": "constants_v1_b505b66650e64289_brace_pair",
+      "parameters": {
+        "amount": 1,
+        "enabled": 0,
+        "form": "literal"
+      },
+      "parent_main_baseline_signature": "fd8c17c15cd317b56ab2275fa5ec2e6d9b1fc1756e82e47b8ca9b292b67422dd",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 10,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 14,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 4,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": true,
+            "expected": 0,
+            "gcov": {
+              "count": null,
+              "covered": null,
+              "state": "not_reported"
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": true,
+            "expected": 0,
+            "gcov": {
+              "count": null,
+              "covered": null,
+              "state": "not_reported"
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 8,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "constants_v1_b505b66650e64289_layout_braces_v1"
+    },
+    {
+      "base_case_id": "constants_v1_072509df31923bd0",
+      "base_reproduces_main_signature": true,
+      "classifications": {
+        "base": "unresolved_disagreement",
+        "variant": "unresolved_disagreement"
+      },
+      "family": "constants",
+      "mapping_differences": {
+        "base": 6,
+        "variant": 11
+      },
+      "pair_id": "constants_v1_072509df31923bd0_brace_pair",
+      "parameters": {
+        "amount": 6,
+        "enabled": 1,
+        "form": "macro"
+      },
+      "parent_main_baseline_signature": "ba4ecd8dd4d606f64092e5a79d134d92361163ee79a092941639db87e98e6dc9",
+      "passed": true,
+      "raw_count_disagreements": {
+        "base": 0,
+        "variant": 0
+      },
+      "statement_observations_equal": true,
+      "statements": [
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 11,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "output",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 15,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 12,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "return",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 16,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 5,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "init_result",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 6,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 7,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "then_body",
+          "variant": {
+            "allow_elided": false,
+            "expected": 1,
+            "gcov": {
+              "branches": [],
+              "count": 1,
+              "covered": true,
+              "state": "reported",
+              "unexecuted_block": false
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 1,
+              "covered": true,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        },
+        {
+          "base": {
+            "allow_elided": true,
+            "expected": 0,
+            "gcov": {
+              "count": null,
+              "covered": null,
+              "state": "not_reported"
+            },
+            "line": 9,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          },
+          "observations_equal": true,
+          "oracle_counts_correct": true,
+          "statement_id": "else_body",
+          "variant": {
+            "allow_elided": true,
+            "expected": 0,
+            "gcov": {
+              "count": null,
+              "covered": null,
+              "state": "not_reported"
+            },
+            "line": 13,
+            "llvm-cov": {
+              "count": 0,
+              "covered": false,
+              "multiple_regions": false,
+              "state": "reported"
+            }
+          }
+        }
+      ],
+      "transformation": "braces_on_separate_lines",
+      "variant_case_id": "constants_v1_072509df31923bd0_layout_braces_v1"
+    }
+  ],
+  "schema_version": 1,
+  "valid_programs": 32
+}
