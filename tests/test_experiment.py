@@ -56,5 +56,8 @@ class ExperimentIntegrationTests(unittest.TestCase):
             report = json.loads((root / 'result/report/report.json').read_text())
             self.assertEqual(report['suites'][0]['cases'], 8)
             self.assertFalse(report['measurement_data_changed'])
+            self.assertTrue((root / 'result/empirical/figures/families.svg').exists())
+            self.assertTrue((root / 'result/report/empirical/index.html').exists())
+            self.assertEqual(result['empirical_report'], 'empirical/index.html')
             with self.assertRaises(FileExistsError):
                 run_experiment(path, root / 'result')

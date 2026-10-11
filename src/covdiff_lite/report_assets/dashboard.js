@@ -5,6 +5,7 @@
   const $ = id => document.getElementById(id);
   const el = (tag, text, cls) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = text; if (cls) n.className = cls; return n; };
   const clear = id => $(id).replaceChildren();
+  if (data.empirical_link) { $("empirical-link").href=data.empirical_link; $("empirical-link").hidden=false; }
   const pretty = v => JSON.stringify(v, null, 2);
   const words = v => String(v || "").replaceAll("_", " ");
   const names = {complete_agreement:"Complete agreement",known_convention_difference:"Known convention",unresolved_disagreement:"Unresolved",probable_incorrect_coverage_report:"Probable incorrect report",unstable_or_non_reproducible:"Unstable",pipeline_failure:"Pipeline failure"};

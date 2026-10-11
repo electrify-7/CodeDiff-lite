@@ -1,6 +1,6 @@
 # Offline coverage dashboard
 
-Open `runs/offline-dashboard/index.html` in a browser. The dashboard reads embedded JSON and local assets; it needs neither a server nor an internet connection. Keep the entire folder together when copying or archiving it, including `dashboard.css`, `dashboard.js`, and `evidence/`.
+The final integrated dashboard is `runs/final-report/index.html`, with an **Empirical analysis** link to bundled tables and figures. The original dashboard-stage bundle remains at `runs/offline-dashboard/index.html`. Open either in a browser. The dashboard reads embedded JSON and local assets; it needs neither a server nor an internet connection. Keep the entire folder together when copying or archiving it, including `dashboard.css`, `dashboard.js`, and `evidence/`.
 
 ## Generate from saved measurements
 
@@ -44,9 +44,9 @@ Copy the reproduction command and run it from the repository root with Docker av
 bash scripts/env.sh experiment --config configs/pilot.json --output runs/pilot-with-html
 ```
 
-This single command now generates programs, validates oracles, collects and normalizes coverage, classifies and repeats cases, then creates `runs/pilot-with-html/report/index.html`. An experiment's default report contains its own dataset. The separate `report` command adds optional documented issues and layout controls.
+This single command now generates programs, validates oracles, collects and normalizes coverage, classifies and repeats cases, generates empirical tables/figures, then creates `runs/pilot-with-html/report/index.html`. An experiment's default report contains its own dataset. The separate `report` command adds optional documented issues and layout controls.
 
-Coverage/generation elapsed time and resource measurements stop before HTML rendering. `report_seconds` records HTML generation separately, and `html_report` gives the relative report path. The dashboard's bundled `experiment.json` is the snapshot written immediately before rendering; the run-root file additionally records the completed report's duration and path. The existing main experiment was not rerun to add HTML.
+Coverage/generation elapsed time and resource measurements stop before HTML rendering. `empirical_seconds` records empirical publication and `report_seconds` records HTML generation separately, and `html_report` gives the relative report path. The dashboard's bundled `experiment.json` is the snapshot written immediately before rendering; the run-root file additionally records the completed report's duration and path. The existing main experiment was not rerun to add HTML.
 
 ## Evidence and validation
 
@@ -55,3 +55,5 @@ The current combined bundle contains 27,079 evidence files and is approximately 
 `report.json` records input-summary and rendered-asset SHA-256 hashes plus dataset counts. Generated bundles stay under ignored `runs/`; the report implementation, assets, tests, instructions, and compact validation record are tracked in Git.
 
 Validation includes the full pinned-container test suite, opening the actual bundle via `file://` in Firefox, desktop/mobile layout checks, filters, deep source links, repeat-specific evidence, pair navigation, the documented zero-versus-two contradiction, and its corrective control. Separate labelled synthetic cases check HTML escaping, failed reports, changing repeat counts, and copy feedback. See [the saved validation record](evidence/dashboard-validation.json).
+
+The full workflow, reporting-image setup, and the `report --empirical` option are documented in [final-pipeline.md](final-pipeline.md). The frozen-study interpretation is in [empirical-analysis.md](empirical-analysis.md).

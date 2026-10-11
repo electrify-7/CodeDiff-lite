@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "purpose": "empirical_publication_and_complete_pipeline_validation",
+  "date": "2026-10-11",
+  "tests": {
+    "command": "bash scripts/env.sh test",
+    "passed": 79,
+    "failed": 0,
+    "skipped": 0,
+    "targeted_empirical_recheck_passed": 5
+  },
+  "pipeline_command": "bash scripts/env.sh pipeline --config configs/demo.json --output runs/final-validation",
+  "pipeline": {
+    "artifacts": {
+      "dashboard": "report/index.html",
+      "empirical_analysis": "empirical/index.html",
+      "figures": "empirical/figures",
+      "markdown": "empirical/analysis.md",
+      "primary_raw_evidence": "experiment/analysis",
+      "reviews": "reviews"
+    },
+    "cases_requiring_manual_inspection": 0,
+    "checks_passed": true,
+    "completed": true,
+    "config": {
+      "control_fraction": 0.1,
+      "experiment_kind": "pilot",
+      "per_family": 6,
+      "schema_version": 1,
+      "seed": 20261010,
+      "workers": 1
+    },
+    "documented_patterns_reproduced": 2,
+    "elapsed_seconds": 35.33709241170436,
+    "errors": [],
+    "layout_pairs_passed": 16,
+    "measurement_scope": "Fresh configured corpus; documented fixtures and layout controls are separate suites. Stage wall times include their own overhead; primary resource measurements exclude publication.",
+    "primary_dataset_sha256": "76e544de6c77e2b3855db638e368fc55467eb2399034db187ef04fe669fdac47",
+    "primary_programs": 48,
+    "purpose": "full_reproducible_pipeline",
+    "schema_version": 1,
+    "stages": {
+      "documented_issues": {
+        "seconds": 1.3550380137749016,
+        "status": "complete"
+      },
+      "empirical_analysis": {
+        "seconds": 1.3557402449660003,
+        "status": "complete"
+      },
+      "layout_controls": {
+        "seconds": 12.714176451321691,
+        "status": "complete"
+      },
+      "layout_review": {
+        "cases_requiring_further_inspection": 0,
+        "seconds": 0.04927607299759984,
+        "status": "complete"
+      },
+      "offline_dashboard": {
+        "seconds": 0.6464217682369053,
+        "status": "complete"
+      },
+      "primary_experiment": {
+        "seconds": 19.14655675785616,
+        "status": "complete"
+      },
+      "primary_review": {
+        "cases_requiring_further_inspection": 0,
+        "seconds": 0.0688554416410625,
+        "status": "complete"
+      }
+    }
+  },
+  "reporting_image_id": "sha256:1787ef58c825d57f26dfa880d6057a8218f4b26f034dac07b425187adf70e637",
+  "tools": {
+    "clang": "14.0.0",
+    "gcc": "11.4.0",
+    "gcov": "11.4.0",
+    "llvm_cov": "14.0.0",
+    "llvm_profdata": "14.0.0"
+  },
+  "validation_measurement_implementation_sha256": "889b53efd373085e6a38cc1f5592aad39e264d1727197d5844e0037985aa59a2",
+  "frozen_main_rerun": false,
+  "frozen_measurement_summary_sha256": {
+    "issues": "9c7f72f833e90b0b2a87cd50394fa5f022a9b6f5180cade76cc6acefb84c57c9",
+    "layout": "3a8671192a6768aebfbf2bb519092abc611247e133a528fa572fddcb8966f045",
+    "main": "92c447b2e94ec8ce0f14f390c105f846ea9a96e511d8762f0e42c061535d9d04"
+  },
+  "publication_artifacts_verified": {
+    "docs/results": 25,
+    "runs/final-report/empirical": 25
+  },
+  "browser_checks": {
+    "browser": "Firefox 147.0.1",
+    "opened_via": "file://",
+    "checks_passed": [
+      "main dataset remains 320",
+      "empirical navigation is visible and local",
+      "frozen results visible in integrated empirical page",
+      "four publication figures loaded from local files",
+      "resource and convention tables visible",
+      "dashboard return path resolves",
+      "dashboard return finishes loading",
+      "documented zero-versus-two discrepancy retained",
+      "dashboard mobile width has no page overflow",
+      "empirical mobile page has no page overflow",
+      "validation dataset stays separate at 48",
+      "ordinary demonstration has oracle-agreeing statements",
+      "validation empirical page describes its own sample"
+    ]
+  },
+  "fresh_replay": {
+    "command": "bash scripts/env.sh analyze --case runs/final-report/evidence/issues/cases/llvm_140427_never/manifest.json --output runs/final-replay-llvm",
+    "classification": "probable_incorrect_coverage_report",
+    "runs": 3,
+    "stable": true,
+    "line": 14,
+    "expected": 0,
+    "gcov": 0,
+    "llvm-cov": 2
+  },
+  "limitations": [
+    "Semantic branch alignment not implemented",
+    "Automatic reduction not implemented",
+    "No newly discovered bug claimed"
+  ]
+}
