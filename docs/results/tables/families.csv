@@ -1,0 +1,9 @@
+family,programs,valid_first_pass_cases,source_lines,annotated_lines,comparable_lines,valid_comparable_lines,unmapped_oracle_lines,unscored_lines,gcov_reported_oracle_lines,llvm-cov_reported_oracle_lines,mapping_differences,raw_count_disagreements,raw_binary_disagreements,complete_agreement,known_convention_difference,unresolved_disagreement,probable_incorrect_coverage_report,unstable_or_non_reproducible,pipeline_failure
+constants,40,40,493,200,160,160,40,293,160,200,213,0,0,0,0,40,0,0,0
+if_else,40,40,604,261,261,261,0,343,261,261,162,0,0,0,40,0,0,0,0
+loops,40,40,520,280,280,280,0,240,280,280,80,0,0,0,24,16,0,0,0
+macros,40,40,760,360,360,360,0,400,360,360,200,0,0,0,40,0,0,0,0
+multiline,40,40,680,280,280,280,0,400,280,280,200,25,25,0,40,0,0,0,0
+short_circuit,40,40,560,280,280,280,0,280,280,280,120,0,0,0,40,0,0,0,0
+switch,40,40,742,280,280,280,0,462,280,280,80,0,0,0,40,0,0,0,0
+ternary,40,40,360,200,200,200,0,160,200,200,40,0,0,0,40,0,0,0,0

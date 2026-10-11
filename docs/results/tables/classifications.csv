@@ -1,0 +1,7 @@
+classification,label,cases
+complete_agreement,Agreement,0
+known_convention_difference,Known convention,264
+unresolved_disagreement,Unresolved,56
+probable_incorrect_coverage_report,Probable incorrect,0
+unstable_or_non_reproducible,Unstable,0
+pipeline_failure,Pipeline failure,0
