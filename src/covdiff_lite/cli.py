@@ -13,6 +13,7 @@ from .issues import reproduce_issues
 from .experiment import run_experiment
 from .controls import run_layout_controls
 from .review import review_analysis
+from .report import generate_report
 
 
 def main(argv=None) -> int:
@@ -48,6 +49,13 @@ def main(argv=None) -> int:
     review = commands.add_parser('review', help='Audit raw evidence and group unresolved source mappings')
     review.add_argument('--analysis', type=Path, required=True)
     review.add_argument('--output', type=Path, required=True, help='New JSON file in an existing directory')
+    report = commands.add_parser('report', help='Bundle saved coverage evidence into an offline HTML dashboard')
+    report.add_argument('--analysis', type=Path, required=True)
+    report.add_argument('--output', type=Path, required=True, help='New directory; measurements are read only')
+    report.add_argument('--review', type=Path, help='Matching saved review overlay')
+    report.add_argument('--documented-issues', type=Path, help='Separate documented-issue analysis directory')
+    report.add_argument('--layout-controls', type=Path, help='Separate paired-layout experiment directory')
+    report.add_argument('--layout-review', type=Path, help='Matching layout review overlay')
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -70,6 +78,11 @@ def main(argv=None) -> int:
             report = review_analysis(args.analysis, args.output)
             print(json.dumps({k: v for k, v in report.items() if k not in ('reviews', 'raw_count_disagreements')}, indent=2))
             return 1 if report['cases_requiring_further_inspection'] else 0
+        if args.command == 'report':
+            result = generate_report(args.analysis, args.output, args.review, args.documented_issues,
+                                     args.layout_controls, args.layout_review)
+            print(json.dumps(result, indent=2))
+            return 0
         if args.command == 'layout-controls':
             report = run_layout_controls(args.dataset, args.output)
             print(json.dumps({k: v for k, v in report.items() if k != 'results'}, indent=2))

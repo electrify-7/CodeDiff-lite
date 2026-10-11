@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>@@TITLE@@ · CovDiff-Lite</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#case-detail">Skip to coverage comparison</a>
+  <header class="masthead"><div class="brand"><span class="brand-icon" aria-hidden="true">C<span>Δ</span></span><div><strong>CovDiff-Lite</strong><span class="eyebrow">Coverage tool observatory</span></div></div><span class="offline"><i aria-hidden="true"></i> Offline report</span></header>
+  <main>
+    <nav id="suite-tabs" class="tabs" aria-label="Experiment datasets"></nav>
+    <section class="overview" aria-labelledby="overview-title"><div><p class="eyebrow">Oracle-guided differential testing</p><h1 id="overview-title">Coverage, compared.</h1><p id="overview-note" class="muted"></p></div><div id="tool-versions" class="version-block"></div></section>
+    <div id="metrics" class="metrics" aria-label="Dataset metrics"></div>
+    <div id="status-strip" class="status-strip" aria-label="Case classifications"></div>
+    <div class="workspace">
+      <aside class="browser" aria-labelledby="cases-title">
+        <div class="browser-heading"><h2 id="cases-title">Explore cases</h2><span id="case-counter" class="small muted" aria-live="polite"></span></div>
+        <label class="search-label" for="search">Search cases</label><input id="search" type="search" placeholder="Case ID, family, or source…" autocomplete="off">
+        <div class="filters"><label>Construct<select id="family-filter"><option value="">All constructs</option></select></label><label>Classification<select id="class-filter"><option value="">All classifications</option></select></label><label>Findings involving<select id="tool-filter"><option value="">Either tool</option><option value="gcov">gcov</option><option value="llvm-cov">llvm-cov</option></select></label><button id="reset" class="quiet">Reset filters</button></div>
+        <div id="case-list" class="case-list" aria-label="Filtered cases"></div>
+      </aside>
+      <article id="case-detail" class="detail" tabindex="-1">
+        <div id="empty-state" class="empty" hidden><h2>No matching cases</h2><p>Adjust the filters to explore this dataset.</p></div>
+        <div id="case-content">
+          <header class="case-heading"><div><p id="case-family" class="eyebrow"></p><h2 id="case-title"></h2><div id="case-badges" class="badges"></div></div><a id="source-link" class="button secondary" download>Download C source</a></header>
+          <p id="case-explanation" class="case-explanation"></p>
+          <div class="source-toolbar"><div class="segmented" aria-label="Source line display"><button id="all-lines" aria-pressed="true">All source</button><button id="findings-only" aria-pressed="false">Findings only</button></div><label>Coverage collection <select id="repeat-select"></select></label><span id="statement-score" class="small muted"></span></div>
+          <div id="legend" class="legend"><span><i class="dot mismatch"></i>Oracle contradiction</span><span><i class="dot unresolved"></i>Unresolved mapping</span><span><i class="dot convention"></i>Known convention</span><span><i class="dot matched"></i>Oracle agreement</span></div>
+          <div class="source-scroll"><table class="source-table"><thead><tr><th scope="col">Line</th><th scope="col">C source</th><th scope="col">Expected</th><th scope="col">gcov</th><th scope="col">llvm-cov</th><th scope="col">Assessment</th></tr></thead><tbody id="source-body"></tbody></table></div>
+          <p id="line-counter" class="small muted source-footnote" aria-live="polite"></p>
+          <section id="pair-panel" class="subsection" hidden><h3>Paired layout control</h3><p id="pair-note"></p><div id="pair-links" class="badges"></div><div class="table-scroll"><table class="pair-table"><thead><tr><th>Statement ID</th><th>Expected</th><th>Parent gcov / LLVM</th><th>Variant gcov / LLVM</th><th>Check</th></tr></thead><tbody id="pair-body"></tbody></table></div></section>
+          <section class="subsection"><div class="section-heading"><h3>Functional witness &amp; repeatability</h3><span id="repeat-status" class="small"></span></div><div id="outputs" class="outputs"></div><div id="repeat-history" class="repeat-history"></div><div id="errors"></div></section>
+          <section class="subsection"><h3>Review &amp; interpretation</h3><p id="review-status"></p><div id="review-notes"></div><p id="issue-note"></p></section>
+          <section class="subsection"><div class="section-heading"><h3>Reproduce this case</h3><button id="copy-command" class="button secondary">Copy command</button></div><p class="small muted">Run from the repository root with Docker available. Use a new output directory. If you move this report folder, update the manifest path.</p><label class="sr-only" for="reproduction-command">Reproduction command</label><textarea id="reproduction-command" readonly rows="3" spellcheck="false"></textarea><p id="copy-status" class="small muted" aria-live="polite"></p></section>
+          <details class="subsection"><summary>Branch evidence · semantic comparison deferred</summary><p class="small muted">Semantic oracle outcomes and raw tool counters are retained below. They are not aligned or scored; comparable branch outcomes are zero.</p><pre id="branch-evidence" class="raw-data"></pre></details>
+          <details class="subsection"><summary>Evidence &amp; provenance</summary><p id="provenance-note" class="small muted"></p><div id="evidence-links" class="evidence-links"></div><pre id="provenance" class="raw-data"></pre></details>
+        </div>
+      </article>
+    </div>
+    <footer><strong>CovDiff-Lite</strong><p>Finite deterministic C templates · C11 / -O0 · Tool-specific mappings stay visible · Missing coverage is never zero</p><div id="dataset-evidence" class="evidence-links"></div></footer>
+  </main>
+  <noscript><p class="empty">Enable JavaScript to explore this offline report. Source files and JSON evidence are bundled in the evidence folder. No server or internet connection is required.</p></noscript>
+  <script id="report-data" type="application/json">@@DATA@@</script>
+</body>
+</html>

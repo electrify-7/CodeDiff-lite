@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "purpose": "offline_dashboard_validation",
+  "date": "2026-10-11",
+  "report_directory": "runs/offline-dashboard",
+  "report": {
+    "asset_sha256": {
+      "dashboard.css": "cfe25dfe08595a6be4f8adea7eeabda4fc3c430955f0dfe51b6c7152cfb334a4",
+      "dashboard.js": "f4e22f928c220a304d81a0541e2e357e27d5dbe9437608cfffdb6260c7fb4fd7",
+      "index.html": "7b5b3da907a5e384c2266b291f3e6fa6261cc7ab1c171f158b7c1922455fc5e7"
+    },
+    "evidence_files": 27079,
+    "index": "index.html",
+    "input_summary_sha256": {
+      "issues": "9c7f72f833e90b0b2a87cd50394fa5f022a9b6f5180cade76cc6acefb84c57c9",
+      "layout": "3a8671192a6768aebfbf2bb519092abc611247e133a528fa572fddcb8966f045",
+      "main": "92c447b2e94ec8ce0f14f390c105f846ea9a96e511d8762f0e42c061535d9d04"
+    },
+    "measurement_data_changed": false,
+    "purpose": "offline_coverage_dashboard",
+    "schema_version": 1,
+    "suites": [
+      {
+        "cases": 320,
+        "id": "main",
+        "label": "Main experiment"
+      },
+      {
+        "cases": 4,
+        "id": "issues",
+        "label": "Documented issues"
+      },
+      {
+        "cases": 32,
+        "id": "layout",
+        "label": "Layout controls"
+      }
+    ]
+  },
+  "bundled_evidence_files_verified_byte_for_byte": 27079,
+  "runtime_dependencies": "Python standard library; browser assets local; no server required",
+  "measurement_rerun_for_dashboard": false,
+  "original_classifications_changed": false,
+  "tests": {
+    "command": "bash scripts/env.sh test",
+    "passed": 70,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser_checks": {
+    "browser": "Firefox 147.0.1",
+    "opened_via": "file://",
+    "checks_passed": [
+      "main dataset totals remain separate",
+      "review overlay is current",
+      "family filter",
+      "findings filter",
+      "repeat selector updates evidence links",
+      "empty search",
+      "documented issues stay separate",
+      "documented zero-versus-two symptom highlighted",
+      "deep source link selects exact case and line",
+      "reproduction command uses bundled manifest",
+      "corrective control stays visible",
+      "layout totals and pair table",
+      "pair links select layout variant",
+      "tool filter",
+      "branches are explicitly unscored",
+      "mobile page has no horizontal overflow"
+    ]
+  },
+  "synthetic_browser_checks": [
+    "failed: HTML-looking source is text",
+    "failed tool is unavailable, not zero",
+    "unstable: HTML-looking source is text",
+    "unstable case is labelled",
+    "unstable repeat displays changed count",
+    "copy command has feedback or selected-text fallback"
+  ]
+}

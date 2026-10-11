@@ -11,6 +11,7 @@ from pathlib import Path
 from .analysis import run_analysis
 from .generator import generate_dataset
 from .io import write_json
+from .report import generate_report
 
 
 def load_config(path: Path) -> dict:
@@ -72,5 +73,11 @@ def run_experiment(config_path: Path, output: Path) -> dict:
         'comparable_lines': analysis['comparable_lines'],
         'branches': analysis['branches'],
     }
+    write_json(output / 'experiment.json', summary)
+    report_started = time.monotonic()
+    report = generate_report(output / 'analysis', output / 'report')
+    summary['report_seconds'] = time.monotonic() - report_started
+    summary['html_report'] = str(Path('report') / report['index'])
+    summary['resource_measurement_scope'] = 'generation_and_analysis_before_html_report'
     write_json(output / 'experiment.json', summary)
     return summary
