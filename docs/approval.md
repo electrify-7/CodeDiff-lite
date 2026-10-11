@@ -29,3 +29,15 @@ The user instructed:
 > okay begin with the 320 program main coverage experiment (after you've made sure current progress has been committed). Then continue with the 2nd step of reviweing the findings and running paired layout controls
 
 This authorizes the main coverage run, findings review, and paired layout controls. Existing progress was committed and the working tree clean before the main run. Results are committed separately from the subsequent review/control implementation.
+
+## 2026-10-11 publication and final workflow
+
+The user instructed:
+
+> okay make sure this is commited, then proceed with offline HTML dashboard
+
+and then:
+
+> okay continue with empirical analysis and integrate the final one command pipeline
+
+This authorizes the offline dashboard, empirical interpretation and figures, complete pipeline integration, and verification of the delivered workflow. The 320-program study remains frozen; an additional 48-program corpus is used only for end-to-end implementation validation and demonstration. These instructions record user authorization and do not assert separate instructor approval.

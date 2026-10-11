@@ -12,6 +12,8 @@ from .analysis import run_analysis
 from .generator import generate_dataset
 from .io import write_json
 from .report import generate_report
+from .empirical import generate_empirical
+from .figures import require_matplotlib
 
 
 def load_config(path: Path) -> dict:
@@ -40,8 +42,10 @@ def cgroup_value(name: str):
         return None
 
 
-def run_experiment(config_path: Path, output: Path) -> dict:
+def run_experiment(config_path: Path, output: Path, publish=True) -> dict:
     config = load_config(config_path)
+    if publish:
+        require_matplotlib()
     output.mkdir(parents=True, exist_ok=False)
     write_json(output / 'config.json', config)
     started = time.monotonic()
@@ -74,10 +78,15 @@ def run_experiment(config_path: Path, output: Path) -> dict:
         'branches': analysis['branches'],
     }
     write_json(output / 'experiment.json', summary)
-    report_started = time.monotonic()
-    report = generate_report(output / 'analysis', output / 'report')
-    summary['report_seconds'] = time.monotonic() - report_started
-    summary['html_report'] = str(Path('report') / report['index'])
-    summary['resource_measurement_scope'] = 'generation_and_analysis_before_html_report'
+    if publish:
+        empirical_started = time.monotonic()
+        empirical = generate_empirical(output / 'analysis', output / 'empirical', dashboard_href='../report/index.html')
+        summary['empirical_seconds'] = time.monotonic() - empirical_started
+        summary['empirical_report'] = str(Path('empirical') / empirical['index'])
+        report_started = time.monotonic()
+        report = generate_report(output / 'analysis', output / 'report', empirical=output / 'empirical')
+        summary['report_seconds'] = time.monotonic() - report_started
+        summary['html_report'] = str(Path('report') / report['index'])
+    summary['resource_measurement_scope'] = 'generation_and_analysis_before_publication'
     write_json(output / 'experiment.json', summary)
     return summary

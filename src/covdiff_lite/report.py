@@ -182,7 +182,7 @@ def load_suite(path, identifier, label, review_path=None):
 
 def generate_report(analysis: Path, output: Path, review: Path | None = None,
                     documented_issues: Path | None = None, layout_controls: Path | None = None,
-                    layout_review: Path | None = None) -> dict:
+                    layout_review: Path | None = None, empirical: Path | None = None) -> dict:
     output = output.resolve()
     if output.exists():
         raise FileExistsError(output)
@@ -207,7 +207,22 @@ def generate_report(analysis: Path, output: Path, review: Path | None = None,
                                                       '--output', 'runs/reproduced-' + case['case_id']])
         suites.append(suite)
         files.extend(retained)
-    data = {'schema_version': 1, 'suites': suites, 'branch_mapping': 'not_implemented'}
+    empirical_metrics = None
+    if empirical:
+        if output.is_relative_to(empirical.resolve()) or any(p.is_symlink() for p in empirical.rglob('*')):
+            raise ValueError('Empirical bundle must be regular files outside the report output')
+        empirical_metrics = read_json(empirical / 'metrics.json')
+        if empirical_metrics.get('schema_version') != 1:
+            raise ValueError('Unsupported empirical metrics schema')
+        recorded = empirical_metrics['input_evidence_sha256']
+        for path, identifier, _, _ in requests:
+            digest = hashlib.sha256((analysis_directory(path) / 'summary.json').read_bytes()).hexdigest()
+            if recorded.get(f'evidence/{identifier}/summary.json') != digest:
+                raise ValueError('Empirical analysis does not match dashboard measurements')
+        if {s['id'] for s in empirical_metrics['suites']} != {s['id'] for s in suites}:
+            raise ValueError('Empirical and dashboard datasets differ')
+    data = {'schema_version': 1, 'suites': suites, 'branch_mapping': 'not_implemented',
+            'empirical_link': 'empirical/index.html' if empirical else None}
     # Validate assets before creating output so missing packaged resources leave no partial bundle.
     template = (ASSETS / 'index.html').read_text()
     for name in ('dashboard.css', 'dashboard.js'):
@@ -222,6 +237,15 @@ def generate_report(analysis: Path, output: Path, review: Path | None = None,
         shutil.copyfile(ASSETS / name, output / name)
     rendered = template.replace('@@TITLE@@', html.escape(suites[0]['label'])).replace('@@DATA@@', script_json(data))
     (output / 'index.html').write_text(rendered)
+    if empirical:
+        from .empirical import write_analysis_pages, write_publication_manifest
+        from .figures import read_table
+        copied = output / 'empirical'
+        shutil.copytree(empirical, copied)
+        empirical_metrics['dashboard_href'] = '../index.html'
+        write_json(copied / 'metrics.json', empirical_metrics)
+        write_analysis_pages(copied, empirical_metrics, read_table(copied / 'tables/pipeline-stages.csv'))
+        write_publication_manifest(copied)
     result = {'schema_version': 1, 'purpose': 'offline_coverage_dashboard', 'index': 'index.html',
         'suites': [{'id': s['id'], 'label': s['label'], 'cases': len(s['cases'])} for s in suites],
         'evidence_files': len(files), 'measurement_data_changed': False,
@@ -229,5 +253,7 @@ def generate_report(analysis: Path, output: Path, review: Path | None = None,
                                  for path, identifier, _, _ in requests},
         'asset_sha256': {name: hashlib.sha256((output / name).read_bytes()).hexdigest()
                          for name in ('index.html', 'dashboard.css', 'dashboard.js')}}
+    if empirical:
+        result['empirical_index'] = 'empirical/index.html'
     write_json(output / 'report.json', result)
     return result

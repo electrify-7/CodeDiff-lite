@@ -14,6 +14,9 @@ from .experiment import run_experiment
 from .controls import run_layout_controls
 from .review import review_analysis
 from .report import generate_report
+from .empirical import generate_empirical
+from .figures import plot_tables
+from .pipeline import run_pipeline
 
 
 def main(argv=None) -> int:
@@ -56,6 +59,21 @@ def main(argv=None) -> int:
     report.add_argument('--documented-issues', type=Path, help='Separate documented-issue analysis directory')
     report.add_argument('--layout-controls', type=Path, help='Separate paired-layout experiment directory')
     report.add_argument('--layout-review', type=Path, help='Matching layout review overlay')
+    report.add_argument('--empirical', type=Path, help='Matching empirical tables and figures to bundle')
+    empirical = commands.add_parser('empirical', help='Derive empirical tables, analysis and figures from saved evidence')
+    empirical.add_argument('--analysis', type=Path, required=True)
+    empirical.add_argument('--output', type=Path, required=True)
+    empirical.add_argument('--review', type=Path)
+    empirical.add_argument('--documented-issues', type=Path)
+    empirical.add_argument('--layout-controls', type=Path)
+    empirical.add_argument('--layout-review', type=Path)
+    plots = commands.add_parser('plots', help='Regenerate publication figures from retained CSV inputs')
+    plots.add_argument('--tables', type=Path, required=True)
+    plots.add_argument('--output', type=Path, required=True)
+    pipeline = commands.add_parser('pipeline', help='Run the complete experiment, issue/control checks, audits and publication')
+    pipeline.add_argument('--config', type=Path, default=Path('configs/main.json'))
+    pipeline.add_argument('--output', type=Path, required=True)
+    pipeline.add_argument('--issue-fixtures', type=Path, default=Path('fixtures/issues'))
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -80,9 +98,21 @@ def main(argv=None) -> int:
             return 1 if report['cases_requiring_further_inspection'] else 0
         if args.command == 'report':
             result = generate_report(args.analysis, args.output, args.review, args.documented_issues,
-                                     args.layout_controls, args.layout_review)
+                                     args.layout_controls, args.layout_review, args.empirical)
             print(json.dumps(result, indent=2))
             return 0
+        if args.command == 'empirical':
+            result = generate_empirical(args.analysis, args.output, args.review, args.documented_issues,
+                                        args.layout_controls, args.layout_review)
+            print(json.dumps(result, indent=2))
+            return 0
+        if args.command == 'plots':
+            print(json.dumps(plot_tables(args.tables, args.output), indent=2))
+            return 0
+        if args.command == 'pipeline':
+            result = run_pipeline(args.config, args.output, args.issue_fixtures)
+            print(json.dumps(result, indent=2))
+            return 0 if result['checks_passed'] else 1
         if args.command == 'layout-controls':
             report = run_layout_controls(args.dataset, args.output)
             print(json.dumps({k: v for k, v in report.items() if k != 'results'}, indent=2))
