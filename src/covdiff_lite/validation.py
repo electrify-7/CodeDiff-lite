@@ -26,6 +26,9 @@ def validate_oracles(fixtures: Path, output: Path) -> dict:
         directory.mkdir()
         renderer = Renderer(manifest['family'], manifest['parameters'], trace=True)
         twin = renderer.render(build_program(manifest['family'], manifest['parameters']))
+        if 'layout_control' in manifest:
+            from .layout import transform_braces
+            twin, _, _ = transform_braces(twin, renderer.roles)
         source = directory / 'trace.c'
         source.write_text(twin)
         checks = []

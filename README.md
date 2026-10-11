@@ -71,7 +71,7 @@ bash scripts/env.sh calibrate --fixtures runs/generated-pilot/cases --output run
 
 Generation itself requires only Python; `PYTHONPATH=src python3 -m covdiff_lite generate ...` works without Docker. The default is 40 cases per family (320 total), but generating a corpus does not execute a coverage experiment. Every output directory must be new. See [docs/generator-oracle.md](docs/generator-oracle.md) for the reviewed subset, semantic oracle and validation boundaries.
 
-Automatic discrepancy classification and clean repeats, documented issue reproduction, the main experiment, the visual report, and reduction are later stages. Original measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
+Discrepancy classification, clean repeats, documented issue reproduction, the main experiment, and paired layout controls are complete. The visual report and final empirical analysis remain; reduction is optional. Original measured results are in [docs/step12-results.md](docs/step12-results.md), and fixture semantics are described in [fixtures/README.md](fixtures/README.md).
 
 ## Analyze discrepancies
 
@@ -98,4 +98,13 @@ bash scripts/env.sh experiment --config configs/pilot.json --output runs/pilot-n
 
 The 40-program pilot passed all execution and oracle checks: 263 comparable statements, no oracle contradictions, 34 cases with explained mappings and six with unresolved header mappings. All 40 were stable across three runs. See [pilot results and measurements](docs/pilot-results.md).
 
-The 320-program main coverage experiment is complete: all programs passed, 2,101 comparable statements matched their oracles, and all repeated results were stable. See [main results](docs/main-results.md). Review and paired layout controls are the next stage. Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting remains to be implemented. All 55 tests pass in the pinned image.
+The 320-program main coverage experiment is complete: all programs passed, 2,101 comparable statements matched their oracles, and all repeated results were stable. See [main results](docs/main-results.md). All main findings have been reviewed, and 16 paired layout controls preserve statement counts while exposing layout-dependent mappings. See [findings review](docs/findings-review.md) and [layout controls](docs/layout-controls.md). Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting remains to be implemented. All 64 tests pass in the pinned image.
+
+## Audit findings and run layout controls
+
+```bash
+bash scripts/env.sh review --analysis runs/main/analysis --output runs/main-reviewed-new.json
+bash scripts/env.sh layout-controls --dataset runs/main/dataset --output runs/layout-controls-new
+```
+
+The audit checks saved raw evidence and preserves original classifications. Layout controls compare 16 semantic pairs (32 programs) with identical C tokens and behavior but different brace placement. All 16 pairs pass statement-count checks; all change mapping totals. Output paths must be new. The remaining core work is offline HTML reporting, final empirical figures/analysis, and the demonstration.

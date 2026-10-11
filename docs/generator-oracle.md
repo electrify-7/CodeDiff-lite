@@ -30,11 +30,11 @@ Measured on 2026-10-10 in the existing pinned testing image:
 
 - The 40-case pilot corpus (five cases per family, seed `20261009`) had 40/40 matching GCC and Clang trace validations.
 - Its unmodified sources had 40/40 calibration passes and 263 comparable statement lines, with no pipeline failures or statement-count contradictions.
-- A 320-case candidate corpus was generated, with 320 unique source hashes. It has not been used for the main coverage experiment.
+- A 320-case candidate corpus was generated, with 320 unique source hashes. At this stage it had not been used for the main coverage experiment.
 - All 320 candidate oracles also matched both compilers' execution traces (640 executions without coverage); these checks validate the generator, not the main coverage results.
 - All 34 framework tests passed in Docker, including three real-tool integration tests; no tests were skipped there.
 - Repeated generation is byte-identical; the complete manifest is checked when cases load.
 
 Pilot artifacts are in `runs/generator-pilot/`, `runs/generator-pilot-oracle/` and `runs/generator-pilot-coverage/`. Candidate corpus artifacts are in `runs/generator-main/`. These local run artifacts are ignored by Git; the model, templates, interpreter, renderer, CLI and tests are committed.
 
-The generator/oracle does not provide semantic alignment of GCC control-flow arcs with LLVM branch regions. Discrepancy classification, clean confirmation runs and convention rules were subsequently implemented; see [discrepancy analysis](discrepancy-analysis.md) and [the completed pilot](pilot-results.md). The final main experiment remains deferred as instructed by the user.
+The generator/oracle does not provide semantic alignment of GCC control-flow arcs with LLVM branch regions. Discrepancy classification, clean confirmation runs and convention rules were subsequently implemented; see [discrepancy analysis](discrepancy-analysis.md) and [the completed pilot](pilot-results.md). The main experiment was subsequently completed on 2026-10-11; see [main results](main-results.md).

@@ -72,6 +72,10 @@ def selected_parameters(family: str, per_family: int, seed: int) -> list[dict]:
 
 
 def validate_generated_manifest(manifest: dict, source: str) -> None:
+    if 'layout_control' in manifest:
+        from .layout import validate_layout_manifest
+        validate_layout_manifest(manifest, source)
+        return
     if manifest.get('generator_version') != GENERATOR_VERSION or manifest.get('template_version') != TEMPLATE_VERSION:
         raise ValueError('Unsupported generator/template version')
     rebuilt_source, rebuilt_manifest = make_case(manifest['family'], manifest['parameters'], manifest['seed'])

@@ -11,6 +11,8 @@ from .validation import validate_oracles
 from .analysis import run_analysis
 from .issues import reproduce_issues
 from .experiment import run_experiment
+from .controls import run_layout_controls
+from .review import review_analysis
 
 
 def main(argv=None) -> int:
@@ -40,6 +42,12 @@ def main(argv=None) -> int:
     experiment = commands.add_parser('experiment', help='Generate and analyze a frozen experiment configuration')
     experiment.add_argument('--config', type=Path, required=True)
     experiment.add_argument('--output', type=Path, required=True)
+    layout = commands.add_parser('layout-controls', help='Run 16 source-layout pairs from a frozen dataset')
+    layout.add_argument('--dataset', type=Path, required=True)
+    layout.add_argument('--output', type=Path, required=True)
+    review = commands.add_parser('review', help='Audit raw evidence and group unresolved source mappings')
+    review.add_argument('--analysis', type=Path, required=True)
+    review.add_argument('--output', type=Path, required=True, help='New JSON file in an existing directory')
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -58,6 +66,14 @@ def main(argv=None) -> int:
             summary = validate_oracles(args.fixtures, args.output)
             print(f"{summary['passed']}/{summary['cases']} oracles matched both C execution traces")
             return 0 if summary['passed'] == summary['cases'] else 1
+        if args.command == 'review':
+            report = review_analysis(args.analysis, args.output)
+            print(json.dumps({k: v for k, v in report.items() if k not in ('reviews', 'raw_count_disagreements')}, indent=2))
+            return 1 if report['cases_requiring_further_inspection'] else 0
+        if args.command == 'layout-controls':
+            report = run_layout_controls(args.dataset, args.output)
+            print(json.dumps({k: v for k, v in report.items() if k != 'results'}, indent=2))
+            return 0 if report['pairs_passed'] == report['pairs'] else 1
         if args.command == 'experiment':
             summary = run_experiment(args.config, args.output)
             print(json.dumps(summary, indent=2))
