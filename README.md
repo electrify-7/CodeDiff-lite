@@ -98,4 +98,4 @@ bash scripts/env.sh experiment --config configs/pilot.json --output runs/pilot-n
 
 The 40-program pilot passed all execution and oracle checks: 263 comparable statements, no oracle contradictions, 34 cases with explained mappings and six with unresolved header mappings. All 40 were stable across three runs. See [pilot results and measurements](docs/pilot-results.md).
 
-The 320-program main configuration is ready in `configs/main.json`; its coverage experiment is deferred until tomorrow. Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting remains to be implemented. All 55 tests pass in the pinned image.
+The 320-program main coverage experiment is complete: all programs passed, 2,101 comparable statements matched their oracles, and all repeated results were stable. See [main results](docs/main-results.md). Review and paired layout controls are the next stage. Generation, validation, coverage collection, normalization, analysis, and CSV/JSON exports are available in one command. Offline HTML reporting remains to be implemented. All 55 tests pass in the pinned image.

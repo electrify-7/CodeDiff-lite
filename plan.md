@@ -4,7 +4,7 @@
 
 This plan develops the proposal in [project.md](project.md). **The user authorized steps 1 and 2 on 2026-10-09:** the testing environment and handwritten coverage pipeline. That scoped instruction is recorded in [docs/approval.md](docs/approval.md); it does not assert separate instructor approval. Implementation status and validated results are recorded in [docs/step12-results.md](docs/step12-results.md). The remaining sections describe the full project, including pending work.
 
-On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md); the analyzer and its validation are recorded in [docs/discrepancy-analysis.md](docs/discrepancy-analysis.md). The pilot is complete; see [docs/pilot-results.md](docs/pilot-results.md). The main coverage experiment is explicitly deferred until tomorrow.
+On 2026-10-10 the user authorized the generator/oracle, discrepancy analysis, documented problem reproduction, and the pilot, with a commit after each stage. Generator/oracle progress is recorded in [docs/generator-oracle.md](docs/generator-oracle.md); the analyzer and its validation are recorded in [docs/discrepancy-analysis.md](docs/discrepancy-analysis.md). The pilot is complete; see [docs/pilot-results.md](docs/pilot-results.md). The main coverage experiment was subsequently authorized and completed on 2026-10-11; see [docs/main-results.md](docs/main-results.md).
 
 After approval, record the approving person, approval date, approved scope, and a reference to the written approval. The three-week schedule starts at that point; the days below are project workdays rather than fixed calendar dates.
 
@@ -154,7 +154,7 @@ Use a case roll-up order of unstable, pipeline failure, probable incorrect repor
 
 ## 7. Experiments to run on this machine
 
-E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E2 is complete with 40 valid pilot programs and three stable runs per case; E5 reproduces two documented patterns with a corrective control. E3–E4 and E6–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
+E0 and E1 have now been run for the authorized first two steps; see [docs/step12-results.md](docs/step12-results.md). E2 is complete with 40 valid pilot programs and three stable runs per case; E5 reproduces two documented patterns with a corrective control. E3–E4 are complete with 320 valid main cases and three stable runs per case; E6–E7 remain planned. Carry out further experiments in the pinned container as their implementation is authorized and completed.
 
 | ID | Experiment | Size / conditions | Evidence and purpose |
 | --- | --- | --- | --- |
@@ -274,7 +274,7 @@ Link local raw reports and manifests, escape generated source and output for HTM
 The implemented JSON/CSV experiment interface is:
 
 ```bash
-# Main coverage experiment: deferred until tomorrow.
+# Main experiment completed; use a new directory for a subsequent run.
 bash scripts/env.sh experiment --config configs/main.json --output runs/main
 bash scripts/env.sh analyze --case runs/main/analysis/cases/<case-id>/manifest.json --output runs/replay
 ```
@@ -307,4 +307,4 @@ After the pilot, freeze schema, template versions, source dataset and convention
 
 If branch mapping remains ambiguous by Day 10, report branch results as unavailable and finish the line study. If reduction is attempted, remove template blocks or simplify parameters, regenerate and revalidate the oracle, and require the same trusted mismatch to persist across fresh runs; line-number changes alone must not satisfy the reduction predicate. Prefer a reviewed manual reproducer when automatic reduction cannot preserve program validity or oracle confidence.
 
-The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. The environment, handwritten calibration, generator/oracle, discrepancy analysis, two documented patterns, and 40-case pilot have implementation and results. The main experiment, HTML report, empirical analysis/figures, paired layout controls, and final demonstration remain; the full project is not complete.
+The core is done when the approved one-command pipeline processes the chosen 200–500-case main dataset, preserves auditable evidence, checks both tools against the oracle, confirms suspicious cases, and produces a usable offline report and empirical analysis. Record explicitly whether two documented issues were successfully reproduced and whether branch mapping or reduction was completed. The environment, handwritten calibration, generator/oracle, discrepancy analysis, two documented patterns, and 40-case pilot have implementation and results. The main experiment and repeatability checks are also complete. Findings review, paired layout controls, HTML reporting, final empirical analysis/figures, and the demonstration remain; the full project is not complete.

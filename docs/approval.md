@@ -21,3 +21,11 @@ The user subsequently added:
 > after commiting the discrepancy analysis update, move to step 3 and step 4 as well. WE will do main experiment tomorrow, commit after each step
 
 The authorized sequence is generator/oracle, discrepancy analysis, documented problem reproduction, and the 40-case pilot, with a commit after each stage. The main coverage experiment is deferred until tomorrow. Creating or checking a candidate corpus does not constitute the main coverage experiment.
+
+## 2026-10-11 main experiment and controls
+
+The user instructed:
+
+> okay begin with the 320 program main coverage experiment (after you've made sure current progress has been committed). Then continue with the 2nd step of reviweing the findings and running paired layout controls
+
+This authorizes the main coverage run, findings review, and paired layout controls. Existing progress was committed and the working tree clean before the main run. Results are committed separately from the subsequent review/control implementation.
