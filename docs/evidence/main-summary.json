@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-11",
+  "implementation_commit": "c2842c5",
+  "artifact_directory": "runs/main",
+  "experiment": {
+    "analysis_seconds": 130.43082821927965,
+    "artifact_allocated_bytes_before_summary": 240574464,
+    "artifact_files_before_summary": 38730,
+    "artifact_logical_bytes_before_summary": 166837259,
+    "branches": {
+      "comparable_outcomes": 0,
+      "mapping_status": "not_implemented"
+    },
+    "cgroup_cpu_quota": "400000 100000",
+    "cgroup_memory_limit_bytes": "4294967296",
+    "cgroup_memory_peak_bytes": "425414656",
+    "classification_counts": {
+      "known_convention_difference": 264,
+      "unresolved_disagreement": 56
+    },
+    "comparable_lines": 2101,
+    "config": {
+      "control_fraction": 0.1,
+      "experiment_kind": "main",
+      "per_family": 40,
+      "schema_version": 1,
+      "seed": 20261010,
+      "workers": 1
+    },
+    "config_sha256": "a0de503a642f4405d01e1f5c8add5bff55ab1499f00afa42c809e87d981ec598",
+    "coverage_collections": 960,
+    "dataset_sha256": "7527bb52203bbf2309d75cf57b4375e303542b226fb5621ee7a39d7bfce74144",
+    "elapsed_seconds": 130.65962782409042,
+    "generation_seconds": 0.07547950511798263,
+    "host_load_average_end": [
+      1.537109375,
+      1.08203125,
+      0.9111328125
+    ],
+    "host_load_average_start": [
+      0.458984375,
+      0.73046875,
+      0.78173828125
+    ],
+    "maximum_individual_child_rss_kib": 88480,
+    "oracle_mismatches": {
+      "gcov": 0,
+      "llvm-cov": 0
+    },
+    "programs": 320,
+    "schema_version": 1,
+    "valid_first_pass_cases": 320
+  },
+  "analysis": {
+    "branches": {
+      "comparable_outcomes": 0,
+      "mapping_status": "not_implemented"
+    },
+    "cases": 320,
+    "classification_counts": {
+      "known_convention_difference": 264,
+      "unresolved_disagreement": 56
+    },
+    "comparable_lines": 2101,
+    "control_cases": 0,
+    "convention_rule_version": 1,
+    "coverage_collections": 960,
+    "elapsed_seconds": 130.43082821927965,
+    "families": {
+      "constants": {
+        "unresolved_disagreement": 40
+      },
+      "if_else": {
+        "known_convention_difference": 40
+      },
+      "loops": {
+        "known_convention_difference": 24,
+        "unresolved_disagreement": 16
+      },
+      "macros": {
+        "known_convention_difference": 40
+      },
+      "multiline": {
+        "known_convention_difference": 40
+      },
+      "short_circuit": {
+        "known_convention_difference": 40
+      },
+      "switch": {
+        "known_convention_difference": 40
+      },
+      "ternary": {
+        "known_convention_difference": 40
+      }
+    },
+    "known_convention_observations": 1051,
+    "mapping_differences": 1095,
+    "mean_first_pass_seconds": 0.11215522072452586,
+    "median_first_pass_seconds": 0.10452580521814525,
+    "oracle_mismatches": {
+      "gcov": 0,
+      "llvm-cov": 0
+    },
+    "p95_first_pass_seconds": 0.1481653731316328,
+    "raw_binary_disagreements": 25,
+    "raw_count_disagreements": 25,
+    "repeat_seconds": 70.92188975401223,
+    "schema_version": 1,
+    "valid_first_pass_cases": 320
+  },
+  "environment": {
+    "execution": "container",
+    "image_id": "sha256:9b1f71840f4946181ccb96fab2d12c933fcf1a0b05b2bc5210dc4a2622d6a641",
+    "image_reference": "covdiff-lite:testing",
+    "implementation_sha256": "b5c8196795625fa81bf16d3f7da966ef0a4afc8b8b8634d383f7c599b9c7387a"
+  },
+  "tools": {
+    "clang": "14.0.0",
+    "gcc": "11.4.0",
+    "gcov": "11.4.0",
+    "llvm_cov": "14.0.0",
+    "llvm_profdata": "14.0.0"
+  },
+  "family_metrics": {
+    "constants": {
+      "programs": 40,
+      "annotated_statements": 200,
+      "comparable_statements": 160,
+      "source_lines": 493,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 213,
+      "gcov_reported_oracle_locations": 160,
+      "llvm-cov_reported_oracle_locations": 200
+    },
+    "if_else": {
+      "programs": 40,
+      "annotated_statements": 261,
+      "comparable_statements": 261,
+      "source_lines": 604,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 162,
+      "gcov_reported_oracle_locations": 261,
+      "llvm-cov_reported_oracle_locations": 261
+    },
+    "loops": {
+      "programs": 40,
+      "annotated_statements": 280,
+      "comparable_statements": 280,
+      "source_lines": 520,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 80,
+      "gcov_reported_oracle_locations": 280,
+      "llvm-cov_reported_oracle_locations": 280
+    },
+    "macros": {
+      "programs": 40,
+      "annotated_statements": 360,
+      "comparable_statements": 360,
+      "source_lines": 760,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 200,
+      "gcov_reported_oracle_locations": 360,
+      "llvm-cov_reported_oracle_locations": 360
+    },
+    "multiline": {
+      "programs": 40,
+      "annotated_statements": 280,
+      "comparable_statements": 280,
+      "source_lines": 680,
+      "raw_binary_disagreements": 25,
+      "mapping_differences": 200,
+      "gcov_reported_oracle_locations": 280,
+      "llvm-cov_reported_oracle_locations": 280
+    },
+    "short_circuit": {
+      "programs": 40,
+      "annotated_statements": 280,
+      "comparable_statements": 280,
+      "source_lines": 560,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 120,
+      "gcov_reported_oracle_locations": 280,
+      "llvm-cov_reported_oracle_locations": 280
+    },
+    "switch": {
+      "programs": 40,
+      "annotated_statements": 280,
+      "comparable_statements": 280,
+      "source_lines": 742,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 80,
+      "gcov_reported_oracle_locations": 280,
+      "llvm-cov_reported_oracle_locations": 280
+    },
+    "ternary": {
+      "programs": 40,
+      "annotated_statements": 200,
+      "comparable_statements": 200,
+      "source_lines": 360,
+      "raw_binary_disagreements": 0,
+      "mapping_differences": 40,
+      "gcov_reported_oracle_locations": 200,
+      "llvm-cov_reported_oracle_locations": 200
+    }
+  },
+  "excluded_locations": {
+    "unscored_source_location": 2578,
+    "elided_constant_zero_statement": 40
+  },
+  "convention_rule_observations": {
+    "brace_line_attribution_v1": 866,
+    "constant_dead_body_elision_v1": 40,
+    "macro_definition_file_view_v1": 40,
+    "multiline_condition_attribution_v1": 105
+  },
+  "successful_command_stages_including_repeats": {
+    "gcov": {
+      "compile": 960,
+      "link": 960,
+      "execute": 960,
+      "extract": 960
+    },
+    "llvm-cov": {
+      "compile": 960,
+      "execute": 960,
+      "merge": 960,
+      "export": 960,
+      "show": 960
+    }
+  }
+}
