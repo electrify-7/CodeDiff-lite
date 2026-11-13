@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\caption{Comprehensive Empirical Evaluation Across Datasets and Compiler Toolchains}
+\label{tab:main_results}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Construct Family} & \textbf{Programs} & \textbf{Statements} & \textbf{Matching Statements} & \textbf{Branch Decisions} & \textbf{Aligned Agreements} & \textbf{Stability (3x)} \\
+\midrule
+\texttt{if\_else}               & 40 & 280 & 280 (100\%) & 80 & 80 (100\%) & 100\% \\
+\texttt{loops}                 & 40 & 240 & 240 (100\%) & 80 & 78 (97.5\%) & 100\% \\
+\texttt{switch}                & 40 & 320 & 320 (100\%) & 40 & 40 (100\%) & 100\% \\
+\texttt{short\_circuit}        & 40 & 240 & 240 (100\%) & 80 & 80 (100\%) & 100\% \\
+\texttt{multiline}             & 40 & 240 & 240 (100\%) & 80 & 79 (98.8\%) & 100\% \\
+\texttt{ternary}               & 40 & 200 & 200 (100\%) & 80 & 80 (100\%) & 100\% \\
+\texttt{macros}                & 40 & 320 & 320 (100\%) & 80 & 76 (95.0\%) & 100\% \\
+\texttt{constants}             & 40 & 261 & 261 (100\%) & 80 & 78 (97.5\%) & 100\% \\
+\midrule
+\textbf{Expanded Synthesis}    & 5,000 & 34,800 & 34,800 (100\%) & 10,200 & 9,986 (97.9\%) & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
