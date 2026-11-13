@@ -1,0 +1,14 @@
+\begin{table*}[t]
+\centering
+\caption{Cross-Compiler Discrepancy & CI Gate Impact on Production Open-Source C Systems}
+\label{tab:realworld_systems}
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Target System} & \textbf{Source Lines} & \textbf{GCC Mapped} & \textbf{GCC Cov (\%)} & \textbf{Clang Mapped} & \textbf{Clang Cov (\%)} & \textbf{Unmapped Line Gap} & \textbf{CI Gate Flip Conflict} \\
+\midrule
+\textbf{zlib} (\texttt{compress.c})      & 99      & 43     & 76.74\% & 58     & 75.86\% & +15 (+34.9\%)    & \textbf{Fails @ 76.0\%} (GCC Pass / Clang Fail) \\
+\textbf{cJSON} (\texttt{cJSON.c})        & 3,206   & 1,410  & 26.03\% & 2,299  & 23.49\% & +889 (+63.0\%)   & \textbf{Fails @ 24--26\%} (GCC Pass / Clang Fail) \\
+\textbf{SQLite} (\texttt{sqlite3.c})    & 255,932 & 46,527 & 19.30\% & 77,190 & 21.38\% & +30,663 (+65.9\%) & \textbf{Fails @ 20--21\%} (Clang Pass / GCC Fail) \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,19 @@
+\begin{table}[h]
+\centering
+\caption{30,000-Execution Differential Campaign Matrix Across Compiler Configurations}
+\label{tab:campaign_30k}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Compiler Configuration} & \textbf{Executions} & \textbf{Success Rate} & \textbf{Mapped Lines} & \textbf{Covered Lines (\%)} \\
+\midrule
+\texttt{GCC 11 (-O0)}           & 5,000 & 100.0\% & 43,763 & 40,536 (92.63\%) \\
+\texttt{GCC 11 (-Og)}           & 5,000 & 100.0\% & 39,332 & 38,720 (98.44\%) \\
+\texttt{GCC 11 (-O2)}           & 5,000 & 100.0\% & 39,052 & 38,440 (98.43\%) \\
+\texttt{Clang 14 (-O0)}         & 5,000 & 100.0\% & 59,550 & 52,071 (87.44\%) \\
+\texttt{Clang 14 (-Og)}         & 5,000 & 100.0\% & 59,550 & 52,071 (87.44\%) \\
+\texttt{Clang 14 (-O2)}         & 5,000 & 100.0\% & 59,550 & 52,071 (87.44\%) \\
+\midrule
+\textbf{Total Executions}       & \textbf{30,000} & \textbf{100.0\%} & \textbf{300,797} & \textbf{273,909 (91.06\%)} \\
+\bottomrule
+\end{tabular}
+\end{table}
