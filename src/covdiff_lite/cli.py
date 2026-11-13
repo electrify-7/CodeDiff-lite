@@ -17,6 +17,15 @@ from .report import generate_report
 from .empirical import generate_empirical
 from .figures import plot_tables
 from .pipeline import run_pipeline
+from .synthesis import generate_large_scale_corpus
+from .reduce import ProgramReducer, default_predicate
+from .optimization import run_optimization_sweep
+from .matrix import CompilerMatrix
+from .realworld import compare_realworld_reports
+from .downstream import evaluate_sbfl_impact
+from .audit import audit_coverage_gate
+from .cert import generate_mcdc_certificate
+from .dashboard import generate_dashboard_html, start_dashboard_server
 
 
 def main(argv=None) -> int:
@@ -74,6 +83,31 @@ def main(argv=None) -> int:
     pipeline.add_argument('--config', type=Path, default=Path('configs/main.json'))
     pipeline.add_argument('--output', type=Path, required=True)
     pipeline.add_argument('--issue-fixtures', type=Path, default=Path('fixtures/issues'))
+    synth = commands.add_parser('synthesize', help='Synthesize scaled corpus of diverse deterministic programs')
+    synth.add_argument('--output', type=Path, required=True)
+    synth.add_argument('--target-count', type=int, default=5000)
+    synth.add_argument('--seed', type=int, default=20261113)
+    red = commands.add_parser('reduce', help='Minimize candidate bug program using delta debugging')
+    red.add_argument('--source', type=Path, required=True)
+    red.add_argument('--expected-stdout', type=str, default='0\n')
+    red.add_argument('--expected-exit', type=int, default=0)
+    red.add_argument('--output', type=Path, required=True)
+    audit = commands.add_parser('audit', help='Audit PR or codebase for cross-compiler CI coverage gate flip risks')
+    audit.add_argument('--target', type=str, default='target.c')
+    audit.add_argument('--source', type=Path, required=True)
+    audit.add_argument('--gcc-report', type=Path, required=True)
+    audit.add_argument('--llvm-report', type=Path, required=True)
+    audit.add_argument('--threshold', type=float, default=75.0)
+    audit.add_argument('--output', type=Path)
+    dash = commands.add_parser('dashboard', help='Generate standalone interactive visual coverage dashboard')
+    dash.add_argument('--output', type=Path, default=Path('runs/dashboard/index.html'))
+    dash.add_argument('--serve', action='store_true', help='Start web server to host dashboard')
+    dash.add_argument('--port', type=int, default=8080, help='Port to bind the server (default: 8080)')
+    cert_p = commands.add_parser('cert', help='Generate formal DO-178C Level A / ISO 26262 ASIL-D MC/DC compliance certificate')
+    cert_p.add_argument('--software-name', type=str, default='SafetyCriticalModule')
+    cert_p.add_argument('--decisions-file', type=Path, required=True, help='JSON file containing decision structures and conditions')
+    cert_p.add_argument('--vectors-file', type=Path, required=True, help='JSON file containing dynamic test execution vectors')
+    cert_p.add_argument('--output', type=Path, help='Output path for certificate (.json or .md)')
     args = parser.parse_args(argv)
     try:
         if args.command == "doctor":
@@ -132,6 +166,48 @@ def main(argv=None) -> int:
             print(json.dumps({k: v for k, v in summary.items() if k not in ('results', 'families')}, indent=2))
             failed = any(r['classification'] in ('pipeline_failure', 'unstable_or_non_reproducible') for r in summary['results'])
             return 1 if failed else 0
+        if args.command == 'synthesize':
+            cases = generate_large_scale_corpus(args.target_count, args.seed)
+            args.output.mkdir(parents=True, exist_ok=True)
+            for source, manifest in cases:
+                (args.output / manifest['source']).write_text(source)
+                write_json(args.output / f"{manifest['case_id']}.json", manifest)
+            print(f"Synthesized {len(cases)} verified programs in {args.output}")
+            return 0
+        if args.command == 'reduce':
+            source_text = args.source.read_text()
+            pred = lambda s: default_predicate(s, args.expected_stdout, args.expected_exit)
+            reducer = ProgramReducer(pred)
+            result = reducer.reduce(source_text)
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(result.reduced_source)
+            print(json.dumps(result.to_dict(), indent=2))
+            return 0
+        if args.command == 'audit':
+            verdict = audit_coverage_gate(args.target, args.source, args.gcc_report, args.llvm_report, args.threshold)
+            if args.output:
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                write_json(args.output, verdict.to_dict())
+            print(verdict.markdown_report)
+            return 1 if verdict.verdict == "FLIP_RISK" else 0
+        if args.command == 'dashboard':
+            out = generate_dashboard_html(args.output)
+            print(f"Generated standalone interactive dashboard at {out}")
+            if getattr(args, 'serve', False):
+                start_dashboard_server(out, args.port)
+            return 0
+        if args.command == 'cert':
+            decisions = json.loads(args.decisions_file.read_text())
+            vectors = json.loads(args.vectors_file.read_text())
+            cert = generate_mcdc_certificate(args.software_name, decisions, vectors)
+            if args.output:
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                if str(args.output).endswith('.json'):
+                    write_json(args.output, cert.to_dict())
+                else:
+                    args.output.write_text(cert.to_markdown())
+            print(cert.to_markdown())
+            return 0 if cert.all_decisions_satisfied else 1
         summary = run_calibration(args.fixtures, args.output)
         print(f"{summary['passed']}/{summary['cases']} passed; {summary['comparable_lines']} comparable lines")
         print(f"Artifacts: {args.output}")

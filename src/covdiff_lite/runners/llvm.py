@@ -4,10 +4,12 @@ from ..parsers.llvm import parse_llvm
 from ..process import CommandRunner, StageError
 
 
-def run_llvm(source: Path, directory: Path, tools: dict, expected: dict) -> dict:
-    directory.mkdir()
+def run_llvm(source: Path, directory: Path, tools: dict, expected: dict, opt_level: str = "-O0") -> dict:
+    source = source.resolve()
+    directory = directory.resolve()
+    directory.mkdir(parents=True, exist_ok=True)
     runner = CommandRunner(directory)
-    runner.run("compile", [tools["clang"]["path"], "-std=c11", "-O0", "-g",
+    runner.run("compile", [tools["clang"]["path"], "-std=c11", opt_level, "-g",
                            "-fprofile-instr-generate", "-fcoverage-mapping",
                            "-Wall", "-Wextra", str(source), "-o", "case"], 30)
     output = runner.run("execute", [str(directory / "case")], 2,

@@ -11,6 +11,9 @@ def parse_gcov(path: Path, source: Path) -> dict:
     cwd = Path(report.get("current_working_directory", path.parent))
     matches = [item for item in report["files"]
                if (cwd / item["file"]).resolve() == source.resolve()]
+    if not matches:
+        matches = [item for item in report["files"]
+                   if Path(item["file"]).name == source.name]
     if len(matches) != 1:
         raise ValueError(f"Expected one gcov file record for {source}; found {len(matches)}")
     lines = {}

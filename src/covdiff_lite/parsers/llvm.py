@@ -51,6 +51,9 @@ def parse_llvm(path: Path, source: Path) -> dict:
         raise ValueError(f"Unsupported LLVM export schema: {report.get('type')} / {report.get('version')}")
     files = [item for data in report["data"] for item in data["files"]
              if Path(item["filename"]).resolve() == source.resolve()]
+    if not files:
+        files = [item for data in report["data"] for item in data["files"]
+                 if Path(item["filename"]).name == source.name]
     if len(files) != 1:
         raise ValueError(f"Expected one LLVM file record for {source}; found {len(files)}")
     item = files[0]

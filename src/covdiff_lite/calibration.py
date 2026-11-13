@@ -105,7 +105,7 @@ def validate_llvm_display(report: dict, display: str) -> dict:
             "summary_scope": summary_scope, "summary_counts": summary}
 
 
-def execute_case(manifest: dict, original: Path, directory: Path, tools: dict) -> dict:
+def execute_case(manifest: dict, original: Path, directory: Path, tools: dict, opt_level: str = "-O0") -> dict:
     """One independent build/profile collection; caller owns the new directory."""
     directory.mkdir(parents=True, exist_ok=False)
     source = directory / 'case.c'
@@ -115,7 +115,7 @@ def execute_case(manifest: dict, original: Path, directory: Path, tools: dict) -
     errors = []
     for name, runner in (('gcov', run_gcc), ('llvm-cov', run_llvm)):
         try:
-            reports[name] = runner(source, directory / name, tools, manifest['expected_output'])
+            reports[name] = runner(source, directory / name, tools, manifest['expected_output'], opt_level=opt_level)
         except (StageError, ValueError, OSError, KeyError, TypeError) as exc:
             errors.append({'tool': name, 'stage': getattr(exc, 'stage', 'parse'), 'message': str(exc)})
     display_check = None

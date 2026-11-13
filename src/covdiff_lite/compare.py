@@ -1,5 +1,6 @@
 """Compare every source observation while scoring only explicit oracle locations."""
 
+from .branch_alignment import align_all_branches
 from .calibration import MISSING
 from .conventions import explain
 
@@ -53,10 +54,11 @@ def compare_observations(manifest: dict, source: str, reports: dict, versions: d
                 row['findings'].append(finding)
         findings.extend(row['findings'])
         rows.append(row)
-    branches = {'mapping_status': 'not_implemented', 'comparable_outcomes': 0,
-                'gcov_arcs': sum(len(item.get('branches', [])) for item in reports.get('gcov', {}).get('lines', {}).values()),
-                'llvm_regions': len(reports.get('llvm-cov', {}).get('branches', [])),
-                'llvm_expansion_regions': sum(len(item.get('branches', [])) for item in reports.get('llvm-cov', {}).get('expansions', []))}
+    branches = align_all_branches(manifest, reports.get('gcov', {}), reports.get('llvm-cov', {}))
+    branches['gcov_arcs'] = sum(len(item.get('branches', [])) for item in reports.get('gcov', {}).get('lines', {}).values())
+    branches['llvm_regions'] = len(reports.get('llvm-cov', {}).get('branches', []))
+    branches['llvm_expansion_regions'] = sum(len(item.get('branches', [])) for item in reports.get('llvm-cov', {}).get('expansions', []))
+    branches['comparable_outcomes'] = branches.get('comparable_decisions', 0)
     return {'schema_version': 1, 'lines': rows, 'findings': findings, 'comparable_lines': comparable,
             'excluded_lines': len(rows) - comparable, 'raw_count_disagreements': raw_disagreements,
             'raw_binary_disagreements': binary_disagreements,

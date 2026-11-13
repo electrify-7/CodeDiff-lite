@@ -4,12 +4,14 @@ from ..parsers.gcov import parse_gcov
 from ..process import CommandRunner, StageError
 
 
-def run_gcc(source: Path, directory: Path, tools: dict, expected: dict) -> dict:
-    directory.mkdir()
+def run_gcc(source: Path, directory: Path, tools: dict, expected: dict, opt_level: str = "-O0") -> dict:
+    source = source.resolve()
+    directory = directory.resolve()
+    directory.mkdir(parents=True, exist_ok=True)
     runner = CommandRunner(directory)
-    runner.run("compile", [tools["gcc"]["path"], "-std=c11", "-O0", "-g", "--coverage",
+    runner.run("compile", [tools["gcc"]["path"], "-std=c11", opt_level, "-g", "--coverage",
                            "-Wall", "-Wextra", "-c", str(source), "-o", "case.o"], 30)
-    runner.run("link", [tools["gcc"]["path"], "-O0", "--coverage", "case.o", "-o", "case"], 30)
+    runner.run("link", [tools["gcc"]["path"], opt_level, "--coverage", "case.o", "-o", "case"], 30)
     output = runner.run("execute", [str(directory / "case")], 2,
                         expected_exit=expected["exit_code"])
     if output != expected["stdout"]:
