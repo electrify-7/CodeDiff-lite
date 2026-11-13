@@ -2,9 +2,8 @@
 ARG BASE_IMAGE=covdiff-lite:testing
 FROM ${BASE_IMAGE}
 ARG DEBIAN_FRONTEND=noninteractive
-# Inherits the fixed 20261001T000000Z Ubuntu snapshot from Dockerfile.
 RUN apt-get update -o APT::Update::Error-Mode=any \
-    && apt-get install -y --no-install-recommends --no-upgrade python3-matplotlib=3.5.1-2build1 \
+    && apt-get install -y --no-install-recommends python3-matplotlib \
     && dpkg-query -W -f='${Package}\t${Version}\n' > /opt/covdiff/packages.tsv \
     && rm -rf /var/lib/apt/lists/*
 ENV MPLCONFIGDIR=/tmp/covdiff-matplotlib
