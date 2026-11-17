@@ -19,6 +19,7 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 | **`COV-BUG-007`** | GCC / `middle-end` | Multi-line COND_EXPR attributes branches to colon location | 11 lines | High (Dropped line / debuginfo) | [GCC Bugzilla #128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804) | **Reported Upstream** |
 | **`COV-BUG-008`** | GCC / `debug` / `middle-end` | Multi-line compound literal designated initializers discard locations | 14 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Reported Upstream** |
 | **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Reported Upstream** |
+| **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Reported Upstream** |
 
 ---
 
@@ -414,6 +415,41 @@ loop:
 
 int main(void) {
     test_goto_leak(100);
+    return 0;
+}
+```
+
+---
+
+### Bug `COV-BUG-010`: Clang `llvm-cov` Ghost Coverage and Phantom Branch Counters in Unchosen `__builtin_choose_expr`
+
+* **Upstream Issue:** [LLVM Issue #243464](https://github.com/llvm/llvm-project/issues/243464)
+* **Target Compiler:** LLVM / Clang (verified on Clang 14, 16.0.6, and trunk 24.0.0git)
+* **Component:** `clang/lib/CodeGen/CoverageMappingGen.cpp` (`CounterCoverageMappingBuilder`) / `CodeGenPGO.cpp`
+* **Standard:** GNU C Extension §6.59 (`__builtin_choose_expr`: compile-time constant choice)
+* **Severity:** High — Reports unchosen, uncompiled code paths as 100% executed and synthesizes phantom runtime branch counters (`Branch: [True: 0, False: 1]`) in machine code with zero branch instructions.
+
+#### Summary of the Problem
+`__builtin_choose_expr(const_exp, exp1, exp2)` is evaluated at compile time; CodeGen visits only `E->getChosenSubExpr()`. However, `CoverageMappingGen.cpp` lacks a visitor for `ChooseExpr`, falling back to `VisitStmt` which naively visits both LHS and RHS. Unchosen code is reported as 100% executed with count 1, and any nested branches synthesize phantom runtime branch counters where counter `#1` remains 0 at runtime, falsifying branch and MC/DC coverage.
+
+#### Minimal Standalone Reproducer (`test_choose_expr_ghost.c`)
+```c
+#include <stdio.h>
+
+int test_choose(int x) {
+    int res = __builtin_choose_expr(
+        1,
+        x + 10,
+        (
+            printf("Unchosen ghost printf!\n"),
+            x > 0 ? x * 100 : x * 200
+        )
+    );
+    return res;
+}
+
+int main(void) {
+    test_choose(5);
     return 0;
 }
 ```
