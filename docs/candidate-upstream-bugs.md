@@ -10,11 +10,14 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 
 | Issue ID | Target Tool | Bug Classification | Minimal Lines | Severity | Upstream Target | Status |
 | :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| **`COV-BUG-001`** | Clang / `llvm-cov` | Short-circuit nested ternary AST region misattribution | 8 lines | High (DO-178C MC/DC) | [LLVM GitHub](https://github.com/llvm/llvm-project/issues) | Queued for Reporting |
+| **`COV-BUG-001`** | Clang / `llvm-cov` | Short-circuit nested ternary AST region misattribution | 8 lines | High (DO-178C MC/DC) | [LLVM #243402](https://github.com/llvm/llvm-project/issues/243402) | **Reported Upstream** |
 | **`COV-BUG-002`** | GCC / `gcov` | Multi-line macro invocation line aggregation | 9 lines | Medium (Dropped lines) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
-| **`COV-BUG-003`** | GCC vs LLVM | Real-world CI threshold flipping divergence (`zlib`) | 12 lines | High (CI Gate Fail) | Cross-Toolchain Dossier | Queued for Reporting |
+| **`COV-BUG-003`** | GCC / `middle-end` | Short-circuit ||/&& RHS condition gets operator location | 12 lines | High (Dropped line) | [GCC Bugzilla #128800](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800) | **Reported Upstream** |
 | **`COV-BUG-004`** | GCC / `gcov` | Basic-block merging ghost lines under `-O2` loop unrolling | 11 lines | Medium (False positives) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
 | **`COV-BUG-005`** | GCC / `gcov` | Statement expression `({ ... })` internal statement omission | 9 lines | Medium (Dropped lines) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
+| **`COV-BUG-006`** | Clang / `llvm-cov` | C11 _Generic unchosen associations ghost execution | 24 lines | High (Ghost coverage) | [LLVM #243423](https://github.com/llvm/llvm-project/issues/243423) | **Reported Upstream** |
+| **`COV-BUG-007`** | GCC / `middle-end` | Multi-line COND_EXPR attributes branches to colon location | 11 lines | High (Dropped line / debuginfo) | [GCC Bugzilla #128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804) | **Reported Upstream** |
+| **`COV-BUG-008`** | GCC / `debug` / `middle-end` | Multi-line compound literal designated initializers discard locations | 14 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Reported Upstream** |
 
 ---
 
@@ -22,6 +25,7 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 
 ### Bug `COV-BUG-001`: Clang `llvm-cov` Short-Circuit Nested Ternary AST Region Misattribution
 
+* **Upstream Issue:** [LLVM Issue #243402](https://github.com/llvm/llvm-project/issues/243402)
 * **Target Compiler:** LLVM / Clang (`clang-14`, verified in Clang 14.0.0 through 18+)
 * **Component:** `clang/lib/CodeGen/CoverageMappingGen.cpp` (Source-based Code Coverage)
 * **Standard:** ISO C11 §6.5.13 (Logical AND operator short-circuit semantics) & DO-178C / DO-330
@@ -118,7 +122,8 @@ zcat reproducer_macro.c.gcov.json.gz | jq '.files[0].lines'
 
 ### Bug `COV-BUG-003`: Real-World Divergence & CI Threshold Conflict in `zlib:compress.c`
 
-* **Target Compiler:** GCC 11 vs Clang 14 (Cross-Toolchain Discrepancy)
+* **Upstream Issue:** [GCC Bugzilla PR 128800](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800)
+* **Target Compiler:** GCC (verified on 11.4.0, 14.1.0, 17.0 trunk)
 * **Component:** Production C library profiling (`zlib` 1.4 `compress.c`)
 * **Impact:** CI/CD Build Gate Inconsistency. At a standard 76.0% code-coverage gate, GCC PASSES while Clang FAILS on identical source code and identical test inputs.
 
@@ -276,6 +281,111 @@ llvm-cov-14 export ./rep_stmt_clang -instr-profile=stmt.profdata reproducer_stmt
 * **Oracle Ground Truth:** Line 7 (`int inner = x + 10;`) executed 1 time. Line 8 (`inner > 0 ? inner * 2 : 0;`) executed 1 time. Line 6 (`int result = ...`) executed 1 time.
 * **GCC Output:** Line 6 reported with count 1. Lines 7 and 8 are completely absent from the gcov JSON report (omitted line records).
 * **Clang Output:** Lines 6, 7, and 8 all mapped and reported with count 1.
+
+---
+
+### Bug `COV-BUG-006`: Clang `llvm-cov` C11 `_Generic` Unchosen Associations Ghost Execution
+
+* **Upstream Issue:** [LLVM Issue #243423](https://github.com/llvm/llvm-project/issues/243423)
+* **Target Compiler:** LLVM / Clang (verified on Clang 14.0.0, 16.0.6, and trunk 24.0.0git)
+* **Component:** `clang/lib/CodeGen/CoverageMappingGen.cpp` (Source-based Code Coverage)
+* **Standard:** ISO C11 §6.5.1.1 (Generic selection)
+* **Severity:** High — Reports unexecuted, uncompiled code paths (e.g. `printf` in unevaluated generic arms) as 100% covered.
+
+#### Summary of the Problem
+Under ISO C11 §6.5.1.1, only the chosen generic association expression is evaluated. However, `CoverageMappingGen.cpp` does not implement `VisitGenericSelectionExpr`, treating all unchosen associations as part of the enclosing function's entry region (`#0`). Consequently, `llvm-cov` reports all unchosen associations as executed with count 1.
+
+#### Minimal Standalone Reproducer (`test_generic_ghost.c`)
+```c
+#include <stdio.h>
+
+int eval(int x) {
+    int res = _Generic(x,
+        int: 
+            x + 10,
+        float: 
+            (
+                printf("Float branch executed!\n"),
+                x * 100
+            ),
+        double: 
+            (
+                printf("Double branch executed!\n"),
+                x * 1000
+            )
+    );
+    return res;
+}
+
+int main(void) {
+    eval(1);
+    return 0;
+}
+```
+
+---
+
+### Bug `COV-BUG-007`: GCC Multi-Line `COND_EXPR` Attributes Branches to Colon Location
+
+* **Upstream Issue:** [GCC Bugzilla PR 128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804)
+* **Target Compiler:** GNU GCC (verified on 11.4.0, 14.1.0, 15.2.0, and trunk 17.0)
+* **Component:** `middle-end` / `gcov-profile` / `c-parser`
+* **Severity:** High — Drops executed false arm from DWARF line table, breaks GDB breakpoints, and inverts `gcov` coverage indication.
+
+#### Summary of the Problem
+When a ternary conditional expression (`? :`) spans multiple lines, GCC attributes the generated GIMPLE assignments for both the true arm and the false arm to the colon (`:`) token location. When the condition evaluates to false, `gcov` marks the unexecuted true arm as executed (`1*`), while marking the actually executed false arm line as uninstrumented (`-:`). Setting a breakpoint on the false arm in GDB at `-O0` slides past the line to the return statement.
+
+#### Minimal Standalone Reproducer (`test_ternary_loc.c`)
+```c
+int test_tern(int a, int b, int c) {
+    int x = a ?
+        b :
+        c;
+    return x;
+}
+
+int main(void) {
+    test_tern(0, 2, 3);
+    return 0;
+}
+```
+
+---
+
+### Bug `COV-BUG-008`: GCC Multi-Line Compound Literal Designated Initializers Discard Locations
+
+* **Upstream Issue:** [GCC Bugzilla PR 128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805)
+* **Target Compiler:** GNU GCC (verified on 11.4.0, 14.1.0, 15.2.0, and trunk 17.0)
+* **Component:** `debug` / `middle-end` / `gimplify`
+* **Standard:** ISO C11 §6.5.2.5 (Compound literals: postfix expressions with automatic storage duration)
+* **Severity:** High — Drops designated initializer source locations from DWARF line table, causing GDB breakpoints to slide past initialization, and drops lines in `gcov`.
+
+#### Summary of the Problem
+When lowering compound literals with designated initializers (`(struct Point){ .x = a, .y = b }`) in `gcc/gimplify.cc` (`gimplify_init_ctor_eval`), GCC assigns the generated component stores (`p.x = a; p.y = b;`) the source location of the enclosing assignment operator. When values are scalar variables or constants, individual designated initializer lines receive zero GIMPLE statements. Consequently, DWARF line tables omit them and GDB breakpoints (`b test.c:11`) silently slide past field writes to the subsequent function call.
+
+#### Minimal Standalone Reproducer (`test_compound_literal_loc.c`)
+```c
+struct Point {
+    int x;
+    int y;
+};
+
+void use(struct Point *p) {}
+
+void test_pt(int a, int b) {
+    struct Point p;
+    p = (struct Point){
+        .x = a,
+        .y = b
+    };
+    use(&p);
+}
+
+int main(void) {
+    test_pt(5, 10);
+    return 0;
+}
+```
 
 ---
 
