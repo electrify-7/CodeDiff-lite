@@ -348,11 +348,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                         </tr>
                         <tr>
                             <td><strong>COV-BUG-008</strong></td>
-                            <td>GCC / <code>debug</code></td>
+                            <td>GCC / <code>c (Frontend)</code></td>
                             <td>Compound literal designated initializers discard line locations; causes GDB sliding & dropped lines</td>
                             <td>10 lines</td>
                             <td><span class="badge badge-red">High (GDB Sliding)</span></td>
-                            <td><span class="badge badge-green">Confirmed (wrong-debug)</span></td>
+                            <td><span class="badge badge-green">Confirmed (wrong-debug: c)</span></td>
                             <td><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">GCC Bugzilla #128805</a></td>
                         </tr>
                         <tr>

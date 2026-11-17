@@ -710,10 +710,10 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td><b>COV-BUG-008</b></td>
                 <td>GCC</td>
                 <td><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805">GCC PR 128805</a></td>
-                <td>DWARF Compound Initializers</td>
+                <td>C Frontend (<code>gcc/c/</code>)</td>
                 <td>Dropped Lines</td>
                 <td class="num-col">10</td>
-                <td><b>Confirmed (rguenth: wrong-debug)</b></td>
+                <td><b>Confirmed (rguenth: wrong-debug, pinskia: c)</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-009</b></td>
