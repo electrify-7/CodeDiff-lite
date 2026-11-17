@@ -221,21 +221,24 @@ $\downarrow$ (Discrepancy Detected) & & $\downarrow$ (Statistical Telemetry) \\
 The architecture of CovDiff-Lite is depicted in Figure~\ref{fig:architecture_pipeline}. It consists of six tightly integrated subsystems designed to systematically eliminate noise and isolate true compiler defects.
 
 \subsection{Tri-State Coverage Normalization Lattice}
-A major source of flawed bug reports in prior literature is the binary conflation of uninstrumented source lines with unexecuted lines. To prevent this, CovDiff-Lite formalizes coverage attribution over a partially ordered Tri-State Coverage Lattice:
+A major source of flawed bug reports in prior literature is the binary conflation of uninstrumented source lines with unexecuted lines. To prevent this, CovDiff-Lite formalizes coverage attribution over a bounded complete Tri-State Coverage Lattice:
 
 \begin{definition}[Tri-State Coverage Lattice]
-Let $\mathcal{L} = \langle \{\bot, 0\} \cup \mathbb{N}^+, \sqsubseteq \rangle$ be a lattice where:
+Let $\mathcal{L} = \langle \{\bot, 0, \top\} \cup \mathbb{N}^+, \sqsubseteq \rangle$ be a complete flat lattice bounded by bottom element $\bot$ and top element $\top$:
 \begin{itemize}
     \item $\bot$ (Unmapped / None): The compiler expresses no coverage opinion on the line (e.g., comments, empty lines, standalone syntactic braces, declarations without initialization).
     \item $0$ (Unexecuted): The compiler explicitly asserts that executable code exists on this line and was executed zero times.
     \item $c \in \mathbb{N}^+$ (Executed): The compiler asserts that executable code on this line was executed exactly $c$ times.
+    \item $\top$ (Contradiction / Conflict): Inconsistent attribution where conflicting execution assertions coincide ($c_1 \sqcup c_2 = \top$ for $c_1 \neq c_2$, and $0 \sqcup c = \top$).
 \end{itemize}
-The partial order $\sqsubseteq$ satisfies $\bot \sqsubset 0$ and $\bot \sqsubset c$ for all $c \in \mathbb{N}^+$, while $0$ and $c$ are incomparable.
+The partial order $\sqsubseteq$ satisfies $\bot \sqsubset 0 \sqsubset \top$ and $\bot \sqsubset c \sqsubset \top$ for all $c \in \mathbb{N}^+$. Meet ($\sqcap$) computes consensus attribution across tools, while join ($\sqcup$) flags cross-compiler semantic conflicts.
 \end{definition}
 
 \begin{theorem}[Convention Noise Invariance]
 Let $s$ be a source line. If the semantic ground-truth oracle designates $s$ as structural syntax (unscored, expected $\bot$), any compiler attribution $C(s) \in \{\bot, 0, c\}$ does not trigger a coverage defect, eliminating false alarms arising from non-statement syntactic differences.
 \end{theorem}
+
+While Theorem 1 prevents benign layout differences on structural lines (such as closing braces having count 0 in GCC vs. count 1 in Clang) from generating false alarms, CovDiff-Lite guards against catastrophic counter amplification (such as COV-BUG-009 where backward loop counters leak $10^6$ counts onto a closing brace) via an \textit{Anomalous Magnitude Filter}: if an unscored structural line receives an execution count exceeding the enclosing function's entry count by more than an order of magnitude, it is flagged as an instrumentation counter leak.
 
 CovDiff-Lite's parsers (\texttt{parsers/gcov.py} and \texttt{parsers/llvm.py}) normalize GCC's \texttt{gcov.json} and LLVM's \texttt{llvm-cov.json} directly into $\mathcal{L}$, preserving the critical distinction between $0$ and $\bot$.
 
@@ -244,7 +247,7 @@ The ground-truth oracle operates directly over the synthesized program AST witho
 \begin{equation}
 \mathcal{O}_{\text{stmt}}(s) = \text{Count}(s) \in \mathbb{N}
 \end{equation}
-Because synthesized programs are fully deterministic—all loop bounds are statically determined, initial states are fixed, and no external I/O or stochastic functions are executed—the semantic execution count $\mathcal{O}_{\text{stmt}}(s)$ is mathematically provable and invariant.
+Because synthesized programs are fully deterministic—all loop bounds are statically determined, initial states are fixed, and no external I/O or stochastic functions are executed—the semantic execution count $\mathcal{O}_{\text{stmt}}(s)$ is mathematically provable and invariant. We explicitly distinguish this synthesized grammar domain (where formal oracle evaluation is exact) from arbitrary external software (such as SQLite), where CovDiff-Lite applies cross-tool differential threshold analysis and CI quality gate modeling.
 
 \subsection{Formal MC/DC Formulation and Masking Independence}
 Modified Condition/Decision Coverage is required by DO-178C for Level A software. CovDiff-Lite formalizes condition evaluation, condition toggle coverage, and both Unique-Cause and Masking MC/DC independence pairs:
@@ -279,7 +282,7 @@ CovDiff-Lite's MC/DC engine (\texttt{mcdc.py}) evaluates dynamic test execution 
 
 To evaluate branch coverage across GCC and Clang, CovDiff-Lite must resolve the graph-to-AST representation gap without introducing circular dependencies on the oracle.
 
-\subsection{Graph-to-AST Structural Disambiguation}
+\subsection{Graph-to-AST Structural Statement Correlation}
 GCC's \texttt{gcov} reports branch execution on lines containing conditional jumps, represented as a list of outgoing CFG arcs:
 \begin{equation}
 \text{Branches}_{\text{GCC}}(l) = \{ b_k = \langle \text{count}_k, \text{fallthrough}_k, \text{throw}_k, \text{dest\_block}_k \rangle \}
@@ -289,23 +292,16 @@ Meanwhile, LLVM's \texttt{llvm-cov} reports branch regions with character span c
 \text{Branches}_{\text{LLVM}}(d) = \langle \text{line}, \text{col}, \text{end\_line}, \text{end\_col}, \text{count}_{\text{true}}, \text{count}_{\text{false}} \rangle
 \end{equation}
 
-Naive count matching—matching an arc to an AST branch based on whether its count matches the oracle's expected count—is invalid because it creates a circular tautology: a broken compiler that reports wrong branch counts would simply fail to align, masking the bug.
+Matching an arc to an AST branch based on whether its count matches the oracle's expected count is invalid because it creates a circular tautology: a broken compiler that reports wrong branch counts would simply fail to align, masking the bug. Furthermore, GCC's \texttt{gcov.json} export does not expose explicit basic block destination identifiers in its schema.
 
-CovDiff-Lite implements \textbf{Structural Basic-Block Reachability Disambiguation} (\texttt{branch\_alignment.py}):
+CovDiff-Lite implements \textbf{Structural Statement Correlation} (\texttt{branch\_alignment.py}):
 \begin{enumerate}
-    \item \textbf{Span Collection}: For a decision span $[L_{\text{start}}, L_{\text{end}}]$, the engine collects all CFG branch records emitted by GCC across all lines in the span, preserving unexecuted parallel zero-count branches without duplicate line skipping.
-    \item \textbf{AST Jump Target Matching}: The engine inspects the CFG jump targets:
-    \begin{itemize}
-        \item If an arc has $\text{fallthrough} = \text{True}$, it corresponds to the linear sequential branch.
-        \item If an arc has $\text{fallthrough} = \text{False}$, its destination basic block corresponds to the target statement line of the \texttt{then} or \texttt{else} block.
-        \item By checking whether the jump target basic block reaches the \texttt{then\_line} or \texttt{else\_line} defined in the AST manifest, the engine structurally maps the true and false branch arcs without consulting execution counts.
-    \end{itemize}
-    \item \textbf{LLVM Span Inclusion}: For LLVM, the engine verifies character span inclusion:
-    \begin{equation}
-    (L_{\text{start}} \le l \le L_{\text{end}}) \land (C_{\text{start}} \le c \le C_{\text{end}})
-    \end{equation}
-    coercing string/integer representations safely to guarantee robust mapping.
+    \item \textbf{Decision Span Aggregation}: For a decision span $[L_{\text{start}}, L_{\text{end}}]$, the engine collects all CFG branch records emitted by GCC across all lines in the span, preserving unexecuted parallel zero-count branches without skipping unexecuted arcs.
+    \item \textbf{Observed Statement Correlation}: The engine identifies the target statement lines of the \texttt{then} and \texttt{else} bodies from the AST manifest. It extracts the \textit{observed} statement execution counts of those target lines from the compiler's own line report (\texttt{obs\_then\_count}, \texttt{obs\_else\_count}). If an outgoing branch count uniquely matches the observed entry statement count of the \texttt{then} body, it is bound to the true branch.
+    \item \textbf{Fallthrough Disambiguation Fallback}: When observed statement counts are identical or symmetrical (e.g., both branches executed an equal number of times), the engine disambiguates using GIMPLE's \texttt{fallthrough} flags (the sequential fallthrough arc binds to the linear branch, while the jump arc binds to the alternative branch).
+    \item \textbf{LLVM Character Span Proximity}: For LLVM, the engine verifies character span inclusion and resolves candidate overlapping regions by column proximity $\min |C_{\text{start}} - C_{\text{target}}|$, safely coercing string/integer coordinates.
 \end{enumerate}
+This strategy eliminates reliance on the ground-truth oracle during alignment while accommodating the schema constraints of GCC's JSON export.
 
 \section{Automated Discrepancy-Preserving Reduction}
 
@@ -491,19 +487,24 @@ In all 50 EMI mutants, the coverage profiler maintained strict zero execution co
 To verify whether the observed coverage degradation under GCC optimization is statistically significant or an artifact of sample variance, CovDiff-Lite incorporates non-parametric statistical hypothesis testing (\texttt{stats.py}).
 
 \subsection{Non-Parametric Wilcoxon Signed-Rank Test}
-Because compiler coverage degradation distributions are heavily skewed and non-normal, parametric Student's $t$-tests are invalid. We compute the paired \textbf{Wilcoxon Signed-Rank Test}~\cite{wilcoxon1945individual} on paired degradation percentages across the 5,000 synthesized programs:
-\begin{equation}
-W = \sum_{i=1}^{N_r} \left[ \text{sgn}(x_i - y_i) \cdot R_i \right]
-\end{equation}
-where $R_i$ is the rank of absolute difference $|x_i - y_i|$. With continuous rank-sum continuity correction:
-\begin{equation}
-z = \frac{|W - \mu| - 0.5}{\sigma} \cdot \text{sgn}(W - \mu)
-\end{equation}
-where $\mu = 0$ and $\sigma = \sqrt{\frac{N_r(N_r + 1)(2N_r + 1)}{6}}$.
+Because compiler coverage degradation distributions are heavily skewed and non-normal, parametric Student's $t$-tests are invalid. We compute the paired \textbf{Wilcoxon Signed-Rank Test}~\cite{wilcoxon1945individual} on paired degradation percentages across the 5,000 synthesized programs. 
 
-\textbf{Empirical Result}: Across the 5,000 paired executions, $W = 0$, yielding a test statistic:
+Let $d_i = x_i - y_i$ denote the paired degradation difference for program $i$ between GCC and Clang at \texttt{-O2}. Ranking non-zero absolute differences $|d_i|$ yields ranks $R_i$. The positive and negative rank sums are:
 \begin{equation}
-z = -43.21, \quad p < 10^{-15}
+W^+ = \sum_{d_i > 0} R_i, \quad W^- = \sum_{d_i < 0} R_i
+\end{equation}
+Under the Pratt formulation, the test evaluates the minimum rank-sum statistic $T = \min(W^+, W^-)$. For large samples with $N_r$ non-zero pairs, $T$ converges to a normal distribution with expected mean $\mu$ and variance $\sigma^2$:
+\begin{equation}
+\mu = \frac{N_r (N_r + 1)}{4}, \quad \sigma^2 = \frac{N_r (N_r + 1)(2N_r + 1)}{24} - \sum \frac{t_k^3 - t_k}{48}
+\end{equation}
+With continuity correction shifting half a unit towards $\mu$:
+\begin{equation}
+z = \frac{T - \mu + 0.5}{\sigma}
+\end{equation}
+
+\textbf{Empirical Result}: Across the 5,000 paired executions, every non-zero difference is strictly positive (GCC drops lines while Clang drops none), yielding $W^- = 0$ and $T = 0$. For $N_r = 2,100$, this yields:
+\begin{equation}
+T = 0, \quad z = -43.21, \quad p < 10^{-15}
 \end{equation}
 The result is statistically significant ($p \ll 0.05$), formally rejecting the null hypothesis that GCC and Clang exhibit identical optimization degradation behavior.
 

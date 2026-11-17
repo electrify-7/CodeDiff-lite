@@ -362,8 +362,8 @@ IEEE_HTML = """<!DOCTYPE html>
 <ol>
     <li><b>Deterministic Synthesis Engine:</b> Generates syntactically rich, mathematically deterministic C programs across 12 construct families (5,320 programs). All programs have static inputs, bounded loop bounds, and invariant runtime paths.</li>
     <li><b>Semantic Ground-Truth Oracle:</b> An independent interpreter that traverses the program AST and computes exact execution counts for all scored statements and decisions without invoking any compiler.</li>
-    <li><b>Tri-State Coverage Lattice:</b> Formulates a lattice distinguishing unmapped syntax (&perp;) from explicit unexecuted lines (0) and executed counts (<i>c</i> &gt; 0), eliminating syntactic convention false alarms.</li>
-    <li><b>Dual-Tool Alignment Engine:</b> Bridges the gap between GCC CFG arcs and LLVM AST source regions through structural then/else reachability analysis.</li>
+    <li><b>Tri-State Coverage Lattice:</b> Formulates a complete flat lattice with bottom element &perp; (unmapped) and top element &top; (contradictory attribution), separating unexecuted lines (0) from non-statement syntax and eliminating convention false alarms.</li>
+    <li><b>Dual-Tool Alignment Engine:</b> Bridges the gap between GCC CFG arcs and LLVM AST source regions through structural statement correlation.</li>
     <li><b>Optimization-Invariant Oracle:</b> Tracks coverage fidelity degradation, ghost lines, and dropped lines across optimization levels (<code>-O0</code>, <code>-Og</code>, <code>-O2</code>).</li>
     <li><b>Delta-Debugging Reducer:</b> An automated minimizing engine preserving the exact discrepancy signature while reducing programs to 3-to-10 line standalone reproducers.</li>
 </ol>
@@ -376,7 +376,7 @@ IEEE_HTML = """<!DOCTYPE html>
     <li><b>Clang (<code>llvm-cov</code>):</b> Operates on source AST character regions [<i>L</i><sub>start</sub>, <i>C</i><sub>start</sub>, <i>L</i><sub>end</sub>, <i>C</i><sub>end</sub>], attributing counter values to source ranges.</li>
 </ul>
 
-<p>CovDiff-Lite bridges this divide through a <i>Structural Reachability Alignment</i> algorithm. By correlating generator CFG node identities with then/else body statement spans, our alignment engine disambiguates GCC CFG edges and maps them onto the identical boolean decision nodes evaluated by LLVM and the ground-truth oracle, preserving unexecuted zero-count branches without circular oracle matching.</p>
+<p>CovDiff-Lite bridges this divide through a <i>Structural Statement Correlation</i> algorithm. By correlating generator CFG node identities and observed statement counts of then/else statement blocks in <code>gcov_lines</code>, our alignment engine disambiguates GCC CFG edges and maps them onto the identical boolean decision nodes evaluated by LLVM and the ground-truth oracle without circular oracle matching.</p>
 
 <h2>B. Formal MC/DC Independence Pair Verification</h2>
 <p>For high-assurance software (DO-178C Level A), coverage requires demonstrating that each condition within a boolean decision can independently affect the decision outcome. CovDiff-Lite formalizes Unique-Cause and Masking MC/DC:</p>
@@ -595,7 +595,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
 <ul>
     <li><b>GCC Basic-Block Pruning:</b> Under <code>-Og</code> and <code>-O2</code>, GCC merges basic blocks and elides unreachable statements. This reduces the denominator by 4,711 lines, artificially inflating apparent coverage by +5.81%.</li>
     <li><b>Clang AST Invariance:</b> Because Clang instruments source AST regions, its denominator remains 100.0% invariant across optimization tiers (59,550 lines).</li>
-    <li><b>Statistical Rigor:</b> Non-parametric paired analysis across the 5,000 programs confirms this difference is statistically significant (Wilcoxon signed-rank <i>W</i> = 0, <i>p</i> &lt; 10<sup>-15</sup>; Cliff's delta &delta; = 0.413 [medium-to-large effect]), proving that GCC's loss of 4,711 lines under <code>-O2</code> is a systemic optimization degradation artifact [15], [16].</li>
+    <li><b>Statistical Rigor:</b> Non-parametric paired analysis across the 5,000 programs confirms this difference is statistically significant (Pratt/Wilcoxon minimum rank sum <i>T</i> = 0, <i>z</i> = -43.21, <i>p</i> &lt; 10<sup>-15</sup>; Cliff's delta &delta; = 0.413 [medium-to-large effect]), proving that GCC's loss of 4,711 lines under <code>-O2</code> is a systemic optimization degradation artifact [15], [16].</li>
 </ul>
 
 <div class="table-container full-width">

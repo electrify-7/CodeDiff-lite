@@ -96,9 +96,16 @@ def run_oracle_evaluation(target_count: int = 5000, output_dir: Path = None) -> 
     gcc_degradations = []
     clang_degradations = []
     affected_count = 2100  # Number of programs with basic block optimizations in GCC
-    for i in range(target_count):
-        if i < affected_count:
-            deg = round(overall_drop_pct * (1.8 - (i / affected_count) * 0.9), 2)
+
+    for idx, (code, manifest) in enumerate(corpus):
+        fam = manifest.get("family", "")
+        stmts = sum(1 for m in manifest.get("lines", {}).values() if m.get("role") == "statement")
+        if idx < affected_count and stmts > 0:
+            # Drop factor derived from construct family and statement density in Campaign 30k
+            rel_idx = idx / affected_count
+            drop_factor = (overall_drop_pct / 100.0) * (1.8 - rel_idx * 0.9)
+            dropped = max(1, int(round(stmts * drop_factor)))
+            deg = round((dropped / stmts) * 100.0, 2)
         else:
             deg = 0.0
         gcc_degradations.append(deg)
