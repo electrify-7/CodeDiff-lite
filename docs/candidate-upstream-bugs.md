@@ -20,7 +20,7 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 | **`COV-BUG-008`** | GCC / C Frontend (`c`) | Multi-line compound literal designated initializers discard locations | 10 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Officially Confirmed (`NEW`, `wrong-debug`) by Andrew Pinski & Richard Biener** |
 | **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Accepted by LLVM Maintainers** |
-| **`COV-BUG-011`** | GCC / `c` / `gcov-profile` | Statement expression initialization line dropped (count 0) on early return/jump | 6 lines | High (Dropped line / false negative) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | **Ready for Submission** |
+| **`COV-BUG-011`** | GCC / `c` / `gcov-profile` | Statement expression initialization line dropped (count 0) on early return/jump | 6 lines | High (Dropped line / false negative) | [GCC Bugzilla #128827](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128827) | **Submitted (Pending Triage)** |
 | **`COV-BUG-012`** | Clang / `llvm-cov` | CoverageMappingGen missing VisitIndirectGotoStmt leaking execution counts across computed goto | 7 lines | High (Ghost coverage / false positive) | [LLVM GitHub](https://github.com/llvm/llvm-project/issues) | **Ready for Submission** |
 
 ---
@@ -462,7 +462,8 @@ int main(void) {
 
 ### Bug `COV-BUG-011`: GCC `gcov` Statement Expression Initialization Line Dropped (Count 0) on Early Return or Non-Local Jump
 
-* **Upstream Target:** [GCC Bugzilla](https://gcc.gnu.org/bugzilla) (Component: `c` / `gcov-profile`, Keyword: `wrong-debug`)
+* **Upstream Issue:** [GCC Bugzilla PR 128827](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128827)
+* **Status:** **Submitted (Pending Triage)** (Version: `17.0`, Keywords: `wrong-debug`, Component: `c` / `gcov-profile`)
 * **Target Compiler:** GCC (`gcc` / `gcov`, verified on GCC 11.4.0 through GCC 15.2.0 and trunk)
 * **Component:** GCC C Frontend (`c/c-typeck.cc` / `gimplify.cc`) GIMPLE Lowering
 * **Standard:** GNU C Extension §6.1 (Statements and Declarations in Expressions)
