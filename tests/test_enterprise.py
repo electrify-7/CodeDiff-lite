@@ -88,6 +88,8 @@ class EnterpriseDashboardTests(unittest.TestCase):
             self.assertIn("SQLite", text)
 
     def test_cert_cli_invocation(self):
+        import contextlib
+        import io
         import json
         from covdiff_lite.cli import main
         with tempfile.TemporaryDirectory() as td:
@@ -100,10 +102,12 @@ class EnterpriseDashboardTests(unittest.TestCase):
                 {"d1": {"outcome": False, "conditions": {"A": False, "B": True}}},
                 {"d1": {"outcome": False, "conditions": {"A": True, "B": False}}},
             ]))
-            ret = main(["cert", "--software-name", "FlightControl",
-                        "--decisions-file", str(dec_file),
-                        "--vectors-file", str(vec_file),
-                        "--output", str(out_file)])
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                ret = main(["cert", "--software-name", "FlightControl",
+                            "--decisions-file", str(dec_file),
+                            "--vectors-file", str(vec_file),
+                            "--output", str(out_file)])
             self.assertEqual(ret, 0)
             self.assertTrue(out_file.exists())
             self.assertIn("FlightControl", out_file.read_text())

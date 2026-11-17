@@ -19,17 +19,25 @@ def resolve_gcc_decision_branches(
 ) -> Optional[Dict[str, int]]:
     """Align GCC line branch records to a semantic decision.
 
-    Uses CFG structural context (then-body count vs else-body count) to
-    disambiguate which CFG arc corresponds to True vs False.
+    Disambiguates CFG edges using structural AST reachability (matching the
+    observed gcov execution count of the then-body and else-body basic blocks)
+    rather than oracle expected counts, preventing circular validation.
     """
     line_num = str(span.get("line"))
     end_line_num = str(span.get("end_line", span.get("line")))
 
-    # Check the lines spanning this decision
+    # Check the lines spanning this decision without duplicates
+    l_start = int(line_num)
+    l_end = int(end_line_num)
     branches = []
-    for l_num in (line_num, end_line_num):
-        line_data = gcov_lines.get(l_num, {})
-        branches.extend(line_data.get("branches", []))
+    seen_branch_keys = set()
+    for l_val in range(l_start, l_end + 1):
+        line_data = gcov_lines.get(str(l_val), {})
+        for b in line_data.get("branches", []):
+            b_key = (l_val, b.get("count"), b.get("fallthrough"), b.get("throw"), b.get("destination_block_id"))
+            if b_key not in seen_branch_keys:
+                seen_branch_keys.add(b_key)
+                branches.append(b)
 
     if not branches:
         # Check if surrounding lines have branches
@@ -48,36 +56,71 @@ def resolve_gcc_decision_branches(
     if not valid_branches:
         valid_branches = branches
 
-    exp_true = expected.get("true", 0)
-    exp_false = expected.get("false", 0)
+    # Structural Disambiguation: Find then/else block statement lines
+    then_line = span.get("then_line")
+    else_line = span.get("else_line")
+
+    if then_line is None and manifest:
+        # Infer then_line from manifest statement definitions following this decision
+        dec_line = int(span.get("line", 0))
+        lines_dict = manifest.get("lines", {})
+        for l_str, l_meta in lines_dict.items():
+            l_val = int(l_str)
+            if l_val > dec_line and l_meta.get("role") == "statement":
+                stmt_id = l_meta.get("statement_id", "")
+                if "then" in stmt_id or l_val == dec_line + 1:
+                    then_line = l_val
+                    break
+                elif "else" in stmt_id:
+                    else_line = l_val
+
+    # Check observed statement counts in gcov_lines (compiler ground truth, NOT oracle)
+    obs_then_count = None
+    if then_line is not None and str(then_line) in gcov_lines:
+        obs_then_count = gcov_lines[str(then_line)].get("count")
+
+    obs_else_count = None
+    if else_line is not None and str(else_line) in gcov_lines:
+        obs_else_count = gcov_lines[str(else_line)].get("count")
 
     # Simple 2-branch case: determine which arc is True and which is False
     if len(valid_branches) == 2:
         counts = [valid_branches[0]["count"], valid_branches[1]["count"]]
-        # If counts uniquely match expected:
-        if counts[0] == exp_true and counts[1] == exp_false:
-            return {"true": counts[0], "false": counts[1], "source": "gcc_cfgarcs"}
-        elif counts[1] == exp_true and counts[0] == exp_false:
-            return {"true": counts[1], "false": counts[0], "source": "gcc_cfgarcs"}
-        else:
-            # Fallback based on typical gcov convention: branch 0 is taken (True), branch 1 is fallthrough (False)
-            # or vice-versa depending on fallthrough flag
-            if valid_branches[0].get("fallthrough") and not valid_branches[1].get("fallthrough"):
-                return {"true": counts[1], "false": counts[0], "source": "gcc_cfgarcs"}
-            return {"true": counts[0], "false": counts[1], "source": "gcc_cfgarcs"}
+
+        # 1. Structural match against observed then-body count in gcov
+        if obs_then_count is not None:
+            if counts[0] == obs_then_count and counts[1] != obs_then_count:
+                return {"true": counts[0], "false": counts[1], "source": "gcc_cfgarcs_structural"}
+            elif counts[1] == obs_then_count and counts[0] != obs_then_count:
+                return {"true": counts[1], "false": counts[0], "source": "gcc_cfgarcs_structural"}
+
+        # 2. Structural match against observed else-body count in gcov
+        if obs_else_count is not None:
+            if counts[1] == obs_else_count and counts[0] != obs_else_count:
+                return {"true": counts[0], "false": counts[1], "source": "gcc_cfgarcs_structural"}
+            elif counts[0] == obs_else_count and counts[1] != obs_else_count:
+                return {"true": counts[1], "false": counts[0], "source": "gcc_cfgarcs_structural"}
+
+        # 3. Fallback based on GIMPLE CFG convention:
+        # In GCC GIMPLE conditional branch lowering:
+        # branch with fallthrough=True falls into the sequential target;
+        # branch with fallthrough=False executes the taken conditional jump.
+        if valid_branches[0].get("fallthrough") and not valid_branches[1].get("fallthrough"):
+            return {"true": counts[1], "false": counts[0], "source": "gcc_cfgarcs_cfg"}
+        elif not valid_branches[0].get("fallthrough") and valid_branches[1].get("fallthrough"):
+            return {"true": counts[0], "false": counts[1], "source": "gcc_cfgarcs_cfg"}
+
+        return {"true": counts[0], "false": counts[1], "source": "gcc_cfgarcs_default"}
 
     # Multiple branches (e.g. short-circuit or compound switch)
     if len(valid_branches) >= 2:
-        # Match by count proximity to expected outcomes
-        best_true = None
-        best_false = None
-        for b in valid_branches:
-            if best_true is None and b["count"] == exp_true:
-                best_true = b["count"]
-            elif best_false is None and b["count"] == exp_false:
-                best_false = b["count"]
-        if best_true is not None and best_false is not None:
-            return {"true": best_true, "false": best_false, "source": "gcc_cfgarcs"}
+        if obs_then_count is not None:
+            for i, b in enumerate(valid_branches):
+                if b["count"] == obs_then_count:
+                    other_count = sum(o["count"] for j, o in enumerate(valid_branches) if j != i)
+                    return {"true": b["count"], "false": other_count, "source": "gcc_cfgarcs_structural"}
+
+        # Fallback to first two edges
         return {"true": valid_branches[0]["count"], "false": valid_branches[1]["count"], "source": "gcc_cfgarcs"}
 
     return None
@@ -89,9 +132,10 @@ def resolve_llvm_decision_branches(
     expected: dict,
     llvm_branches: list,
 ) -> Optional[Dict[str, int]]:
-    """Align LLVM branch regions to a semantic decision based on source spans."""
+    """Align LLVM branch regions to a semantic decision based on AST source spans."""
     line_start = span.get("line")
     line_end = span.get("end_line", line_start)
+    col_target = span.get("column", 1)
 
     # LLVM branch region format:
     # [lineStart, colStart, lineEnd, colEnd, trueCount, falseCount, fileId, expandedFileId, regionKind]
@@ -101,25 +145,16 @@ def resolve_llvm_decision_branches(
             r_lstart, r_cstart, r_lend, r_cend, true_count, false_count = reg[:6]
             # Check overlap with decision span
             if not (r_lend < line_start or r_lstart > line_end):
-                matching.append((true_count, false_count, reg))
+                dist = abs(r_cstart - col_target)
+                matching.append((dist, true_count, false_count, reg))
 
     if not matching:
         return None
 
-    if len(matching) == 1:
-        t_cnt, f_cnt, _ = matching[0]
-        return {"true": t_cnt, "false": f_cnt, "source": "llvm_regions"}
-
-    # Multiple matching regions: pick closest match to expected counts or span
-    exp_true = expected.get("true", 0)
-    exp_false = expected.get("false", 0)
-    for t_cnt, f_cnt, _ in matching:
-        if t_cnt == exp_true and f_cnt == exp_false:
-            return {"true": t_cnt, "false": f_cnt, "source": "llvm_regions"}
-
-    # Default to first matching
-    t_cnt, f_cnt, _ = matching[0]
-    return {"true": t_cnt, "false": f_cnt, "source": "llvm_regions"}
+    # Sort strictly by AST character column proximity to the decision locus
+    matching.sort(key=lambda m: m[0])
+    _, t_cnt, f_cnt, _ = matching[0]
+    return {"true": t_cnt, "false": f_cnt, "source": "llvm_regions_ast"}
 
 
 def classify_branch_finding(

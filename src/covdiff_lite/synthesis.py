@@ -23,9 +23,47 @@ EXPANDED_FAMILIES = (
 )
 
 
+def map_source_lines_and_branches(
+    source: str,
+    stmt_counts: dict,
+    branch_specs: Optional[List[dict]] = None,
+) -> Tuple[dict, list]:
+    """Scan emitted source code for // @id markers and bind physical line numbers."""
+    lines_map = {}
+    branches_list = []
+    source_lines = source.splitlines()
+
+    for line_idx, line_str in enumerate(source_lines, 1):
+        if "// @id " in line_str:
+            stmt_id = line_str.split("// @id ")[1].strip().split()[0]
+            if stmt_id in stmt_counts:
+                lines_map[str(line_idx)] = {
+                    "statement_id": stmt_id,
+                    "count": stmt_counts[stmt_id],
+                    "role": "statement",
+                    "allow_elided": False,
+                }
+
+    if branch_specs:
+        for b_spec in branch_specs:
+            pattern = b_spec.get("pattern", "if (")
+            for line_idx, line_str in enumerate(source_lines, 1):
+                if pattern in line_str:
+                    branches_list.append({
+                        "decision_id": b_spec["decision_id"],
+                        "expected": b_spec["expected"],
+                        "source_span": {"line": line_idx, "end_line": line_idx, "column": 5},
+                        "mapping_status": "semantic_only",
+                    })
+                    break
+
+    return lines_map, branches_list
+
+
 def synthesize_complex_macro(variant: str, amount: int, condition_val: int) -> Tuple[str, dict]:
     """Synthesize programs with complex macros."""
     expected_result = 0
+    branch_specs = []
     if variant == "variadic":
         expected_result = amount if condition_val else amount * 2
         source = f"""#include <stdio.h>
@@ -44,6 +82,18 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {
+            "init_result": 1,
+            "then_body": 1 if condition_val else 0,
+            "else_body": 0 if condition_val else 1,
+            "output": 1,
+            "return": 1,
+        }
+        branch_specs.append({
+            "decision_id": "macro_flag_if",
+            "pattern": "if (flag)",
+            "expected": {"true": 1 if condition_val else 0, "false": 0 if condition_val else 1},
+        })
     elif variant == "token_paste":
         expected_result = amount
         source = f"""#include <stdio.h>
@@ -57,6 +107,7 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {"init_result": 1, "paste_add": 1, "output": 1, "return": 1}
     else:  # internal_loop
         repetitions = 3 if condition_val else 1
         expected_result = amount * repetitions
@@ -75,25 +126,23 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {"init_result": 1, "loop_macro": 1, "output": 1, "return": 1}
 
-    lines = {
-        "1": {"statement_id": "init_result", "count": 1, "role": "statement", "allow_elided": False},
-        "2": {"statement_id": "output", "count": 1, "role": "statement", "allow_elided": False},
-        "3": {"statement_id": "return", "count": 1, "role": "statement", "allow_elided": False},
-    }
+    lines, branches = map_source_lines_and_branches(source, stmt_counts, branch_specs)
     manifest = {
         "schema_version": 1,
         "family": "complex_macros",
         "parameters": {"variant": variant, "amount": amount, "condition_val": condition_val},
         "expected_output": {"stdout": f"{expected_result}\n", "exit_code": 0},
         "lines": lines,
-        "branches": [],
+        "branches": branches,
     }
     return source, manifest
 
 
 def synthesize_statement_expression(form: str, x: int, amount: int) -> Tuple[str, dict]:
     """Synthesize GCC/Clang statement expressions and function attributes."""
+    branch_specs = []
     if form == "stmt_expr":
         inner_val = (x + amount) * 2
         expected_result = inner_val if inner_val > 0 else 0
@@ -109,6 +158,7 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {"inner_calc": 1, "inner_select": 1, "output": 1, "return": 1}
     elif form == "always_inline":
         expected_result = x + amount
         source = f"""#include <stdio.h>
@@ -123,6 +173,7 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {"inline_body": 1, "call_inline": 1, "output": 1, "return": 1}
     else:  # cold_attr
         taken = x < 0
         expected_result = amount * 10 if taken else amount
@@ -144,23 +195,37 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {
+            "cold_body": 1 if taken else 0,
+            "then_call": 1 if taken else 0,
+            "else_assign": 0 if taken else 1,
+            "output": 1,
+            "return": 1,
+        }
+        branch_specs.append({
+            "decision_id": "cold_if",
+            "pattern": "if (x < 0)",
+            "expected": {"true": 1 if taken else 0, "false": 0 if taken else 1},
+        })
 
+    lines, branches = map_source_lines_and_branches(source, stmt_counts, branch_specs)
     manifest = {
         "schema_version": 1,
         "family": "statement_expressions",
         "parameters": {"form": form, "x": x, "amount": amount},
         "expected_output": {"stdout": f"{expected_result}\n", "exit_code": 0},
-        "lines": {},
-        "branches": [],
+        "lines": lines,
+        "branches": branches,
     }
     return source, manifest
 
 
 def synthesize_non_local_control(mode: str, trigger: int, amount: int) -> Tuple[str, dict]:
     """Synthesize programs with non-local control flow (setjmp/longjmp, computed goto)."""
+    branch_specs = []
     if mode == "setjmp_longjmp":
-        # If trigger != 0, jumps to else block
-        expected_result = (amount * 3) if trigger != 0 else amount
+        taken = (trigger != 0)
+        expected_result = (amount * 3) if taken else amount
         source = f"""#include <stdio.h>
 #include <setjmp.h>
 
@@ -181,6 +246,18 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {
+            "jmp_call": 1 if taken else 0,
+            "normal_path": 0 if taken else 1,
+            "recovered_path": 1 if taken else 0,
+            "output": 1,
+            "return": 1,
+        }
+        branch_specs.append({
+            "decision_id": "trigger_if",
+            "pattern": "if (trigger != 0)",
+            "expected": {"true": 1 if taken else 0, "false": 0 if taken else 1},
+        })
     else:  # computed_goto
         idx = trigger % 3
         vals = [amount, amount * 2, amount * 4]
@@ -208,14 +285,23 @@ end:
     return 0; // @id return
 }}
 """
+        stmt_counts = {
+            "indirect_jump": 1,
+            "t0": 1 if idx == 0 else 0,
+            "t1": 1 if idx == 1 else 0,
+            "t2": 1 if idx == 2 else 0,
+            "output": 1,
+            "return": 1,
+        }
 
+    lines, branches = map_source_lines_and_branches(source, stmt_counts, branch_specs)
     manifest = {
         "schema_version": 1,
         "family": "non_local_control",
         "parameters": {"mode": mode, "trigger": trigger, "amount": amount},
         "expected_output": {"stdout": f"{expected_result}\n", "exit_code": 0},
-        "lines": {},
-        "branches": [],
+        "lines": lines,
+        "branches": branches,
     }
     return source, manifest
 
@@ -240,8 +326,8 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {"vla_decl": 1, "vla_init": size, "vla_sum": size, "output": 1, "return": 1}
     else:  # duff_device
-        # Loop count = size, each iteration adds amount
         expected_result = size * amount
         source = f"""#include <stdio.h>
 
@@ -260,14 +346,16 @@ int main(void) {{
     return 0; // @id return
 }}
 """
+        stmt_counts = {"d0": 1, "d3": 1, "d2": 1, "d1": 1, "output": 1, "return": 1}
 
+    lines, branches = map_source_lines_and_branches(source, stmt_counts, [])
     manifest = {
         "schema_version": 1,
         "family": "vla_and_duff",
         "parameters": {"style": style, "size": size, "amount": amount},
         "expected_output": {"stdout": f"{expected_result}\n", "exit_code": 0},
-        "lines": {},
-        "branches": [],
+        "lines": lines,
+        "branches": branches,
     }
     return source, manifest
 

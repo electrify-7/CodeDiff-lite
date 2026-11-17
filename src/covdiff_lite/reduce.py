@@ -9,6 +9,7 @@ Strictly preserves:
 3. The exact coverage discrepancy / oracle contradiction
 """
 
+import json
 import shutil
 import subprocess
 import tempfile
@@ -69,6 +70,85 @@ def default_predicate(source_text: str, expected_stdout: str, expected_exit: int
         return True
 
 
+def coverage_discrepancy_predicate(
+    source_text: str,
+    discrepancy_checker: Callable[[dict], bool],
+    expected_stdout: Optional[str] = None,
+    expected_exit: int = 0,
+    compiler: Optional[str] = None,
+) -> bool:
+    """Predicate enforcing that candidate reduction preserves the exact coverage discrepancy.
+
+    Evaluates:
+    P(C) = CompilesCleanly(C) and (Output(C) == Expected) and discrepancy_checker(Coverage(C))
+    """
+    if compiler is None:
+        compiler = shutil.which("gcc-11") or shutil.which("gcc") or "gcc"
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        c_file = tmp_path / "test.c"
+        bin_file = tmp_path / "test"
+        c_file.write_text(source_text)
+
+        is_clang = "clang" in compiler
+        if is_clang:
+            compile_cmd = [compiler, "-std=c11", "-O0", "-g", "-fprofile-instr-generate", "-fcoverage-mapping", str(c_file), "-o", str(bin_file)]
+        else:
+            compile_cmd = [compiler, "-std=c11", "-O0", "-g", "--coverage", str(c_file), "-o", str(bin_file)]
+
+        res = subprocess.run(compile_cmd, capture_output=True, text=True, timeout=10)
+        if res.returncode != 0:
+            return False
+
+        try:
+            env = dict(subprocess.os.environ)
+            profraw = tmp_path / "default.profraw"
+            env["LLVM_PROFILE_FILE"] = str(profraw)
+            run_res = subprocess.run([str(bin_file)], capture_output=True, text=True, timeout=3, env=env)
+            if run_res.returncode != expected_exit:
+                return False
+            if expected_stdout is not None and run_res.stdout != expected_stdout:
+                return False
+        except (subprocess.TimeoutExpired, OSError):
+            return False
+
+        coverage_data = {}
+        try:
+            if is_clang:
+                profdata = tmp_path / "default.profdata"
+                prof_bin = shutil.which("llvm-profdata-14") or shutil.which("llvm-profdata") or "llvm-profdata"
+                subprocess.run([prof_bin, "merge", "-sparse", str(profraw), "-o", str(profdata)], capture_output=True, check=True, timeout=5)
+                cov_bin = shutil.which("llvm-cov-14") or shutil.which("llvm-cov") or "llvm-cov"
+                exp_res = subprocess.run([cov_bin, "export", str(bin_file), f"-instr-profile={profdata}"], capture_output=True, text=True, check=True, timeout=5)
+                cov_json = json.loads(exp_res.stdout)
+                from .parsers.llvm import segment_lines
+                files = cov_json.get("data", [{}])[0].get("files", [{}])
+                if files:
+                    line_count = len(source_text.splitlines())
+                    coverage_data = segment_lines(files[0].get("segments", []), line_count)
+            else:
+                gcov_bin = shutil.which("gcov-11") or shutil.which("gcov") or "gcov"
+                subprocess.run([gcov_bin, "-j", "-b", str(c_file)], cwd=tmp_path, capture_output=True, timeout=5)
+                import gzip
+                gzs = list(tmp_path.glob("*.gcov.json.gz"))
+                if gzs:
+                    with gzip.open(gzs[0], "rt", encoding="utf-8") as f:
+                        gcov_raw = json.load(f)
+                    for item in gcov_raw.get("files", [{}])[0].get("lines", []):
+                        coverage_data[str(item["line_number"])] = {
+                            "count": item.get("count"),
+                            "branches": item.get("branches", []),
+                        }
+        except Exception:
+            return False
+
+        try:
+            return bool(discrepancy_checker(coverage_data))
+        except Exception:
+            return False
+
+
 def delta_debug_lines(
     lines: List[str],
     is_interesting: Callable[[str], bool],
@@ -115,8 +195,24 @@ def delta_debug_lines(
 class ProgramReducer:
     """Reduces a program exhibiting a coverage bug or discrepancy."""
 
-    def __init__(self, interestingness_test: Callable[[str], bool]):
-        self.is_interesting = interestingness_test
+    def __init__(
+        self,
+        interestingness_test: Optional[Callable[[str], bool]] = None,
+        discrepancy_checker: Optional[Callable[[dict], bool]] = None,
+        expected_stdout: Optional[str] = None,
+        compiler: Optional[str] = None,
+    ):
+        if discrepancy_checker is not None:
+            self.is_interesting = lambda s: coverage_discrepancy_predicate(
+                s,
+                discrepancy_checker=discrepancy_checker,
+                expected_stdout=expected_stdout,
+                compiler=compiler,
+            )
+        elif interestingness_test is not None:
+            self.is_interesting = interestingness_test
+        else:
+            raise ValueError("Either interestingness_test or discrepancy_checker must be provided")
 
     def reduce(self, source: str) -> ReductionResult:
         start_time = time.monotonic()

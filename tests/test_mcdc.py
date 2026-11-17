@@ -92,6 +92,35 @@ class MCDCAnalyzerTests(unittest.TestCase):
         self.assertEqual(summary["mcdc_coverage_pct"], 0.0)
         self.assertFalse(summary["mcdc_fully_satisfied"])
 
+    def test_masking_mcdc_with_decision_tree(self):
+        # Expression: (A && B) || C
+        ast = {
+            "kind": "binary",
+            "op": "||",
+            "left": {
+                "kind": "binary",
+                "op": "&&",
+                "left": {"kind": "decision", "id": "A", "value": {"kind": "literal", "value": 1}},
+                "right": {"kind": "decision", "id": "B", "value": {"kind": "literal", "value": 1}},
+            },
+            "right": {"kind": "decision", "id": "C", "value": {"kind": "literal", "value": 0}},
+        }
+        tree = DecisionTree("dec_or", ast)
+        analyzer = MCDCAnalyzer("dec_or", ["A", "B", "C"], decision_tree=tree)
+
+        # V1: A=T, B=T, C=F -> True
+        analyzer.record_evaluation(True, {"A": True, "B": True, "C": False})
+        # V2: A=T, B=F, C=F -> False
+        analyzer.record_evaluation(False, {"A": True, "B": False, "C": False})
+        # V3: A=F, B=F, C=T -> True
+        analyzer.record_evaluation(True, {"A": False, "B": False, "C": True})
+
+        # For C: between V3 (True) and V2 (False), A changes (F vs T), but B=F masks A!
+        pair_c = analyzer.find_independence_pair("C")
+        self.assertIsNotNone(pair_c)
+        self.assertEqual(pair_c.condition_id, "C")
+        self.assertEqual(pair_c.pair_type, "masking")
+
 
 class BranchAlignmentTests(unittest.TestCase):
     def test_gcc_branch_resolution_exact_counts(self):

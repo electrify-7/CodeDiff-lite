@@ -55,6 +55,10 @@ int main(void) {
         self.assertIn("target_bug = 42", result.reduced_source)
         self.assertNotIn("Unused comment", result.reduced_source)
 
+    def test_program_reducer_requires_predicate(self):
+        with self.assertRaises(ValueError):
+            ProgramReducer()
+
 
 if __name__ == "__main__":
     unittest.main()

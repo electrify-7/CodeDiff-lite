@@ -74,6 +74,14 @@ class FileParserTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 parse_gcov(path, self.source)
 
+    def test_gcov_parses_uncompressed_plain_json(self):
+        path = self.root / 'plain.gcov.json'
+        path.write_text(json.dumps({'format_version': '1', 'files': [{
+            'file': str(self.source), 'lines': [{'line_number': 1, 'count': 5}]
+        }]}))
+        parsed = parse_gcov(path, self.source)
+        self.assertEqual(parsed['lines']['1']['count'], 5)
+
     def test_llvm_preserves_branches_and_expansions(self):
         path = self.root / 'llvm.json'
         path.write_text(json.dumps({'type': 'llvm.coverage.json.export', 'version': '2.0.1', 'data': [{'files': [{

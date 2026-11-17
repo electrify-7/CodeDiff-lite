@@ -136,9 +136,15 @@ class DecisionTree:
 class MCDCAnalyzer:
     """Analyzes an execution trace of evaluations for MC/DC and decision coverage."""
 
-    def __init__(self, decision_id: str, condition_ids: List[str]):
+    def __init__(
+        self,
+        decision_id: str,
+        condition_ids: List[str],
+        decision_tree: Optional[DecisionTree] = None,
+    ):
         self.decision_id = decision_id
         self.condition_ids = list(condition_ids)
+        self.decision_tree = decision_tree
         self.true_count = 0
         self.false_count = 0
         self.condition_stats = {
@@ -199,18 +205,46 @@ class MCDCAnalyzer:
                         pair_type="unique_cause",
                     )
 
-        # Fallback to Masking MC/DC: decision flips, condition flips
-        for d_t, c_t in true_evals:
-            for d_f, c_f in false_evals:
-                if d_t != d_f:
-                    return IndependencePair(
-                        condition_id=condition_id,
-                        vector_true=c_t,
-                        vector_false=c_f,
-                        decision_true=d_t,
-                        decision_false=d_f,
-                        pair_type="masking",
-                    )
+        # Fallback to Masking MC/DC (DO-178C / DO-248C / FAA CAST-6):
+        # A pair (T1, T2) is an independence pair under Masking MC/DC if:
+        # 1. condition_id flips: c_t[condition_id] != c_f[condition_id]
+        # 2. decision flips: d_t != d_f
+        # 3. For any other condition k that changed value between T1 and T2,
+        #    k must be formally masked in BOTH vectors (toggling k does not affect d_t or d_f).
+        if self.decision_tree is not None:
+            for d_t, c_t in true_evals:
+                for d_f, c_f in false_evals:
+                    if d_t == d_f:
+                        continue
+                    all_masked = True
+                    for other_cid in self.condition_ids:
+                        if other_cid == condition_id:
+                            continue
+                        v_t = c_t.get(other_cid)
+                        v_f = c_f.get(other_cid)
+                        # If evaluated in both and differing, verify masking
+                        if v_t is not None and v_f is not None and v_t != v_f:
+                            t1_alt = {k: v for k, v in c_t.items() if v is not None}
+                            t1_alt[other_cid] = not v_t
+                            d_t_alt, _ = self.decision_tree.evaluate(t1_alt)
+
+                            t2_alt = {k: v for k, v in c_f.items() if v is not None}
+                            t2_alt[other_cid] = not v_f
+                            d_f_alt, _ = self.decision_tree.evaluate(t2_alt)
+
+                            if d_t_alt != d_t or d_f_alt != d_f:
+                                all_masked = False
+                                break
+
+                    if all_masked:
+                        return IndependencePair(
+                            condition_id=condition_id,
+                            vector_true=c_t,
+                            vector_false=c_f,
+                            decision_true=d_t,
+                            decision_false=d_f,
+                            pair_type="masking",
+                        )
         return None
 
     def compute_summary(self) -> dict:

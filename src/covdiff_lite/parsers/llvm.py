@@ -47,15 +47,22 @@ def segment_lines(segments: list, source_line_count: int) -> dict:
 
 def parse_llvm(path: Path, source: Path) -> dict:
     report = json.loads(path.read_text())
-    if report.get("type") != "llvm.coverage.json.export" or report.get("version") != "2.0.1":
+    ver = str(report.get("version", ""))
+    if report.get("type") != "llvm.coverage.json.export" or not (ver.startswith("2.") or ver.startswith("3.") or ver == "2.0.1"):
         raise ValueError(f"Unsupported LLVM export schema: {report.get('type')} / {report.get('version')}")
-    files = [item for data in report["data"] for item in data["files"]
+    files = [item for data in report.get("data", []) for item in data.get("files", [])
              if Path(item["filename"]).resolve() == source.resolve()]
     if not files:
-        files = [item for data in report["data"] for item in data["files"]
+        files = [item for data in report.get("data", []) for item in data.get("files", [])
                  if Path(item["filename"]).name == source.name]
-    if len(files) != 1:
-        raise ValueError(f"Expected one LLVM file record for {source}; found {len(files)}")
+    if len(files) > 1:
+        exact_files = [item for item in files if str(source).endswith(item["filename"])]
+        if exact_files:
+            files = [exact_files[0]]
+        else:
+            files = [files[0]]
+    elif len(files) == 0:
+        raise ValueError(f"Expected one LLVM file record for {source}; found 0")
     item = files[0]
     return {
         "format_version": report["version"],
