@@ -17,7 +17,7 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 | **`COV-BUG-005`** | GCC / `gcov` | Statement expression `({ ... })` internal statement omission | 9 lines | Medium (Dropped lines) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
 | **`COV-BUG-006`** | Clang / `llvm-cov` | C11 _Generic unchosen associations ghost execution | 24 lines | High (Ghost coverage) | [LLVM #243423](https://github.com/llvm/llvm-project/issues/243423) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-007`** | GCC / `middle-end` | Multi-line COND_EXPR attributes branches to colon location | 11 lines | High (Dropped line / debuginfo) | [GCC Bugzilla #128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804) | **Confirmed (`wrong-debug`) by GCC Release Manager** |
-| **`COV-BUG-008`** | GCC / C Frontend (`c`) | Multi-line compound literal designated initializers discard locations | 10 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Confirmed (`wrong-debug`) by Richard Biener & Andrew Pinski** |
+| **`COV-BUG-008`** | GCC / C Frontend (`c`) | Multi-line compound literal designated initializers discard locations | 10 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Officially Confirmed (`NEW`, `wrong-debug`) by Andrew Pinski & Richard Biener** |
 | **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-011`** | GCC / `c` / `gcov-profile` | Statement expression initialization line dropped (count 0) on early return/jump | 6 lines | High (Dropped line / false negative) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | **Ready for Submission** |
@@ -359,8 +359,10 @@ int main(void) {
 ### Bug `COV-BUG-008`: GCC Multi-Line Compound Literal Designated Initializers Discard Locations
 
 * **Upstream Issue:** [GCC Bugzilla PR 128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805)
+* **Status:** **NEW (Officially Confirmed)** — Ever confirmed: 1; Keywords: `wrong-debug`; Component: `c` (C Frontend)
+* **Triaged By:** Richard Biener (`rguenth@gcc.gnu.org`, GCC Release Manager) & Andrew Pinski (`pinskia@gcc.gnu.org`, Global Reviewer)
 * **Target Compiler:** GNU GCC (verified on 11.4.0, 14.1.0, 15.2.0, and trunk 17.0)
-* **Component:** `debug` / `middle-end` / `gimplify`
+* **Component:** GCC C Frontend (`c`)
 * **Standard:** ISO C11 §6.5.2.5 (Compound literals: postfix expressions with automatic storage duration)
 * **Severity:** High — Drops designated initializer source locations from DWARF line table, causing GDB breakpoints to slide past initialization, and drops lines in `gcov`.
 

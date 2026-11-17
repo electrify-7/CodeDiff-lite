@@ -432,7 +432,7 @@ def build_presentation(output_path: Path):
              "COV-BUG-003, 007 & 008: GCC GIMPLE & DWARF Defects (Confirmed!)",
              "• Tool: GNU GCC | Issues: PR 128800, PR 128804, PR 128805\n"
              "• Defect: Multi-line ternaries, short-circuit RHS, and compound literal designated initializers discard source locations in GIMPLE/DWARF.\n"
-             "• Status: 100% CONFIRMED by GCC Release Manager (Richard Biener: wrong-debug, gcov-profile).",
+             "• Status: 100% CONFIRMED by GCC maintainers (Richard Biener & Andrew Pinski: Status NEW, wrong-debug, c & gcov-profile).",
              COLOR_AMBER)
 
     add_card(s9, Inches(6.8), Inches(4.3), Inches(5.6), Inches(2.1),
