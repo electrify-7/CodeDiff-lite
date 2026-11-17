@@ -343,9 +343,9 @@ As demonstrated in Section~\ref{sec:upstream_bugs}, our reducer routinely compre
 \textbf{Bug ID} & \textbf{Compiler} & \textbf{Upstream Issue / PR} & \textbf{Component / File} & \textbf{Severity} & \textbf{LOC} & \textbf{Upstream Status} \\
 \midrule
 \textbf{COV-BUG-001} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243402}{LLVM \#243402} & \texttt{CoverageMappingGen.cpp} & Ghost Coverage & 8 & \textbf{Accepted by Maintainer} \\
-\textbf{COV-BUG-003} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800}{GCC PR 128800} & \texttt{tree-profile.cc} / \texttt{gcov} & Misattribution & 9 & \textbf{Submitted / Confirmed} \\
+\textbf{COV-BUG-003} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800}{GCC PR 128800} & \texttt{tree-profile.cc} / \texttt{gcov} & Misattribution & 9 & \textbf{Confirmed (rguenth: wrong-debug)} \\
 \textbf{COV-BUG-006} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243423}{LLVM \#243423} & Clang Frontend AST Mapping & Ghost Coverage & 7 & \textbf{Submitted / Confirmed} \\
-\textbf{COV-BUG-007} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804}{GCC PR 128804} & \texttt{gcov-io.cc} CFG Branching & Branch Misattribution & 6 & \textbf{Submitted / Confirmed} \\
+\textbf{COV-BUG-007} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804}{GCC PR 128804} & \texttt{gcov-io.cc} CFG Branching & Branch Misattribution & 6 & \textbf{Confirmed (rguenth: wrong-debug)} \\
 \textbf{COV-BUG-008} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805}{GCC PR 128805} & DWARF Compound Initializers & Dropped Lines & 10 & \textbf{Submitted / Confirmed} \\
 \textbf{COV-BUG-009} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243451}{LLVM \#243451} & Region Counter Allocation & Ghost / Leak & 9 & \textbf{Submitted / Confirmed} \\
 \textbf{COV-BUG-010} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243464}{LLVM \#243464} & \texttt{CoverageMappingGen.cpp} & Phantom Branches & 8 & \textbf{Submitted / Confirmed} \\
@@ -377,7 +377,7 @@ int main(void) {
 
 \subsection{Case Study 2: GCC PR 128800 (COV-BUG-003) — Multi-Line Short-Circuit Operator Location Attribution}
 \textbf{Upstream Link}: \url{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800} \\
-\textbf{Status}: \textit{Submitted to GCC Bugzilla and confirmed by toolchain maintainers.}
+\textbf{Status}: \textit{Confirmed upstream by GCC Release Manager (Richard Biener: tagged \texttt{wrong-debug}, component reassigned to \texttt{gcov-profile}).}
 
 \begin{figure}[h]
 \begin{lstlisting}[language=C]
@@ -437,7 +437,7 @@ int main(void) {
 
 \subsection{Case Studies 5--7: GCC PR 128804, GCC PR 128805, LLVM \#243451}
 \begin{itemize}
-    \item \textbf{GCC PR 128804 (COV-BUG-007)}: Multi-line \texttt{COND\_EXPR} expressions attribute CFG branch arcs to the colon (\texttt{:}) token line rather than the branch statement bodies, causing branch profilers to misreport taken branches.
+    \item \textbf{GCC PR 128804 (COV-BUG-007)}: Multi-line \texttt{COND\_EXPR} expressions attribute CFG branch arcs to the colon (\texttt{:}) token line rather than the branch statement bodies, causing branch profilers to misreport taken branches. \textit{Confirmed upstream by GCC Release Manager (Richard Biener: tagged \texttt{wrong-debug}, reassigned to \texttt{gcov-profile}).}
     \item \textbf{GCC PR 128805 (COV-BUG-008)}: Multi-line compound literal designated initializers discard DWARF line table entries for initialized sub-fields, collapsing all lines into the opening brace and causing GDB debugger sliding.
     \item \textbf{LLVM \#243451 (COV-BUG-009)}: Backward \texttt{goto} jumps crossing return statements trigger an integer counter underflow in LLVM's coverage region weight propagation, causing executed statements in loop preheaders to leak negative/astronomical counts.
 \end{itemize}

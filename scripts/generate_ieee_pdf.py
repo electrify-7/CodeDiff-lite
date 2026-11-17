@@ -686,7 +686,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td><code>tree-profile.cc</code> / <code>gcov</code></td>
                 <td>Misattribution</td>
                 <td class="num-col">9</td>
-                <td><b>Submitted / Confirmed</b></td>
+                <td><b>Confirmed (rguenth: wrong-debug, gcov-profile)</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-006</b></td>
@@ -704,7 +704,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td><code>gcov-io.cc</code> CFG Branching</td>
                 <td>Branch Misattribution</td>
                 <td class="num-col">6</td>
-                <td><b>Submitted / Confirmed</b></td>
+                <td><b>Confirmed (rguenth: wrong-debug, gcov-profile)</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-008</b></td>
