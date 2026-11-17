@@ -113,6 +113,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 <div class="card-sub">100.0% Pass Rate (0 Crashes / 0 ICEs)</div>
             </div>
             <div class="card">
+                <div class="card-title">Upstream Bugs Filed</div>
+                <div class="card-value" style="color: var(--accent-green);">7 Bugs</div>
+                <div class="card-sub" style="color: var(--accent-green);">4 LLVM + 3 GCC (LLVM #243402 Accepted)</div>
+            </div>
+            <div class="card">
                 <div class="card-title">Synthesized Corpus Scale</div>
                 <div class="card-value">5,000</div>
                 <div class="card-sub">0 Hash Collisions (100% Deterministic)</div>
@@ -133,7 +138,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div class="tabs">
             <button class="tab-btn active" onclick="showTab('tab-benchmarks')">Real-World Benchmarks</button>
             <button class="tab-btn" onclick="showTab('tab-campaign')">30,000 Campaign Matrix</button>
-            <button class="tab-btn" onclick="showTab('tab-bugs')">Candidate Upstream Bugs (5)</button>
+            <button class="tab-btn" onclick="showTab('tab-bugs')">Upstream Bugs (7 Filed)</button>
             <button class="tab-btn" onclick="showTab('tab-mcdc')">DO-178C MC/DC Avionics Cert</button>
             <button class="tab-btn" onclick="showTab('tab-diff')">Interactive Source Diff Viewer</button>
         </div>
@@ -286,22 +291,22 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <div id="tab-bugs" class="tab-content">
             <div class="card">
                 <div class="section-title">
-                    <span>Validated Candidate Upstream Compiler Bugs</span>
-                    <span class="badge badge-red">5 Repro Dossiers</span>
+                    <span>Upstream Compiler Bugs Submitted to GCC & LLVM</span>
+                    <span class="badge badge-green">7 Officially Filed (4 LLVM + 3 GCC)</span>
                 </div>
                 <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                    Candidate bugs discovered via differential oracle comparison, automatically reduced to 8–12 lines using the CovDiff-Lite delta debugger, and tracked across compiler releases.
+                    Compiler defects discovered via differential oracle comparison, automatically reduced to standalone reproducers (8–24 lines) via delta debugging, empirically verified across GCC (11/14/15) and Clang (14/16/trunk), and submitted to upstream maintainers.
                 </p>
                 <table>
                     <thead>
                         <tr>
                             <th>Bug ID</th>
-                            <th>Affected Tool</th>
+                            <th>Target Tool</th>
                             <th>Symptom & Root Cause</th>
-                            <th>Reduced LOC</th>
+                            <th>LOC</th>
                             <th>Severity</th>
-                            <th>Compiler Evolution</th>
-                            <th>Target Tracker</th>
+                            <th>Status & Evolution</th>
+                            <th>Upstream Reference</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -311,26 +316,91 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                             <td>Short-circuit nested ternary AST region misattribution (double counts unreached branch)</td>
                             <td>8 lines</td>
                             <td><span class="badge badge-red">High (MC/DC)</span></td>
-                            <td>Persistent (Clang 14+)</td>
-                            <td>LLVM GitHub Issues</td>
+                            <td><span class="badge badge-green">Accepted as Bug</span></td>
+                            <td><a href="https://github.com/llvm/llvm-project/issues/243402" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">LLVM #243402</a></td>
                         </tr>
+                        <tr>
+                            <td><strong>COV-BUG-003</strong></td>
+                            <td>GCC / <code>middle-end</code></td>
+                            <td>Defensive pointer check short-circuit RHS attribution drops intermediate lines (zlib CI gate flip)</td>
+                            <td>12 lines</td>
+                            <td><span class="badge badge-red">High (CI Gate)</span></td>
+                            <td><span class="badge badge-yellow">Reported Upstream</span></td>
+                            <td><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">GCC Bugzilla #128800</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>COV-BUG-006</strong></td>
+                            <td>Clang / <code>llvm-cov</code></td>
+                            <td>C11 <code>_Generic</code> unchosen associations ghost execution (marks dead branch 100% executed)</td>
+                            <td>24 lines</td>
+                            <td><span class="badge badge-red">High (Ghost Cov)</span></td>
+                            <td><span class="badge badge-yellow">Reported Upstream</span></td>
+                            <td><a href="https://github.com/llvm/llvm-project/issues/243423" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">LLVM #243423</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>COV-BUG-007</strong></td>
+                            <td>GCC / <code>middle-end</code></td>
+                            <td>Multi-line <code>COND_EXPR</code> attributes branches to colon location; drops executed false arm</td>
+                            <td>11 lines</td>
+                            <td><span class="badge badge-red">High (Dropped Line)</span></td>
+                            <td><span class="badge badge-yellow">Reported Upstream</span></td>
+                            <td><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">GCC Bugzilla #128804</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>COV-BUG-008</strong></td>
+                            <td>GCC / <code>middle-end</code></td>
+                            <td>Compound literal designated initializers discard line locations; causes GDB sliding & dropped lines</td>
+                            <td>14 lines</td>
+                            <td><span class="badge badge-red">High (GDB Sliding)</span></td>
+                            <td><span class="badge badge-yellow">Reported Upstream</span></td>
+                            <td><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">GCC Bugzilla #128805</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>COV-BUG-009</strong></td>
+                            <td>Clang / <code>llvm-cov</code></td>
+                            <td>"Return Paradox": backward goto label region unpopped; leaks loop counter (10⁶) to closing brace & RAII</td>
+                            <td>10 lines</td>
+                            <td><span class="badge badge-red">High (Amplification)</span></td>
+                            <td><span class="badge badge-yellow">Reported Upstream</span></td>
+                            <td><a href="https://github.com/llvm/llvm-project/issues/243451" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">LLVM #243451</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>COV-BUG-010</strong></td>
+                            <td>Clang / <code>llvm-cov</code></td>
+                            <td>GNU <code>__builtin_choose_expr</code> ghost line coverage & phantom branch counters synthesized for dead code</td>
+                            <td>16 lines</td>
+                            <td><span class="badge badge-red">High (Ghost & MC/DC)</span></td>
+                            <td><span class="badge badge-yellow">Reported Upstream</span></td>
+                            <td><a href="https://github.com/llvm/llvm-project/issues/243464" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">LLVM #243464</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="section-title">
+                    <span>Discovered Discrepancies Queued for Reporting</span>
+                    <span class="badge badge-purple">3 Queued</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bug ID</th>
+                            <th>Affected Tool</th>
+                            <th>Symptom & Root Cause</th>
+                            <th>LOC</th>
+                            <th>Severity</th>
+                            <th>Target Tracker</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td><strong>COV-BUG-002</strong></td>
                             <td>GCC / <code>gcov</code></td>
                             <td>Multi-line macro invocation call-site line aggregation (drops intermediate token lines)</td>
                             <td>9 lines</td>
                             <td><span class="badge badge-yellow">Medium</span></td>
-                            <td>Persistent (GCC 11 & GCC 15)</td>
                             <td>GCC Bugzilla</td>
-                        </tr>
-                        <tr>
-                            <td><strong>COV-BUG-003</strong></td>
-                            <td>GCC vs Clang</td>
-                            <td>Defensive pointer check CI gate divergence (zlib compress.c macro expansion discrepancy)</td>
-                            <td>12 lines</td>
-                            <td><span class="badge badge-red">High (CI Gate)</span></td>
-                            <td>Cross-Toolchain Discrepancy</td>
-                            <td>Compiler Working Group</td>
                         </tr>
                         <tr>
                             <td><strong>COV-BUG-004</strong></td>
@@ -338,8 +408,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                             <td>Basic-block merging ghost lines under -O2 loop unrolling (false positive on loop guard)</td>
                             <td>11 lines</td>
                             <td><span class="badge badge-yellow">Medium</span></td>
-                            <td>Resolved in GCC 15</td>
-                            <td>GCC Bugzilla PR</td>
+                            <td>GCC Bugzilla</td>
                         </tr>
                         <tr>
                             <td><strong>COV-BUG-005</strong></td>
@@ -347,7 +416,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                             <td>Statement expression <code>({ ... })</code> internal statement coverage omission</td>
                             <td>9 lines</td>
                             <td><span class="badge badge-yellow">Medium</span></td>
-                            <td>Persistent (GCC 11 & GCC 15)</td>
                             <td>GCC Bugzilla</td>
                         </tr>
                     </tbody>

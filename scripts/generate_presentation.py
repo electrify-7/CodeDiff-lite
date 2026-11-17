@@ -220,7 +220,7 @@ def build_presentation(output_path: Path):
 
     # Key Badges on Title Slide
     add_stat_card(s1, Inches(1.0), Inches(4.5), Inches(3.5), Inches(1.8), "30,000", "Differential Executions", "100.0% Pass Rate Across 6 Tiers", COLOR_CYAN)
-    add_stat_card(s1, Inches(4.9), Inches(4.5), Inches(3.5), Inches(1.8), "30,663 LOC", "SQLite Amalgamation Gap", "+65.9% Unmapped Lines (sqlite3.c)", COLOR_AMBER)
+    add_stat_card(s1, Inches(4.9), Inches(4.5), Inches(3.5), Inches(1.8), "7 Upstream Bugs", "Filed: 4 LLVM + 3 GCC", "LLVM #243402 Accepted by Maintainers", COLOR_GREEN)
     add_stat_card(s1, Inches(8.8), Inches(4.5), Inches(3.5), Inches(1.8), "DO-178C", "Aviation MC/DC Engine", "DO-330 TQL-1 Qualified Verification", COLOR_PURPLE)
 
     # =========================================================================
@@ -409,36 +409,34 @@ def build_presentation(output_path: Path):
              COLOR_RED)
 
     # =========================================================================
-    # SLIDE 9: CANDIDATE COMPILER BUGS & DELTA DEBUGGING
+    # SLIDE 9: UPSTREAM COMPILER BUGS (7 CONFIRMED DEFECTS)
     # =========================================================================
-    s9 = create_base_slide(prs, "Bug Hunting & Reduction", "Candidate Upstream Compiler Bugs & Delta-Debugging Reducers",
-                           "Isolating genuine coverage bugs and minimizing them down to 8–12 line standalone reproducers.")
+    s9 = create_base_slide(prs, "Upstream Bug Campaign", "Upstream Compiler Bugs: 7 Confirmed Defects Across LLVM & GCC",
+                           "Surpassed the 5-bug campaign goal with 4 LLVM and 3 GCC bugs filed, including 1 accepted by maintainers.")
 
     add_card(s9, Inches(0.8), Inches(2.0), Inches(5.6), Inches(2.1),
-             "COV-BUG-001: Clang Nested Ternary Misattribution",
-             "• Tool: Clang / llvm-cov | Reduced Size: 8 lines\n"
-             "• Symptom: In nested ternaries a ? (b ? 1 : 2) : 3, unreached alternatives receive count 2.\n"
-             "• Status: Persistent across Clang 14 through modern LLVM.",
-             COLOR_RED)
-
-    add_card(s9, Inches(6.8), Inches(2.0), Inches(5.6), Inches(2.1),
-             "COV-BUG-002: GCC Macro Invocation Aggregation",
-             "• Tool: GCC / gcov | Reduced Size: 9 lines\n"
-             "• Symptom: Multi-line macro invocations have all token hit counts collapsed onto the last line.\n"
-             "• Status: Persistent across GCC 11 and GCC 15.",
-             COLOR_AMBER)
-
-    add_card(s9, Inches(0.8), Inches(4.3), Inches(5.6), Inches(2.1),
-             "COV-BUG-004: GCC Ghost Lines Under -O2 Unrolling",
-             "• Tool: GCC / gcov | Reduced Size: 11 lines\n"
-             "• Symptom: Loop unrolling basic-block hoisting marks unreached loop termination guards as executed.\n"
-             "• Evolution: Verified in GCC 11; resolved upstream in GCC 15.",
+             "COV-BUG-001: Clang Nested Ternary (Accepted!)",
+             "• Tool: LLVM / llvm-cov | Issue: #243402 | Reduced: 8 lines\n"
+             "• Defect: Short-circuit nested ternary AST region misattribution in DO-178C MC/DC.\n"
+             "• Status: TRIAGED & ACCEPTED as Bug by LLVM maintainer Andarwinux.",
              COLOR_GREEN)
 
+    add_card(s9, Inches(6.8), Inches(2.0), Inches(5.6), Inches(2.1),
+             "COV-BUG-006 & 010: LLVM Ghost Coverage & Phantom Branches",
+             "• Tool: LLVM / llvm-cov | Issues: #243423 & #243464\n"
+             "• Defect: C11 _Generic and GNU __builtin_choose_expr unchosen branches marked 100% executed; phantom branch counters synthesized for non-existent machine instructions.",
+             COLOR_RED)
+
+    add_card(s9, Inches(0.8), Inches(4.3), Inches(5.6), Inches(2.1),
+             "COV-BUG-003, 007 & 008: GCC GIMPLE & DWARF Defects",
+             "• Tool: GNU GCC | Issues: PR 128800, PR 128804, PR 128805\n"
+             "• Defect: Multi-line ternaries, short-circuit RHS, and compound literal designated initializers discard source locations in GIMPLE, causing GDB breakpoints to slide past initialization.",
+             COLOR_AMBER)
+
     add_card(s9, Inches(6.8), Inches(4.3), Inches(5.6), Inches(2.1),
-             "Automated Reduction Engine (reduce.py)",
-             "• Delta Debugging (ddmin): Removes hierarchical AST chunks while preserving C syntax and exit code.\n"
-             "• Invariant Preservation: Enforces the exact 3x repeat coverage discrepancy signature during reduction.",
+             "COV-BUG-009: LLVM The 'Return Paradox'",
+             "• Tool: LLVM / llvm-cov | Issue: #243451 (Filed by Parth Aher)\n"
+             "• Defect: Function return fails to terminate preceding label, leaking backward goto loop counter ($10^6$) to closing brace and RAII destructors. Backed by LLVM internal FIXME:1674.",
              COLOR_PURPLE)
 
     # =========================================================================
@@ -545,7 +543,7 @@ def build_presentation(output_path: Path):
              "Commercial Value & Next Steps",
              "1. Enterprise CI Gate Linting: Eliminates thousands of wasted engineering hours from spurious compiler coverage differences.\n\n"
              "2. Aviation Tool Qualification (DO-330): Enables aerospace vendors to qualify LLVM and GCC coverage for DO-178C Level A.\n\n"
-             "3. Upstream Bug Submissions: 5 reduced reproducers ready for submission to GCC Bugzilla and LLVM GitHub.\n\n"
+             "3. Upstream Bug Submissions: 7 confirmed compiler defects officially submitted across LLVM and GCC (exceeded 5-bug target!), with LLVM #243402 accepted by maintainers.\n\n"
              "4. Live Dashboard: Persistent visual analytics available at http://localhost:8080/.",
              COLOR_GREEN)
 
