@@ -54,7 +54,7 @@ Naive differential testing across C coverage tools fundamentally breaks down: co
 
 CovDiff-Lite formalizes: (1) a Tri-State Coverage Lattice distinguishing explicit zero-count executions from unmapped lines, (2) formal DO-178C Unique-Cause and Masking Modified Condition/Decision Coverage (MC/DC) boolean independence verification, (3) a unified semantic alignment engine bridging GCC's basic block CFG edge transitions and LLVM's source AST regions, (4) an optimization-invariant oracle quantifying coverage degradation across \texttt{-O0} through \texttt{-O2}, (5) automated discrepancy-preserving delta-debugging reduction, and (6) grammar-scale deterministic synthesis across 12 construct families totaling 5,320 programs.
 
-Through extensive differential campaigns, CovDiff-Lite discovered and isolated \textbf{8 previously unknown upstream compiler bugs} across Clang/LLVM and GCC, including 4 officially accepted LLVM defects (\#243402, \#243423, \#243451, \#243464), 3 GCC Bugzilla defects confirmed with \texttt{wrong-debug} by the GCC Release Manager (PR 128800, PR 128804, PR 128805), and 1 newly submitted GCC defect (PR 128827). We report on a massive 30,000-execution differential campaign (100.0\% pass rate) demonstrating statistically significant optimization degradation in GCC (Wilcoxon $W=0, p < 10^{-15}$; Cliff's $\delta = 0.413$), profile industrial production systems (SQLite, zlib, cJSON) revealing a 30,663-line unmapped gap (+65.9\%) and persistent CI quality gate flip conflicts, and quantify downstream distortion in Spectrum-Based Fault Localization (SBFL).
+Through extensive differential campaigns, CovDiff-Lite discovered and isolated \textbf{9 previously unknown upstream compiler bugs} across Clang/LLVM and GCC, including 4 officially accepted LLVM defects (\#243402, \#243423, \#243451, \#243464), 1 newly submitted LLVM defect (\#243547), 3 GCC Bugzilla defects confirmed with \texttt{wrong-debug} by the GCC Release Manager (PR 128800, PR 128804, PR 128805), and 1 newly submitted GCC defect (PR 128827). We report on a massive 30,000-execution differential campaign (100.0\% pass rate) demonstrating statistically significant optimization degradation in GCC (Wilcoxon $W=0, p < 10^{-15}$; Cliff's $\delta = 0.413$), profile industrial production systems (SQLite, zlib, cJSON) revealing a 30,663-line unmapped gap (+65.9\%) and persistent CI quality gate flip conflicts, and quantify downstream distortion in Spectrum-Based Fault Localization (SBFL).
 \end{abstract}
 
 \begin{CCSXML}
@@ -346,11 +346,12 @@ As demonstrated in Section~\ref{sec:upstream_bugs}, our reducer routinely compre
 \textbf{COV-BUG-009} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243451}{LLVM \#243451} & Region Counter Allocation & Ghost / Leak & 9 & \textbf{Accepted by Maintainers} \\
 \textbf{COV-BUG-010} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243464}{LLVM \#243464} & \texttt{CoverageMappingGen.cpp} & Phantom Branches & 8 & \textbf{Accepted by Maintainers} \\
 \textbf{COV-BUG-011} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128827}{GCC PR 128827} & C Frontend / \texttt{gimplify.cc} & Dropped Line & 6 & \textbf{Submitted (Pending Triage)} \\
+\textbf{COV-BUG-012} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243547}{LLVM \#243547} & \texttt{CoverageMappingGen.cpp} & Ghost Coverage & 7 & \textbf{Submitted (Pending Triage)} \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-Through systematic execution of CovDiff-Lite across compiler toolchains, we discovered, isolated, and officially submitted \textbf{8 previously unknown compiler defects} (Table~\ref{tab:upstream_bugs}). Below, we examine key case studies detailing their symptoms, root causes, and reduced reproducers.
+Through systematic execution of CovDiff-Lite across compiler toolchains, we discovered, isolated, and officially submitted \textbf{9 previously unknown compiler defects} (Table~\ref{tab:upstream_bugs}). Below, we examine key case studies detailing their symptoms, root causes, and reduced reproducers.
 
 \subsection{Case Study 1: LLVM \#243402 (COV-BUG-001) — Nested Ternary Sub-Region Ghost Execution}
 \textbf{Upstream Link}: \url{https://github.com/llvm/llvm-project/issues/243402} \\

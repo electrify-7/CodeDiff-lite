@@ -21,7 +21,7 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 | **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-011`** | GCC / `c` / `gcov-profile` | Statement expression initialization line dropped (count 0) on early return/jump | 6 lines | High (Dropped line / false negative) | [GCC Bugzilla #128827](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128827) | **Submitted (Pending Triage)** |
-| **`COV-BUG-012`** | Clang / `llvm-cov` | CoverageMappingGen missing VisitIndirectGotoStmt leaking execution counts across computed goto | 7 lines | High (Ghost coverage / false positive) | [LLVM GitHub](https://github.com/llvm/llvm-project/issues) | **Ready for Submission** |
+| **`COV-BUG-012`** | Clang / `llvm-cov` | CoverageMappingGen missing VisitIndirectGotoStmt leaking execution counts across computed goto | 7 lines | High (Ghost coverage / false positive) | [LLVM #243547](https://github.com/llvm/llvm-project/issues/243547) | **Submitted (Pending Triage)** |
 
 ---
 
@@ -521,7 +521,8 @@ Line 6: 0
 
 ### Bug `COV-BUG-012`: Clang `llvm-cov` Missing `VisitIndirectGotoStmt` Leaking Execution Counts Across Computed Goto
 
-* **Upstream Target:** [LLVM GitHub Issues](https://github.com/llvm/llvm-project/issues) (Component: `clang:coverage`, `llvm-cov`)
+* **Upstream Issue:** [LLVM Issue #243547](https://github.com/llvm/llvm-project/issues/243547)
+* **Status:** **Submitted (Pending Triage)** (Components: `clang:coverage`, `llvm-cov`, `bug`)
 * **Target Compiler:** LLVM / Clang (`clang` / `llvm-cov`, verified on Clang 14.0.0 through Clang 20 trunk)
 * **Component:** `clang/lib/CodeGen/CoverageMappingGen.cpp` (`MatchMapVisitor`)
 * **Standard:** GNU C Extension §6.5 (Labels as Values / Computed Goto)

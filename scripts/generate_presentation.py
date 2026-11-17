@@ -477,7 +477,7 @@ def build_presentation(output_path: Path):
              "  In CoverageMappingGen.cpp, MatchMapVisitor visits GotoStmt, ReturnStmt, BreakStmt to call terminateRegion(S). However, it completely lacks VisitIndirectGotoStmt! Preceding basic block execution count bleeds across goto *ptr into unreached code!\n"
              "• Upstream Patch:\n"
              "  Add: void VisitIndirectGotoStmt(const IndirectGotoStmt *S) { terminateRegion(S); }\n"
-             "• Status: Minimized & Prepared for LLVM GitHub Issues.",
+             "• Status: FILED & SUBMITTED to LLVM GitHub as Issue #243547.",
              COLOR_CYAN)
 
     # =========================================================================
