@@ -151,6 +151,9 @@ def coverage_discrepancy_predicate(
         except Exception:
             return False
 
+        coverage_data["__source__"] = source_text
+        coverage_data["__lines__"] = source_text.splitlines()
+
         try:
             return bool(discrepancy_checker(coverage_data))
         except Exception:

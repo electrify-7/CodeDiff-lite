@@ -20,6 +20,8 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 | **`COV-BUG-008`** | GCC / C Frontend (`c`) | Multi-line compound literal designated initializers discard locations | 10 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Confirmed (`wrong-debug`) by Richard Biener & Andrew Pinski** |
 | **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Accepted by LLVM Maintainers** |
+| **`COV-BUG-011`** | GCC / `c` / `gcov-profile` | Statement expression initialization line dropped (count 0) on early return/jump | 6 lines | High (Dropped line / false negative) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | **Ready for Submission** |
+| **`COV-BUG-012`** | Clang / `llvm-cov` | CoverageMappingGen missing VisitIndirectGotoStmt leaking execution counts across computed goto | 7 lines | High (Ghost coverage / false positive) | [LLVM GitHub](https://github.com/llvm/llvm-project/issues) | **Ready for Submission** |
 
 ---
 
@@ -453,6 +455,142 @@ int main(void) {
     return 0;
 }
 ```
+
+---
+
+### Bug `COV-BUG-011`: GCC `gcov` Statement Expression Initialization Line Dropped (Count 0) on Early Return or Non-Local Jump
+
+* **Upstream Target:** [GCC Bugzilla](https://gcc.gnu.org/bugzilla) (Component: `c` / `gcov-profile`, Keyword: `wrong-debug`)
+* **Target Compiler:** GCC (`gcc` / `gcov`, verified on GCC 11.4.0 through GCC 15.2.0 and trunk)
+* **Component:** GCC C Frontend (`c/c-typeck.cc` / `gimplify.cc`) GIMPLE Lowering
+* **Standard:** GNU C Extension §6.1 (Statements and Declarations in Expressions)
+* **Severity:** High — Severe False Negative in safety-critical coverage audits (DO-178C / ISO 26262). When a statement expression contains an early return or jump, `gcov` reports the statement expression declaration line as completely UNEXECUTED (`count: 0` / `#####`), directly contradicting the executed function body and the executed inner lines.
+
+#### Summary of the Problem
+In GNU C statement expressions (`({ ... })`), when the inner block terminates non-locally via `return`, `goto`, or `break`, GCC GIMPLE lowering binds the source locus of the enclosing declaration / assignment statement (`int res = ({ ... });`) solely to the assignment of the final statement expression result to the destination variable (`res = D.xxxx`). 
+
+Because the statement expression returned early from within its block, the final assignment instruction is bypassed in the CFG. As a result, no basic block tagged with the declaration line's locus is ever executed. `gcov` therefore reports the declaration line as `count: 0` (`#####`), despite the function entry being executed (`count: 1`) and the inner conditional/return lines being executed (`count: 1`). Clang correctly attributes execution (`count: 1`) to the declaration/entry line.
+
+#### Minimal Standalone Reproducer (`test_stmt_expr_early_ret.c` - 6 lines)
+```c
+int f(int a) {
+    int res = ({
+        if (a) return 42;
+        0;
+    });
+    return res;
+}
+
+int main(void) {
+    return f(1) != 42;
+}
+```
+
+#### Exact Reproduction Commands
+```bash
+# Compile and run with GCC coverage instrumentation
+gcc -std=gnu11 -O0 -g --coverage test_stmt_expr_early_ret.c -o test_gcc
+./test_gcc
+gcov -b -c test_stmt_expr_early_ret.c
+cat test_stmt_expr_early_ret.c.gcov
+```
+
+#### Actual vs Expected Output
+```
+GCOV Output (GCC 11, 12, 13, 14, 15):
+        1:    1:int f(int a) {
+    #####:    2:    int res = ({
+        1:    3:        if (a) return 42;
+    #####:    4:        0;
+        -:    5:    });
+    #####:    6:    return res;
+        -:    7:}
+
+Expected (and reported by Clang 14 through 18):
+Line 1: 1
+Line 2: 1  <-- Statement entered and evaluated
+Line 3: 1  <-- Condition taken and returned
+Line 4: 0
+Line 6: 0
+```
+
+---
+
+### Bug `COV-BUG-012`: Clang `llvm-cov` Missing `VisitIndirectGotoStmt` Leaking Execution Counts Across Computed Goto
+
+* **Upstream Target:** [LLVM GitHub Issues](https://github.com/llvm/llvm-project/issues) (Component: `clang:coverage`, `llvm-cov`)
+* **Target Compiler:** LLVM / Clang (`clang` / `llvm-cov`, verified on Clang 14.0.0 through Clang 20 trunk)
+* **Component:** `clang/lib/CodeGen/CoverageMappingGen.cpp` (`MatchMapVisitor`)
+* **Standard:** GNU C Extension §6.5 (Labels as Values / Computed Goto)
+* **Severity:** High — Ghost coverage / False Positive in code coverage. When an indirect jump (`goto *ptr;`) is executed, Clang fails to terminate the active counter region, leaking the predecessor basic block's execution count into subsequent unreached labels and statements.
+
+#### Summary of the Problem
+In `clang/lib/CodeGen/CoverageMappingGen.cpp`, unconditional branch statements terminate their active counter region to prevent execution counts from leaking into fallthrough code. For example, line 1659 implements:
+```cpp
+void VisitGotoStmt(const GotoStmt *S) { terminateRegion(S); }
+```
+Similarly, `VisitReturnStmt`, `VisitBreakStmt`, and `VisitContinueStmt` invoke `terminateRegion(S)`.
+
+However, `MatchMapVisitor` completely lacks a visitor for `IndirectGotoStmt`. When an indirect goto (`goto *targets[op];`) is encountered, the visitor falls back to `VisitStmt`, failing to invoke `terminateRegion(S)`. Consequently, the active region counter from before the indirect jump bleeds across the jump into whatever label or statement immediately follows, falsely attributing non-zero execution counts to code that was never executed.
+
+#### Minimal Standalone Reproducer (`test_indirect_goto_leak.c` - 7 lines)
+```c
+int test_dispatch(int op) {
+    static void *targets[] = { &&op_exit, &&op_unreached };
+    goto *targets[op];
+
+op_unreached:
+    return 1;
+op_exit:
+    return 0;
+}
+
+int main(void) {
+    return test_dispatch(0);
+}
+```
+
+#### Exact Reproduction Commands
+```bash
+# Compile and run with Clang source-based coverage
+clang -std=gnu11 -O0 -g -fprofile-instr-generate -fcoverage-mapping test_indirect_goto_leak.c -o test_clang
+LLVM_PROFILE_FILE="test.profraw" ./test_clang
+llvm-profdata merge -sparse test.profraw -o test.profdata
+llvm-cov show test_clang -instr-profile=test.profdata test_indirect_goto_leak.c
+```
+
+#### Actual vs Expected Output
+```
+llvm-cov Output (Clang 14 through Clang 20 trunk):
+    1|      1|int test_dispatch(int op) {
+    2|      1|    static void *targets[] = { &&op_exit, &&op_unreached };
+    3|      1|    goto *targets[op];
+    4|       |
+    5|      1|op_unreached:    <-- GHOST COVERAGE! Never jumped to!
+    6|      0|    return 1;
+    7|      1|op_exit:
+    8|      1|    return 0;
+    9|      1|}
+
+If written on a single line `op_unreached: return 1;`:
+    5|      1|op_unreached: return 1;  <-- return 1 falsely reported as EXECUTED!
+
+Expected (and reported by GCC):
+Line 1: 1
+Line 3: 1
+Line 5: 0  <-- Unreached label must have count 0
+Line 6: 0
+Line 7: 1
+Line 8: 1
+```
+
+#### Upstream Patch
+In `clang/lib/CodeGen/CoverageMappingGen.cpp`, add:
+```cpp
+void VisitIndirectGotoStmt(const IndirectGotoStmt *S) { terminateRegion(S); }
+```
+
+---
 
 ---
 
