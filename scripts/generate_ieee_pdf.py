@@ -713,7 +713,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td>DWARF Compound Initializers</td>
                 <td>Dropped Lines</td>
                 <td class="num-col">10</td>
-                <td><b>Submitted / Confirmed</b></td>
+                <td><b>Confirmed (rguenth: wrong-debug)</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-009</b></td>
