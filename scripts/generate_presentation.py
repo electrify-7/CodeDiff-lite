@@ -220,7 +220,7 @@ def build_presentation(output_path: Path):
 
     # Key Badges on Title Slide
     add_stat_card(s1, Inches(1.0), Inches(4.5), Inches(3.5), Inches(1.8), "30,000", "Differential Executions", "100.0% Pass Rate Across 6 Tiers", COLOR_CYAN)
-    add_stat_card(s1, Inches(4.9), Inches(4.5), Inches(3.5), Inches(1.8), "7 Upstream Bugs", "Filed: 4 LLVM + 3 GCC", "LLVM #243402 Accepted by Maintainers", COLOR_GREEN)
+    add_stat_card(s1, Inches(4.9), Inches(4.5), Inches(3.5), Inches(1.8), "7 Upstream Bugs", "4 LLVM (All Accepted)", "3 GCC (All Confirmed wrong-debug)", COLOR_GREEN)
     add_stat_card(s1, Inches(8.8), Inches(4.5), Inches(3.5), Inches(1.8), "DO-178C", "Aviation MC/DC Engine", "DO-330 TQL-1 Qualified Verification", COLOR_PURPLE)
 
     # =========================================================================
@@ -412,31 +412,34 @@ def build_presentation(output_path: Path):
     # SLIDE 9: UPSTREAM COMPILER BUGS (7 CONFIRMED DEFECTS)
     # =========================================================================
     s9 = create_base_slide(prs, "Upstream Bug Campaign", "Upstream Compiler Bugs: 7 Confirmed Defects Across LLVM & GCC",
-                           "Surpassed the 5-bug campaign goal with 4 LLVM and 3 GCC bugs filed, including 1 accepted by maintainers.")
+                           "Surpassed campaign goal with 7 upstream bugs: 4 LLVM bugs accepted by maintainers + 3 GCC bugs confirmed by GCC Release Manager.")
 
     add_card(s9, Inches(0.8), Inches(2.0), Inches(5.6), Inches(2.1),
              "COV-BUG-001: Clang Nested Ternary (Accepted!)",
              "• Tool: LLVM / llvm-cov | Issue: #243402 | Reduced: 8 lines\n"
              "• Defect: Short-circuit nested ternary AST region misattribution in DO-178C MC/DC.\n"
-             "• Status: TRIAGED & ACCEPTED as Bug by LLVM maintainer Andarwinux.",
+             "• Status: TRIAGED & ACCEPTED as Bug by LLVM maintainers.",
              COLOR_GREEN)
 
     add_card(s9, Inches(6.8), Inches(2.0), Inches(5.6), Inches(2.1),
-             "COV-BUG-006 & 010: LLVM Ghost Coverage & Phantom Branches",
+             "COV-BUG-006 & 010: LLVM Ghost Coverage & Phantom Branches (Accepted!)",
              "• Tool: LLVM / llvm-cov | Issues: #243423 & #243464\n"
-             "• Defect: C11 _Generic and GNU __builtin_choose_expr unchosen branches marked 100% executed; phantom branch counters synthesized for non-existent machine instructions.",
-             COLOR_RED)
+             "• Defect: C11 _Generic and GNU __builtin_choose_expr unchosen branches marked 100% executed; phantom branch counters synthesized for non-existent machine instructions.\n"
+             "• Status: Both CONFIRMED & ACCEPTED by LLVM maintainers.",
+             COLOR_GREEN)
 
     add_card(s9, Inches(0.8), Inches(4.3), Inches(5.6), Inches(2.1),
-             "COV-BUG-003, 007 & 008: GCC GIMPLE & DWARF Defects",
+             "COV-BUG-003, 007 & 008: GCC GIMPLE & DWARF Defects (Confirmed!)",
              "• Tool: GNU GCC | Issues: PR 128800, PR 128804, PR 128805\n"
-             "• Defect: Multi-line ternaries, short-circuit RHS, and compound literal designated initializers discard source locations in GIMPLE, causing GDB breakpoints to slide past initialization.",
+             "• Defect: Multi-line ternaries, short-circuit RHS, and compound literal designated initializers discard source locations in GIMPLE/DWARF.\n"
+             "• Status: 100% CONFIRMED by GCC Release Manager (Richard Biener: wrong-debug, gcov-profile).",
              COLOR_AMBER)
 
     add_card(s9, Inches(6.8), Inches(4.3), Inches(5.6), Inches(2.1),
-             "COV-BUG-009: LLVM The 'Return Paradox'",
+             "COV-BUG-009: LLVM The 'Return Paradox' (Accepted!)",
              "• Tool: LLVM / llvm-cov | Issue: #243451 (Filed by Parth Aher)\n"
-             "• Defect: Function return fails to terminate preceding label, leaking backward goto loop counter ($10^6$) to closing brace and RAII destructors. Backed by LLVM internal FIXME:1674.",
+             "• Defect: Function return fails to terminate preceding label, leaking backward goto loop counter ($10^6$) to closing brace and RAII destructors. Backed by LLVM internal FIXME:1674.\n"
+             "• Status: CONFIRMED & ACCEPTED by LLVM maintainers.",
              COLOR_PURPLE)
 
     # =========================================================================
@@ -543,7 +546,7 @@ def build_presentation(output_path: Path):
              "Commercial Value & Next Steps",
              "1. Enterprise CI Gate Linting: Eliminates thousands of wasted engineering hours from spurious compiler coverage differences.\n\n"
              "2. Aviation Tool Qualification (DO-330): Enables aerospace vendors to qualify LLVM and GCC coverage for DO-178C Level A.\n\n"
-             "3. Upstream Bug Submissions: 7 confirmed compiler defects officially submitted across LLVM and GCC (exceeded 5-bug target!), with LLVM #243402 accepted by maintainers.\n\n"
+             "3. Upstream Bug Submissions: 7 confirmed compiler defects officially submitted across LLVM and GCC (4/4 LLVM accepted by maintainers, 3/3 GCC confirmed with wrong-debug by GCC Release Manager).\n\n"
              "4. Live Dashboard: Persistent visual analytics available at http://localhost:8080/.",
              COLOR_GREEN)
 

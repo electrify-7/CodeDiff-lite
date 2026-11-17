@@ -339,7 +339,7 @@ IEEE_HTML = """<!DOCTYPE html>
 <div class="two-column">
 
 <div class="abstract-box">
-    <span class="abstract-title">Abstract—</span>Code-coverage measurement tools such as GCC's <code>gcov</code> and Clang's <code>llvm-cov</code> form the cornerstone of modern software testing adequacy, CI/CD quality gates, and safety-critical certification (DO-178C Level A, ISO 26262 ASIL-D). Practitioners universally assume that when a coverage tool claims a statement or branch was executed, this attribution is infallible. However, coverage tools are complex compiler instrumentation pipelines that frequently produce erroneous reports, creating dangerous false confidence by concealing untested logic. Naive differential testing between coverage tools fails completely: divergent compiler reporting conventions regarding closing braces, macro expansions, and multiline conditions generate overwhelming convention noise rather than actionable bugs. In this paper, we present <b>CovDiff-Lite</b>, an oracle-guided differential testing framework for C coverage tools. Instead of naive cross-tool comparison, CovDiff-Lite establishes an independent semantic ground-truth interpreter evaluating statement execution, condition truth tables, and Modified Condition/Decision Coverage (MC/DC) independence pairs. CovDiff-Lite formalizes: (1) a Tri-State Coverage Lattice separating explicit unexecuted lines from unmapped syntax, (2) a unified semantic alignment engine mapping GCC CFG arcs and LLVM AST source regions, (3) an optimization-invariant oracle quantifying coverage degradation across <code>-O0</code> through <code>-O2</code>, (4) an automated delta-debugging reducer yielding 3-to-10 line standalone reproducers, and (5) grammar-scale synthesis scaling to 5,320 deterministic programs across 12 construct families. <b>CovDiff-Lite uncovered and isolated 7 previously unknown upstream compiler bugs</b> across Clang/LLVM and GCC, including 4 accepted/confirmed LLVM defects (#243402, #243423, #243451, #243464) and 3 confirmed GCC Bugzilla defects (PR 128800, PR 128804, PR 128805). We report on a 30,000-execution differential campaign (100.0% pass rate) demonstrating statistically significant optimization degradation in GCC (Wilcoxon <i>W</i>=0, <i>p</i> &lt; 10<sup>-15</sup>; Cliff's &delta; = 0.413) and profile industrial software (SQLite Amalgamation 255k LOC), uncovering a 30,663-line unmapped gap (+65.9%) and CI quality gate conflicts.
+    <span class="abstract-title">Abstract—</span>Code-coverage measurement tools such as GCC's <code>gcov</code> and Clang's <code>llvm-cov</code> form the cornerstone of modern software testing adequacy, CI/CD quality gates, and safety-critical certification (DO-178C Level A, ISO 26262 ASIL-D). Practitioners universally assume that when a coverage tool claims a statement or branch was executed, this attribution is infallible. However, coverage tools are complex compiler instrumentation pipelines that frequently produce erroneous reports, creating dangerous false confidence by concealing untested logic. Naive differential testing between coverage tools fails completely: divergent compiler reporting conventions regarding closing braces, macro expansions, and multiline conditions generate overwhelming convention noise rather than actionable bugs. In this paper, we present <b>CovDiff-Lite</b>, an oracle-guided differential testing framework for C coverage tools. Instead of naive cross-tool comparison, CovDiff-Lite establishes an independent semantic ground-truth interpreter evaluating statement execution, condition truth tables, and Modified Condition/Decision Coverage (MC/DC) independence pairs. CovDiff-Lite formalizes: (1) a complete bounded Tri-State Coverage Lattice separating explicit unexecuted lines from unmapped syntax, (2) a unified semantic alignment engine mapping GCC CFG arcs and LLVM AST source regions, (3) an optimization-invariant oracle quantifying coverage degradation across <code>-O0</code> through <code>-O2</code>, (4) an automated delta-debugging reducer yielding 3-to-10 line standalone reproducers, and (5) grammar-scale synthesis scaling to 5,320 deterministic programs across 12 construct families. <b>CovDiff-Lite uncovered and isolated 7 previously unknown upstream compiler bugs</b> across Clang/LLVM and GCC, including 4 officially accepted LLVM defects (#243402, #243423, #243451, #243464) and 3 GCC Bugzilla defects confirmed with <code>wrong-debug</code> by the GCC Release Manager (PR 128800, PR 128804, PR 128805). We report on a 30,000-execution differential campaign (100.0% pass rate) demonstrating statistically significant optimization degradation in GCC (Pratt/Wilcoxon <i>T</i>=0, <i>z</i>=-43.21, <i>p</i> &lt; 10<sup>-15</sup>; Cliff's &delta; = 0.413) and profile industrial software (SQLite Amalgamation 255k LOC), uncovering a 30,663-line unmapped gap (+65.9%) and CI quality gate conflicts.
 </div>
 
 <div class="keywords-box">
@@ -677,7 +677,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td><code>CoverageMappingGen.cpp</code></td>
                 <td>Ghost Coverage</td>
                 <td class="num-col">8</td>
-                <td><b>Accepted by Maintainer</b></td>
+                <td><b>Accepted by Maintainers</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-003</b></td>
@@ -695,7 +695,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td>Clang Frontend AST Mapping</td>
                 <td>Ghost Coverage</td>
                 <td class="num-col">7</td>
-                <td><b>Submitted / Confirmed</b></td>
+                <td><b>Accepted by Maintainers</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-007</b></td>
@@ -722,7 +722,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td>Region Counter Allocation</td>
                 <td>Ghost / Leak</td>
                 <td class="num-col">9</td>
-                <td><b>Submitted / Confirmed</b></td>
+                <td><b>Accepted by Maintainers</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-010</b></td>
@@ -731,7 +731,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td><code>CoverageMappingGen.cpp</code></td>
                 <td>Phantom Branches</td>
                 <td class="num-col">8</td>
-                <td><b>Submitted / Confirmed</b></td>
+                <td><b>Accepted by Maintainers</b></td>
             </tr>
         </tbody>
     </table>
@@ -757,7 +757,7 @@ int main(void) { return f(1, 1) != 1; }</code>
 
 <div class="code-box">
 <b>COV-BUG-006 (LLVM #243423): C11 _Generic Dead Association Ghost Coverage</b><br>
-<i>Symptom:</i> Clang traverses unchosen C11 <code>_Generic</code> association branches, generating active counter regions on statically discarded code.<br>
+<i>Symptom:</i> Clang traverses unchosen C11 <code>_Generic</code> association branches, generating active counter regions on statically discarded code. Accepted by LLVM Maintainers.<br>
 <i>Reproducer (7 lines):</i><br>
 <code>int dead(void) { return 42; }<br>
 int main(void) { int v = _Generic(0, int: 1, double: dead()); return v != 1; }</code>
@@ -765,7 +765,7 @@ int main(void) { int v = _Generic(0, int: 1, double: dead()); return v != 1; }</
 
 <div class="code-box">
 <b>COV-BUG-010 (LLVM #243464): Phantom Branches in __builtin_choose_expr</b><br>
-<i>Symptom:</i> LLVM coverage mapping emits branch counter records for compile-time discarded branches of <code>__builtin_choose_expr</code>.<br>
+<i>Symptom:</i> LLVM coverage mapping emits branch counter records for compile-time discarded branches of <code>__builtin_choose_expr</code>. Accepted by LLVM Maintainers.<br>
 <i>Reproducer (8 lines):</i><br>
 <code>int main(void) { int x = __builtin_choose_expr(1, 10, dead()); return x != 10; }</code>
 </div>

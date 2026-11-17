@@ -54,7 +54,7 @@ Naive differential testing across C coverage tools fundamentally breaks down: co
 
 CovDiff-Lite formalizes: (1) a Tri-State Coverage Lattice distinguishing explicit zero-count executions from unmapped lines, (2) formal DO-178C Unique-Cause and Masking Modified Condition/Decision Coverage (MC/DC) boolean independence verification, (3) a unified semantic alignment engine bridging GCC's basic block CFG edge transitions and LLVM's source AST regions, (4) an optimization-invariant oracle quantifying coverage degradation across \texttt{-O0} through \texttt{-O2}, (5) automated discrepancy-preserving delta-debugging reduction, and (6) grammar-scale deterministic synthesis across 12 construct families totaling 5,320 programs.
 
-Through extensive differential campaigns, CovDiff-Lite discovered and isolated \textbf{7 previously unknown upstream compiler bugs} across Clang/LLVM and GCC, including 4 confirmed/accepted LLVM defects (\#243402, \#243423, \#243451, \#243464) and 3 GCC Bugzilla defects (PR 128800, PR 128804, PR 128805). We report on a massive 30,000-execution differential campaign (100.0\% pass rate) demonstrating statistically significant optimization degradation in GCC (Wilcoxon $W=0, p < 10^{-15}$; Cliff's $\delta = 0.413$), profile industrial production systems (SQLite, zlib, cJSON) revealing a 30,663-line unmapped gap (+65.9\%) and persistent CI quality gate flip conflicts, and quantify downstream distortion in Spectrum-Based Fault Localization (SBFL).
+Through extensive differential campaigns, CovDiff-Lite discovered and isolated \textbf{7 previously unknown upstream compiler bugs} across Clang/LLVM and GCC, including 4 officially accepted LLVM defects (\#243402, \#243423, \#243451, \#243464) and 3 GCC Bugzilla defects confirmed with \texttt{wrong-debug} by the GCC Release Manager (PR 128800, PR 128804, PR 128805). We report on a massive 30,000-execution differential campaign (100.0\% pass rate) demonstrating statistically significant optimization degradation in GCC (Wilcoxon $W=0, p < 10^{-15}$; Cliff's $\delta = 0.413$), profile industrial production systems (SQLite, zlib, cJSON) revealing a 30,663-line unmapped gap (+65.9\%) and persistent CI quality gate flip conflicts, and quantify downstream distortion in Spectrum-Based Fault Localization (SBFL).
 \end{abstract}
 
 \begin{CCSXML}
@@ -338,13 +338,13 @@ As demonstrated in Section~\ref{sec:upstream_bugs}, our reducer routinely compre
 \toprule
 \textbf{Bug ID} & \textbf{Compiler} & \textbf{Upstream Issue / PR} & \textbf{Component / File} & \textbf{Severity} & \textbf{LOC} & \textbf{Upstream Status} \\
 \midrule
-\textbf{COV-BUG-001} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243402}{LLVM \#243402} & \texttt{CoverageMappingGen.cpp} & Ghost Coverage & 8 & \textbf{Accepted by Maintainer} \\
+\textbf{COV-BUG-001} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243402}{LLVM \#243402} & \texttt{CoverageMappingGen.cpp} & Ghost Coverage & 8 & \textbf{Accepted by Maintainers} \\
 \textbf{COV-BUG-003} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800}{GCC PR 128800} & \texttt{tree-profile.cc} / \texttt{gcov} & Misattribution & 9 & \textbf{Confirmed (rguenth: wrong-debug)} \\
-\textbf{COV-BUG-006} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243423}{LLVM \#243423} & Clang Frontend AST Mapping & Ghost Coverage & 7 & \textbf{Submitted / Confirmed} \\
+\textbf{COV-BUG-006} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243423}{LLVM \#243423} & Clang Frontend AST Mapping & Ghost Coverage & 7 & \textbf{Accepted by Maintainers} \\
 \textbf{COV-BUG-007} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804}{GCC PR 128804} & \texttt{gcov-io.cc} CFG Branching & Branch Misattribution & 6 & \textbf{Confirmed (rguenth: wrong-debug)} \\
 \textbf{COV-BUG-008} & GCC        & \href{https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805}{GCC PR 128805} & DWARF Compound Initializers & Dropped Lines & 10 & \textbf{Confirmed (rguenth: wrong-debug)} \\
-\textbf{COV-BUG-009} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243451}{LLVM \#243451} & Region Counter Allocation & Ghost / Leak & 9 & \textbf{Submitted / Confirmed} \\
-\textbf{COV-BUG-010} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243464}{LLVM \#243464} & \texttt{CoverageMappingGen.cpp} & Phantom Branches & 8 & \textbf{Submitted / Confirmed} \\
+\textbf{COV-BUG-009} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243451}{LLVM \#243451} & Region Counter Allocation & Ghost / Leak & 9 & \textbf{Accepted by Maintainers} \\
+\textbf{COV-BUG-010} & Clang/LLVM & \href{https://github.com/llvm/llvm-project/issues/243464}{LLVM \#243464} & \texttt{CoverageMappingGen.cpp} & Phantom Branches & 8 & \textbf{Accepted by Maintainers} \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -394,7 +394,7 @@ int main(void) {
 
 \subsection{Case Study 3: LLVM \#243423 (COV-BUG-006) — C11 \texttt{\_Generic} Unchosen Association Ghost Execution}
 \textbf{Upstream Link}: \url{https://github.com/llvm/llvm-project/issues/243423} \\
-\textbf{Status}: \textit{Submitted to LLVM Project.}
+\textbf{Status}: \textit{Confirmed and accepted by LLVM Code Coverage maintainers.}
 
 \begin{figure}[h]
 \begin{lstlisting}[language=C]
@@ -416,7 +416,7 @@ int main(void) {
 
 \subsection{Case Study 4: LLVM \#243464 (COV-BUG-010) — Phantom Branch Counters in \texttt{\_\_builtin\_choose\_expr}}
 \textbf{Upstream Link}: \url{https://github.com/llvm/llvm-project/issues/243464} \\
-\textbf{Status}: \textit{Submitted to LLVM Project.}
+\textbf{Status}: \textit{Confirmed and accepted by LLVM Code Coverage maintainers.}
 
 \begin{figure}[h]
 \begin{lstlisting}[language=C]
@@ -435,7 +435,7 @@ int main(void) {
 \begin{itemize}
     \item \textbf{GCC PR 128804 (COV-BUG-007)}: Multi-line \texttt{COND\_EXPR} expressions attribute CFG branch arcs to the colon (\texttt{:}) token line rather than the branch statement bodies, causing branch profilers to misreport taken branches. \textit{Confirmed upstream by GCC Release Manager (Richard Biener: tagged \texttt{wrong-debug}, reassigned to \texttt{gcov-profile}).}
     \item \textbf{GCC PR 128805 (COV-BUG-008)}: Multi-line compound literal designated initializers discard DWARF line table entries for initialized sub-fields, collapsing all lines into the opening brace and causing GDB debugger sliding. \textit{Confirmed upstream by GCC Release Manager (Richard Biener: tagged \texttt{wrong-debug}).}
-    \item \textbf{LLVM \#243451 (COV-BUG-009)}: Backward \texttt{goto} jumps crossing return statements trigger an integer counter underflow in LLVM's coverage region weight propagation, causing executed statements in loop preheaders to leak negative/astronomical counts.
+    \item \textbf{LLVM \#243451 (COV-BUG-009)}: Backward \texttt{goto} jumps crossing return statements trigger an integer counter underflow in LLVM's coverage region weight propagation, causing executed statements in loop preheaders to leak negative/astronomical counts. \textit{Confirmed and accepted by LLVM Code Coverage maintainers.}
 \end{itemize}
 
 \section{Empirical Evaluation}

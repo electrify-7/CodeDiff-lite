@@ -10,16 +10,16 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 
 | Issue ID | Target Tool | Bug Classification | Minimal Lines | Severity | Upstream Target | Status |
 | :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| **`COV-BUG-001`** | Clang / `llvm-cov` | Short-circuit nested ternary AST region misattribution | 8 lines | High (DO-178C MC/DC) | [LLVM #243402](https://github.com/llvm/llvm-project/issues/243402) | **Reported Upstream** |
+| **`COV-BUG-001`** | Clang / `llvm-cov` | Short-circuit nested ternary AST region misattribution | 8 lines | High (DO-178C MC/DC) | [LLVM #243402](https://github.com/llvm/llvm-project/issues/243402) | **Accepted by LLVM Maintainers** |
 | **`COV-BUG-002`** | GCC / `gcov` | Multi-line macro invocation line aggregation | 9 lines | Medium (Dropped lines) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
-| **`COV-BUG-003`** | GCC / `middle-end` | Short-circuit ||/&& RHS condition gets operator location | 12 lines | High (Dropped line) | [GCC Bugzilla #128800](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800) | **Reported Upstream** |
+| **`COV-BUG-003`** | GCC / `middle-end` | Short-circuit ||/&& RHS condition gets operator location | 12 lines | High (Dropped line) | [GCC Bugzilla #128800](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128800) | **Confirmed (`wrong-debug`) by GCC Release Manager** |
 | **`COV-BUG-004`** | GCC / `gcov` | Basic-block merging ghost lines under `-O2` loop unrolling | 11 lines | Medium (False positives) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
 | **`COV-BUG-005`** | GCC / `gcov` | Statement expression `({ ... })` internal statement omission | 9 lines | Medium (Dropped lines) | [GCC Bugzilla](https://gcc.gnu.org/bugzilla) | Queued for Reporting |
-| **`COV-BUG-006`** | Clang / `llvm-cov` | C11 _Generic unchosen associations ghost execution | 24 lines | High (Ghost coverage) | [LLVM #243423](https://github.com/llvm/llvm-project/issues/243423) | **Reported Upstream** |
-| **`COV-BUG-007`** | GCC / `middle-end` | Multi-line COND_EXPR attributes branches to colon location | 11 lines | High (Dropped line / debuginfo) | [GCC Bugzilla #128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804) | **Reported Upstream** |
-| **`COV-BUG-008`** | GCC / `debug` / `middle-end` | Multi-line compound literal designated initializers discard locations | 14 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Reported Upstream** |
-| **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Reported Upstream** |
-| **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Reported Upstream** |
+| **`COV-BUG-006`** | Clang / `llvm-cov` | C11 _Generic unchosen associations ghost execution | 24 lines | High (Ghost coverage) | [LLVM #243423](https://github.com/llvm/llvm-project/issues/243423) | **Accepted by LLVM Maintainers** |
+| **`COV-BUG-007`** | GCC / `middle-end` | Multi-line COND_EXPR attributes branches to colon location | 11 lines | High (Dropped line / debuginfo) | [GCC Bugzilla #128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804) | **Confirmed (`wrong-debug`) by GCC Release Manager** |
+| **`COV-BUG-008`** | GCC / `debug` / `middle-end` | Multi-line compound literal designated initializers discard locations | 14 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Confirmed (`wrong-debug`) by GCC Release Manager** |
+| **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Accepted by LLVM Maintainers** |
+| **`COV-BUG-010`** | Clang / `llvm-cov` | Ghost line coverage and phantom branch counters in unchosen __builtin_choose_expr | 16 lines | High (Ghost coverage / phantom branch) | [LLVM #243464](https://github.com/llvm/llvm-project/issues/243464) | **Accepted by LLVM Maintainers** |
 
 ---
 
