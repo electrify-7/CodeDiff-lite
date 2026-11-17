@@ -459,7 +459,7 @@ def build_presentation(output_path: Path):
              "    }\n"
              "• Root Cause Analysis:\n"
              "  GIMPLE lowering attaches the locus of 'int res = ({' solely to the final assignment basic block after the expression block. When an early return or goto occurs inside the statement expression, the final assignment is bypassed in CFG. GCOV marks the entry declaration line as UNEXECUTED (count 0 / #####)!\n"
-             "• Status: FILED & SUBMITTED to GCC Bugzilla as PR 128827 (wrong-debug).",
+             "• Status: FILED & TRIAGED on GCC Bugzilla as PR 128827 (pinskia added keyword: stmt-expr).",
              COLOR_AMBER)
 
     add_card(s9b, Inches(6.8), Inches(2.0), Inches(5.6), Inches(4.4),
