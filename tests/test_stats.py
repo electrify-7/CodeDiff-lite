@@ -24,10 +24,10 @@ class StatsTests(unittest.TestCase):
         self.assertIn("p=", msg)
 
     def test_compute_optimization_degradation_statistics(self):
-        gcc = [5.0, 8.0, 12.0, 10.0]
-        clang = [0.0, 0.0, 1.0, 0.0]
+        gcc = [5.0, 8.0, 12.0, 10.0, 15.0, 7.0, 9.0, 14.0]
+        clang = [0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]
         res = compute_optimization_degradation_statistics(gcc, clang)
-        self.assertEqual(res["paired_sample_size"], 4)
+        self.assertEqual(res["paired_sample_size"], 8)
         self.assertTrue(res["statistically_significant_p05"])
         self.assertIn("summary", res)
 

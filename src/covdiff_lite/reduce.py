@@ -130,11 +130,19 @@ def coverage_discrepancy_predicate(
             else:
                 gcov_bin = shutil.which("gcov-11") or shutil.which("gcov") or "gcov"
                 subprocess.run([gcov_bin, "-j", "-b", str(c_file)], cwd=tmp_path, capture_output=True, timeout=5)
-                import gzip
+                # Check for either .gcov.json.gz or uncompressed .gcov.json
                 gzs = list(tmp_path.glob("*.gcov.json.gz"))
+                jsons = list(tmp_path.glob("*.gcov.json"))
+                gcov_raw = None
                 if gzs:
+                    import gzip
                     with gzip.open(gzs[0], "rt", encoding="utf-8") as f:
                         gcov_raw = json.load(f)
+                elif jsons:
+                    with open(jsons[0], "r", encoding="utf-8") as f:
+                        gcov_raw = json.load(f)
+
+                if gcov_raw:
                     for item in gcov_raw.get("files", [{}])[0].get("lines", []):
                         coverage_data[str(item["line_number"])] = {
                             "count": item.get("count"),
@@ -202,6 +210,7 @@ class ProgramReducer:
         expected_stdout: Optional[str] = None,
         compiler: Optional[str] = None,
     ):
+        self.compiler = compiler
         if discrepancy_checker is not None:
             self.is_interesting = lambda s: coverage_discrepancy_predicate(
                 s,
@@ -242,6 +251,16 @@ class ProgramReducer:
         reduced_bytes = len(reduced_source.encode("utf-8"))
         pct = ((original_bytes - reduced_bytes) / original_bytes * 100.0) if original_bytes > 0 else 0.0
 
+        if self.compiler and "clang" in self.compiler:
+            repro_cmd = (
+                "clang -O0 -g -fprofile-instr-generate -fcoverage-mapping test.c -o test && "
+                "LLVM_PROFILE_FILE=t.profraw ./test && "
+                "llvm-profdata merge -sparse t.profraw -o t.profdata && "
+                "llvm-cov show ./test -instr-profile=t.profdata"
+            )
+        else:
+            repro_cmd = "gcc -O0 -g --coverage test.c -o test && ./test && gcov -b test.c"
+
         return ReductionResult(
             original_lines=original_lines,
             reduced_lines=reduced_lines,
@@ -250,5 +269,5 @@ class ProgramReducer:
             reduction_pct=pct,
             elapsed_seconds=elapsed,
             reduced_source=reduced_source,
-            reproduction_command="gcc -O0 --coverage test.c && ./a.out && gcov -b test.c",
+            reproduction_command=repro_cmd,
         )

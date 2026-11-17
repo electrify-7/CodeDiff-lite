@@ -26,18 +26,18 @@ def resolve_gcc_decision_branches(
     line_num = str(span.get("line"))
     end_line_num = str(span.get("end_line", span.get("line")))
 
-    # Check the lines spanning this decision without duplicates
+    # Check the lines spanning this decision without duplicate line processing
     l_start = int(line_num)
     l_end = int(end_line_num)
     branches = []
-    seen_branch_keys = set()
+    seen_lines = set()
     for l_val in range(l_start, l_end + 1):
+        if l_val in seen_lines:
+            continue
+        seen_lines.add(l_val)
         line_data = gcov_lines.get(str(l_val), {})
         for b in line_data.get("branches", []):
-            b_key = (l_val, b.get("count"), b.get("fallthrough"), b.get("throw"), b.get("destination_block_id"))
-            if b_key not in seen_branch_keys:
-                seen_branch_keys.add(b_key)
-                branches.append(b)
+            branches.append(b)
 
     if not branches:
         # Check if surrounding lines have branches
@@ -60,18 +60,17 @@ def resolve_gcc_decision_branches(
     then_line = span.get("then_line")
     else_line = span.get("else_line")
 
-    if then_line is None and manifest:
-        # Infer then_line from manifest statement definitions following this decision
+    if (then_line is None or else_line is None) and manifest:
+        # Infer then_line and else_line from manifest statement definitions following this decision
         dec_line = int(span.get("line", 0))
         lines_dict = manifest.get("lines", {})
         for l_str, l_meta in lines_dict.items():
             l_val = int(l_str)
             if l_val > dec_line and l_meta.get("role") == "statement":
                 stmt_id = l_meta.get("statement_id", "")
-                if "then" in stmt_id or l_val == dec_line + 1:
+                if then_line is None and ("then" in stmt_id or l_val == dec_line + 1):
                     then_line = l_val
-                    break
-                elif "else" in stmt_id:
+                elif else_line is None and "else" in stmt_id:
                     else_line = l_val
 
     # Check observed statement counts in gcov_lines (compiler ground truth, NOT oracle)
@@ -133,9 +132,9 @@ def resolve_llvm_decision_branches(
     llvm_branches: list,
 ) -> Optional[Dict[str, int]]:
     """Align LLVM branch regions to a semantic decision based on AST source spans."""
-    line_start = span.get("line")
-    line_end = span.get("end_line", line_start)
-    col_target = span.get("column", 1)
+    line_start = int(span.get("line", 1))
+    line_end = int(span.get("end_line", line_start))
+    col_target = int(span.get("column", 1))
 
     # LLVM branch region format:
     # [lineStart, colStart, lineEnd, colEnd, trueCount, falseCount, fileId, expandedFileId, regionKind]

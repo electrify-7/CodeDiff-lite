@@ -11,3 +11,4 @@ __pycache__/
 *Presentation*
 AGENT_HANDOFF.md
 AGENGT_HANDOFF.md
+.coverage

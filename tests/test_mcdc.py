@@ -139,6 +139,35 @@ class BranchAlignmentTests(unittest.TestCase):
         self.assertEqual(res["true"], 3)
         self.assertEqual(res["false"], 2)
 
+    def test_gcc_branch_resolution_zero_counts_unexecuted(self):
+        # When condition is never executed, both branches have count 0
+        span = {"line": 10, "end_line": 10}
+        expected = {"true": 0, "false": 0}
+        gcov_lines = {
+            "10": {
+                "branches": [
+                    {"count": 0, "fallthrough": True},
+                    {"count": 0, "fallthrough": False},
+                ]
+            }
+        }
+        res = resolve_gcc_decision_branches("dec_zero", span, expected, gcov_lines, {})
+        self.assertIsNotNone(res)
+        self.assertEqual(res["true"], 0)
+        self.assertEqual(res["false"], 0)
+
+    def test_llvm_branch_resolution_string_line_numbers(self):
+        # Deserialized JSON with string line number {"line": "15"}
+        span = {"line": "15", "end_line": "15", "column": "5"}
+        expected = {"true": 1, "false": 4}
+        llvm_branches = [
+            [15, 5, 15, 20, 1, 4, 0, 0, 4]
+        ]
+        res = resolve_llvm_decision_branches("dec_str", span, expected, llvm_branches)
+        self.assertIsNotNone(res)
+        self.assertEqual(res["true"], 1)
+        self.assertEqual(res["false"], 4)
+
     def test_llvm_branch_resolution_region_overlap(self):
         span = {"line": 15, "end_line": 15}
         expected = {"true": 1, "false": 4}

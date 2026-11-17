@@ -90,8 +90,12 @@ def wilcoxon_signed_rank(x: List[float], y: List[float]) -> Tuple[float, float, 
         return w, 1.0, "Degenerate variance"
 
     sigma = math.sqrt(var)
-    # Continuity correction
-    z = (w - mu + 0.5) / sigma if w > mu else (w - mu - 0.5) / sigma
+    # Continuity correction shifts discrete statistic half a unit closer to the mean mu
+    diff = abs(w - mu) - 0.5
+    if diff > 0:
+        z = math.copysign(diff, w - mu) / sigma
+    else:
+        z = 0.0
     p_val = 2.0 * (1.0 - normal_cdf(abs(z)))
 
     return round(w, 2), float(f"{p_val:.6e}"), f"z={z:.4f}, p={p_val:.6e}"
