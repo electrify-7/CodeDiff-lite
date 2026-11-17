@@ -18,6 +18,7 @@ These issues are isolated, validated across repeat clean runs, minimized into st
 | **`COV-BUG-006`** | Clang / `llvm-cov` | C11 _Generic unchosen associations ghost execution | 24 lines | High (Ghost coverage) | [LLVM #243423](https://github.com/llvm/llvm-project/issues/243423) | **Reported Upstream** |
 | **`COV-BUG-007`** | GCC / `middle-end` | Multi-line COND_EXPR attributes branches to colon location | 11 lines | High (Dropped line / debuginfo) | [GCC Bugzilla #128804](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128804) | **Reported Upstream** |
 | **`COV-BUG-008`** | GCC / `debug` / `middle-end` | Multi-line compound literal designated initializers discard locations | 14 lines | High (Dropped line / GDB sliding) | [GCC Bugzilla #128805](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128805) | **Reported Upstream** |
+| **`COV-BUG-009`** | Clang / `llvm-cov` | Function-terminating return fails to terminate preceding label, leaking backward loop counter to epilogue | 10 lines | High (Count amplification / RAII) | [LLVM #243451](https://github.com/llvm/llvm-project/issues/243451) | **Reported Upstream** |
 
 ---
 
@@ -383,6 +384,36 @@ void test_pt(int a, int b) {
 
 int main(void) {
     test_pt(5, 10);
+    return 0;
+}
+```
+
+---
+
+### Bug `COV-BUG-009`: Clang `llvm-cov` Backward Goto Loop Leaks Counter to Epilogue and Closing Brace
+
+* **Upstream Issue:** [LLVM Issue #243451](https://github.com/llvm/llvm-project/issues/243451)
+* **Target Compiler:** LLVM / Clang (verified on Clang 14, 16.0.6, and trunk 24.0.0git)
+* **Component:** `clang/lib/CodeGen/CoverageMappingGen.cpp` (`VisitLabelStmt` / `terminateRegion`)
+* **Standard:** ISO C11 §6.8.6.4 (The return statement: terminates execution of function)
+* **Severity:** High — Amplifies execution counts of function closing braces and C++ RAII destructors by orders of magnitude ($10^6$), exhibiting the "Return Paradox" where adding an explicit `return` causes the closing brace count to jump from 1 to $10^6$.
+
+#### Summary of the Problem
+In `CoverageMappingGen.cpp`, `VisitLabelStmt` pushes an open-ended region with the label's cumulative iteration count ($N$). When the loop terminates and an explicit `return` is executed, `terminateRegion` terminates only `RegionStack.back()`, leaving the unpopped `LabelStmt` region active underneath. `popRegions(0)` then stretches this $N$-count region all the way to the function closing brace `}`.
+
+#### Minimal Standalone Reproducer (`test_goto_leak.c`)
+```c
+int test_goto_leak(int n) {
+    int i = 0;
+loop:
+    i++;
+    if (i < n)
+        goto loop;
+    return i;
+}
+
+int main(void) {
+    test_goto_leak(100);
     return 0;
 }
 ```
