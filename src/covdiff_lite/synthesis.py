@@ -12,7 +12,7 @@ Provides scalable deterministic synthesis up to 5,000+ verified test programs.
 import hashlib
 import json
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 
 EXPANDED_FAMILIES = (
