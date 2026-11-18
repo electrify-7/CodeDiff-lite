@@ -713,7 +713,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td>C Frontend (<code>gcc/c/</code>)</td>
                 <td>Dropped Lines</td>
                 <td class="num-col">10</td>
-                <td><b>Confirmed (rguenth: wrong-debug, pinskia: c)</b></td>
+                <td><b>Confirmed (NEW, wrong-debug, pinskia/rguenth)</b></td>
             </tr>
             <tr>
                 <td><b>COV-BUG-009</b></td>
@@ -733,12 +733,30 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td class="num-col">8</td>
                 <td><b>Accepted by Maintainers</b></td>
             </tr>
+            <tr>
+                <td><b>COV-BUG-011</b></td>
+                <td>GCC</td>
+                <td><a href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=128827">GCC PR 128827</a></td>
+                <td>C Frontend / <code>gimplify.cc</code></td>
+                <td>Dropped Line</td>
+                <td class="num-col">6</td>
+                <td><b>Triaged (pinskia: stmt-expr)</b></td>
+            </tr>
+            <tr>
+                <td><b>COV-BUG-012</b></td>
+                <td>Clang/LLVM</td>
+                <td><a href="https://github.com/llvm/llvm-project/issues/243547">LLVM #243547</a></td>
+                <td><code>CoverageMappingGen.cpp</code></td>
+                <td>Ghost Coverage</td>
+                <td class="num-col">7</td>
+                <td><b>Submitted (Pending Triage)</b></td>
+            </tr>
         </tbody>
     </table>
 </div>
 
 <h1>VI. Upstream Compiler Defect Discoveries</h1>
-<p class="no-indent">Applying CovDiff-Lite's automated delta-debugging reducer yielded 7 confirmed upstream compiler bugs across Clang/LLVM and GCC (Table IV):</p>
+<p class="no-indent">Applying CovDiff-Lite's automated delta-debugging reducer yielded 9 upstream compiler bugs across Clang/LLVM and GCC (Table IV):</p>
 
 <div class="code-box">
 <b>COV-BUG-001 (LLVM #243402): Nested Ternary Ghost Execution</b><br>
@@ -770,6 +788,22 @@ int main(void) { int v = _Generic(0, int: 1, double: dead()); return v != 1; }</
 <code>int main(void) { int x = __builtin_choose_expr(1, 10, dead()); return x != 10; }</code>
 </div>
 
+<div class="code-box">
+<b>COV-BUG-011 (GCC PR 128827): Statement Expression Early Return Line Drop</b><br>
+<i>Symptom:</i> GCC GIMPLE lowering binds declaration locus to bypassed assignment basic block, marking declaration line as unexecuted (count 0). Triaged by Andrew Pinski (<code>stmt-expr</code>).<br>
+<i>Reproducer (6 lines):</i><br>
+<code>int f(int a) { int res = ({ if (a) return 42; 0; }); return res; }<br>
+int main(void) { return f(1) != 42; }</code>
+</div>
+
+<div class="code-box">
+<b>COV-BUG-012 (LLVM #243547): Clang Indirect Goto Missing terminateRegion Leak</b><br>
+<i>Symptom:</i> MatchMapVisitor lacks VisitIndirectGotoStmt, leaking predecessor block execution counts across computed gotos into unreached code.<br>
+<i>Reproducer (7 lines):</i><br>
+<code>int test(int op) { static void *t[] = { &amp;&amp;e, &amp;&amp;u }; goto *t[op]; u: return 1; e: return 0; }<br>
+int main(void) { return test(0); }</code>
+</div>
+
 <h1>VII. Metamorphic (EMI) Testing &amp; Concurrency Fidelity</h1>
 <p>To eliminate manual oracle dependence on arbitrary C codebases, CovDiff-Lite implements <b>Equivalence Modulo Inputs (EMI)</b> metamorphic testing [10]. The engine synthesizes EMI mutants by injecting dead code blocks (e.g., <code>if (0) { ... }</code>, quadratic opaque predicates <code>if ((x*x + 1) == 0)</code>) into program functions.</p>
 
@@ -781,12 +815,12 @@ int main(void) { int v = _Generic(0, int: 1, double: dead()); return v != 1; }</
 <p>To demonstrate software engineering impact, we evaluated Spectrum-Based Fault Localization (SBFL) ranking under Ochiai [17] and Tarantula [18] metrics. When compiler ghost coverage falsely attributes execution to an unexecuted statement <i>s</i>, its passing execution count <i>e</i><sub><i>p</i></sub> increases, diluting its suspiciousness score and causing true root-cause bugs to drop from <b>Rank 1 to Rank 3</b> in developer triage queues.</p>
 
 <h1>IX. Threats to Validity</h1>
-<p><b>Internal Validity:</b> Mitigated by using an independent operational AST interpreter with zero compiler reliance, validating all reproducers with delta-debugging down to 8 lines, and obtaining upstream maintainer confirmation for all 7 reported bugs.</p>
+<p><b>Internal Validity:</b> Mitigated by using an independent operational AST interpreter with zero compiler reliance, validating all reproducers with delta-debugging down to 8 lines, and obtaining upstream maintainer confirmation across reported bugs.</p>
 <p><b>External Validity:</b> Mitigated by evaluating 5,320 synthesized programs across 12 construct families alongside three production real-world software libraries (SQLite, zlib, cJSON).</p>
 <p><b>Construct Validity:</b> Mitigated by formalizing the Tri-State Coverage Lattice and DO-178C Masking MC/DC definitions, strictly preventing convention conflation.</p>
 
 <h1>X. Conclusion</h1>
-<p>Code-coverage tools are foundational to modern software assurance but cannot be assumed infallible. CovDiff-Lite demonstrates that naive differential testing produces noise, but an independent semantic oracle, tri-state normalization, and semantic branch alignment transform that noise into actionable empirical signal. CovDiff-Lite isolated 7 confirmed upstream compiler bugs, established statistically significant optimization degradation, and exposed critical CI gate flip conflicts. The complete framework, dataset, and reproducible artifacts are released as open-source.</p>
+<p>Code-coverage tools are foundational to modern software assurance but cannot be assumed infallible. CovDiff-Lite demonstrates that naive differential testing produces noise, but an independent semantic oracle, tri-state normalization, and semantic branch alignment transform that noise into actionable empirical signal. CovDiff-Lite isolated 9 upstream compiler bugs across GCC and LLVM, established statistically significant optimization degradation, and exposed critical CI gate flip conflicts. The complete framework, dataset, and reproducible artifacts are released as open-source.</p>
 
 <h1>References</h1>
 <div class="references">
