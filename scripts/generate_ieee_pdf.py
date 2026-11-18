@@ -749,7 +749,7 @@ For a compound decision <i>D</i> composed of elementary conditions <i>c</i><sub>
                 <td><code>CoverageMappingGen.cpp</code></td>
                 <td>Ghost Coverage</td>
                 <td class="num-col">7</td>
-                <td><b>Submitted (Pending Triage)</b></td>
+                <td><b>Accepted by Maintainers</b></td>
             </tr>
         </tbody>
     </table>
@@ -798,7 +798,7 @@ int main(void) { return f(1) != 42; }</code>
 
 <div class="code-box">
 <b>COV-BUG-012 (LLVM #243547): Clang Indirect Goto Missing terminateRegion Leak</b><br>
-<i>Symptom:</i> MatchMapVisitor lacks VisitIndirectGotoStmt, leaking predecessor block execution counts across computed gotos into unreached code.<br>
+<i>Symptom:</i> MatchMapVisitor lacks VisitIndirectGotoStmt, leaking predecessor block execution counts across computed gotos into unreached code. Accepted by LLVM Maintainers.<br>
 <i>Reproducer (7 lines):</i><br>
 <code>int test(int op) { static void *t[] = { &amp;&amp;e, &amp;&amp;u }; goto *t[op]; u: return 1; e: return 0; }<br>
 int main(void) { return test(0); }</code>

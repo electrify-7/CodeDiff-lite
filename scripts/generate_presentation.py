@@ -463,7 +463,7 @@ def build_presentation(output_path: Path):
              COLOR_AMBER)
 
     add_card(s9b, Inches(6.8), Inches(2.0), Inches(5.6), Inches(4.4),
-             "COV-BUG-012: LLVM Clang Indirect Goto Region Leak",
+             "COV-BUG-012: LLVM Clang Indirect Goto Region Leak (Accepted!)",
              "• Target: LLVM Clang 14 through Clang 20 trunk | Component: clang:coverage\n"
              "• Severity: High (Ghost coverage / False Positive in code coverage)\n"
              "• Minimized Reproducer (7 lines):\n"
@@ -477,7 +477,7 @@ def build_presentation(output_path: Path):
              "  In CoverageMappingGen.cpp, MatchMapVisitor visits GotoStmt, ReturnStmt, BreakStmt to call terminateRegion(S). However, it completely lacks VisitIndirectGotoStmt! Preceding basic block execution count bleeds across goto *ptr into unreached code!\n"
              "• Upstream Patch:\n"
              "  Add: void VisitIndirectGotoStmt(const IndirectGotoStmt *S) { terminateRegion(S); }\n"
-             "• Status: FILED & SUBMITTED to LLVM GitHub as Issue #243547.",
+             "• Status: CONFIRMED & ACCEPTED as Bug by LLVM maintainers (Issue #243547).",
              COLOR_CYAN)
 
     # =========================================================================
